@@ -31,13 +31,14 @@ Heart of Paws is an initiative dedicated to rescuing, rehabilitating, and rehomi
 - Address and phone numbers
 
 ## Techonologies and Frameworks
-###AngularJS -  Used for developing the frontend, allowing dynamic rendering of pages such as pet listings and adoption forms. Furthermore, it is also used to handle user interactions and display updates in the UI dynamically.
 
-###NodeJS -  Powers the backend, using its non-blocking runtime for handling API requests related to pet data, user registrations, and adoption processes.
+### AngularJS -  Used for developing the frontend, allowing dynamic rendering of pages such as pet listings and adoption forms. Furthermore, it is also used to handle user interactions and display updates in the UI dynamically.
 
-###ExpressJS - Used to define and manage routes for handling RESTful API requests, such as retrieving adoptable pets and submitting adoption applications.
+### NodeJS -  Powers the backend, using its non-blocking runtime for handling API requests related to pet data, user registrations, and adoption processes.
 
-###MongoDB - Stores data such as pet profiles, adoption records, user details, and donations. It supports quick data retrieval and updates as users interact with the platform. The flexible schema allows for changes to data structures without requiring significant changes to the application. MongoDB handles large amounts of data, making it suitable for tracking and managing the growing number of pets, users, and adoption activities. It also provides scalability to accommodate future growth of the Heart of Paws initiative.
+### ExpressJS - Used to define and manage routes for handling RESTful API requests, such as retrieving adoptable pets and submitting adoption applications.
 
-###Tailwind CSS - Used for styling the application, providing utility classes to design a responsive layout for the site, including the homepage, pet listings, and contact forms.
+### MongoDB - Stores data such as pet profiles, adoption records, user details, and donations. It supports quick data retrieval and updates as users interact with the platform. The flexible schema allows for changes to data structures without requiring significant changes to the application. MongoDB handles large amounts of data, making it suitable for tracking and managing the growing number of pets, users, and adoption activities. It also provides scalability to accommodate future growth of the Heart of Paws initiative.
+
+### Tailwind CSS - Used for styling the application, providing utility classes to design a responsive layout for the site, including the homepage, pet listings, and contact forms.
 

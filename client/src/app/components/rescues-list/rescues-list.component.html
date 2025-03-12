@@ -1,0 +1,29 @@
+<!-- <div *ngFor="let rescue of rescues$()">
+  <h2>{{ rescue.name }}</h2>
+  <img [src]="rescue.imgSrc" alt="" />
+  <p>{{ rescue.sex }}</p>
+  <p>{{ rescue.age }}</p>
+  <p>{{ rescue.vetStatus }}</p>
+  <p>{{ rescue.description }}</p>
+</div> -->
+<div class="rescues-container px-4 sm:px-6 md:px-12 lg:px-20 py-12">
+  <div class="gallery-heading text-left">
+    <h1
+      class="text-7xl sm:text-8xl font-extrabold tracking-tight leading-tight"
+    >
+      <span class="block">Meet</span>
+      <span class="block">Our</span>
+      <span class="block text-blue-600 dark:text-blue-400">Rescues</span>
+    </h1>
+  </div>
+  <div class="rescues-gallery mt-8">
+    <div
+      class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8 md:gap-14 items-start"
+    >
+      <app-rescue-card
+        *ngFor="let rescue of rescues$()"
+        [rescue]="rescue"
+      ></app-rescue-card>
+    </div>
+  </div>
+</div>

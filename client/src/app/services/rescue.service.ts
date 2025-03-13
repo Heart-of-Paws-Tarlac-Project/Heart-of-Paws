@@ -29,7 +29,7 @@ export class RescueService {
   }
 
   getRescues() {
-    this.refreshRescues(); 
+    this.refreshRescues();
     return this.rescues$();
   }
 
@@ -48,8 +48,13 @@ export class RescueService {
   (such as a success message).
 */
   addRescue(rescue: Rescue) {
-    this.httpClient.post(`${this.url}/rescues`, rescue, {
-      responseType: 'text',
-    });
-  }
+    this.httpClient
+      .post(`${this.url}/rescues`, rescue, {
+        responseType: 'text',
+      })
+      .subscribe(() => {
+        this.refreshRescues();
+        // Refresh the list after adding
+      });
+  } //add rescue returns an observable, subscribe to it to refreshRescues
 }

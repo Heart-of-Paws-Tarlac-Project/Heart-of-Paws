@@ -32,10 +32,13 @@ const rescueSchema = new Schema({
     type: String,
     required: true,
   },
-  imgSrc: {
+  featureImage: {
     type: String,
     required: true,
-    unique: true,
+  },
+  galleryImages: {
+    type: [String],
+    required: true,
   },
 });
 

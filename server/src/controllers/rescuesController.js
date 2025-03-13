@@ -26,30 +26,12 @@ exports.getRescue = asyncHandler(async (req, res) => {
 
   if (!rescue) {
     throw new CustomNotFoundError(
-      `Rescue with the name of ${rescueSlug} is not found.`
+      `Rescue with the name of ${rescueSlug} was not found.`
     );
   }
 
   res.status(200).json(rescue);
 });
-
-// exports.createRescue = asyncHandler(async (req, res) => {
-//   //destructure these fields from the request body
-//   const { name, sex, age, size, vetStatus, description } = req.body;
-
-//   //create a new instance of the rescue model with the provided data
-//   const rescue = new Rescue({ name, sex, age, size, vetStatus, description });
-
-//   const result = await rescue.save();
-
-//   if (!result) {
-//     throw new CustomNotFoundError(
-//       "Bad request encountered in creating new rescue."
-//     );
-//   }
-
-//   res.status(201).send(`New Rescue created: ${rescue.name}`);
-// });
 
 exports.createRescue = asyncHandler(async (req, res) => {
   const { name, sex, age, size, vetStatus, description } = req.body;

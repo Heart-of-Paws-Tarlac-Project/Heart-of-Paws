@@ -3,6 +3,7 @@ const connectDB = require("./database");
 const cors = require("cors");
 const morgan = require("morgan");
 const rescuesRouter = require("./routes/rescuesRoutes");
+const authRoutes = require("./routes/authRoutes");
 
 const app = express();
 
@@ -15,6 +16,7 @@ app.use(cors());
 app.use(morgan("tiny"));
 
 app.use("/rescues", rescuesRouter);
+app.use("/auth", authRoutes);
 
 app.use((err, req, res, next) => {
   console.error(err);

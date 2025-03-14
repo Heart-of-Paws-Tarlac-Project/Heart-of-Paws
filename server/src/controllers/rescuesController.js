@@ -7,7 +7,11 @@ const multer = require("multer");
 const storage = multer.memoryStorage();
 const upload = multer({ storage: storage });
 
-exports.uploadImage = upload.single("imgSrc");
+//multer middleware to upload multiple images, used in the createRescue route handler
+exports.uploadImages = upload.fields([
+  { name: "featureImage", maxCount: 1 },
+  { name: "galleryImages", maxCount: 3 },
+]);
 
 exports.getAllRescues = asyncHandler(async (req, res) => {
   const rescues = await Rescue.find({});
@@ -26,50 +30,60 @@ exports.getRescue = asyncHandler(async (req, res) => {
 
   if (!rescue) {
     throw new CustomNotFoundError(
-      `Rescue with the name of ${rescueSlug} is not found.`
+      `Rescue with the name of ${rescueSlug} was not found.`
     );
   }
 
   res.status(200).json(rescue);
 });
 
-// exports.createRescue = asyncHandler(async (req, res) => {
-//   //destructure these fields from the request body
-//   const { name, sex, age, size, vetStatus, description } = req.body;
-
-//   //create a new instance of the rescue model with the provided data
-//   const rescue = new Rescue({ name, sex, age, size, vetStatus, description });
-
-//   const result = await rescue.save();
-
-//   if (!result) {
-//     throw new CustomNotFoundError(
-//       "Bad request encountered in creating new rescue."
-//     );
-//   }
-
-//   res.status(201).send(`New Rescue created: ${rescue.name}`);
-// });
-
 exports.createRescue = asyncHandler(async (req, res) => {
   const { name, sex, age, size, vetStatus, description } = req.body;
 
   //multer resolves image upload to req.file
-  if (!req.file) {
-    throw new CustomNotFoundError("No image uploaded");
+  if (!req.files) {
+    throw new CustomNotFoundError("No images uploaded");
   }
 
-  // wrap function to upload to cloudinary inside a promise, cloudinary upload requires a callback function to handle if upload goes well or wrong. if upload goes well, resolve the upload (promise) to result which in turn is assigned to uploadResult. if upload goes wrong, reject the promise and an error is thrown which is catched by asyncHandler.
-  const uploadResult = await new Promise((resolve, reject) => {
-    cloudinary.uploader
-      .upload_stream({ folder: "rescuesImages" }, (error, result) => {
-        if (error) reject(error);
-        else resolve(result);
-      })
-      .end(req.file.buffer);
-  });
+  const uploadToCloudinary = async (file) => {
+    return new Promise((resolve, reject) => {
+      cloudinary.uploader
+        .upload_stream({ folder: "rescuesImages" }, (error, result) => {
+          if (error) reject(error);
+          else resolve(result.secure_url);
+        })
+        .end(file.buffer);
+    });
+  };
 
-  //create new instance of rescue model to allow the use of .save() instead of plane insertOne() to trigger the middleware which creates slugs for each document in the db.
+  // Upload feature image - this will be a single file
+  const featureImageUrl = await uploadToCloudinary(req.files.featureImage[0]);
+  if (!featureImageUrl)
+    throw new CustomNotFoundError("Error uploading feature image");
+
+  // Initialize array for gallery images
+  let galleryImageUrls = [];
+
+  if (req.files.galleryImages && req.files.galleryImages.length > 0) {
+    // Create an array of promises for each gallery image upload
+    const uploadPromises = req.files.galleryImages.map((file) =>
+      uploadToCloudinary(file)
+    );
+    galleryImageUrls = await Promise.all(uploadPromises);
+  }
+  /**
+   * Promise.all() takes an array of promises and returns a single Promise
+   * This Promise resolves when all the promises in the array have resolved
+   * The resolved value is an array of the resolved values from each promise
+   *
+   * This allows us to upload multiple images concurrently rather than sequentially,
+   * significantly improving performance as we're not waiting for each upload to finish
+   * before starting the next one.
+   *
+   * If any of the promises reject, Promise.all() will immediately reject with that error
+   */
+
+  //create new instance of rescue model to allow the use of .save() instead of plain insertOne() to trigger the middleware which creates slugs for each document in the db.
   const rescue = new Rescue({
     name,
     sex,
@@ -77,7 +91,8 @@ exports.createRescue = asyncHandler(async (req, res) => {
     size,
     vetStatus,
     description,
-    imgSrc: uploadResult.secure_url,
+    featureImage: featureImageUrl,
+    galleryImages: galleryImageUrls,
   });
 
   console.log(`Rescue data: ${rescue}`);

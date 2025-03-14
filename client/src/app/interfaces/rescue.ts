@@ -7,5 +7,6 @@ export interface Rescue {
   size: string;
   vetStatus: string;
   description: string;
-  imgSrc: string;
+  featureImage: string;
+  galleryImages: string[];
 }

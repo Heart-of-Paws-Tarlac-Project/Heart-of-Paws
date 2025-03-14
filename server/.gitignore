@@ -58,3 +58,6 @@ test-coverage/
 # Other custom logs (like from Winston or Morgan logging)
 logs/
 *.log
+
+# private keys
+*.key

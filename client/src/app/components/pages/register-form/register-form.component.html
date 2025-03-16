@@ -1,0 +1,93 @@
+<h1 class="text-center">Register</h1>
+<form
+  [formGroup]="registerForm"
+  (ngSubmit)="onSubmit()"
+  class="max-w-sm mx-auto"
+>
+  <p *ngIf="errorMessage" class="text-red-500">{{ errorMessage }}</p>
+  <!-- error message nigga -->
+
+  <app-form-input
+    label="Full Name"
+    type="text"
+    id="name"
+    controlName="name"
+    placeholder="John Smith"
+  ></app-form-input>
+
+  <div *ngIf="name.invalid && name.touched">
+    <p *ngIf="name.errors?.['required']" class="text-red-500">
+      Full Name is required.
+    </p>
+    <p *ngIf="name.errors?.['minlength']" class="text-red-500">
+      Must be at least 2 characters.
+    </p>
+    <p *ngIf="name.errors?.['maxlength']" class="text-red-500">
+      Must be less than 50 characters.
+    </p>
+    <p *ngIf="name.errors?.['pattern']" class="text-red-500">
+      Only letters and spaces allowed.
+    </p>
+  </div>
+
+  <app-form-input
+    label="Email"
+    type="email"
+    id="email"
+    controlName="email"
+    placeholder="johnsmith@gmail.com"
+  ></app-form-input>
+
+  <div *ngIf="email.invalid && email.touched">
+    <p *ngIf="email.errors?.['required']" class="text-red-500">
+      Email is required.
+    </p>
+    <p *ngIf="email.errors?.['email']" class="text-red-500">
+      Enter a valid email.
+    </p>
+  </div>
+
+  <app-form-input
+    label="Password"
+    type="password"
+    id="password"
+    controlName="password"
+    placeholder=""
+  ></app-form-input>
+
+  <div *ngIf="password.invalid && password.touched">
+    <p *ngIf="password.errors?.['required']" class="text-red-500">
+      Password is required.
+    </p>
+    <p *ngIf="password.errors?.['minlength']" class="text-red-500">
+      Must be at least 6 characters.
+    </p>
+    <p *ngIf="password.errors?.['pattern']" class="text-red-500">
+      Must contain at least one letter and one number.
+    </p>
+  </div>
+
+  <app-form-input
+    label="Confirm Password"
+    type="password"
+    id="confirmPassword"
+    controlName="confirmPassword"
+    placeholder=""
+  ></app-form-input>
+
+  <div *ngIf="confirmPassword.touched">
+    <p *ngIf="confirmPassword.errors?.['required']" class="text-red-500">
+      Confirm Password is required.
+    </p>
+    <p
+      *ngIf="confirmPassword.errors?.['passwordMismatch']"
+      class="text-red-500"
+    >
+      Passwords do not match.
+    </p>
+  </div>
+
+  <a routerLink="/login">Have an account? Click here to login</a>
+
+  <app-button text="Submit" type="submit"></app-button>
+</form>

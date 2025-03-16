@@ -7,6 +7,8 @@ import { HomeComponent } from './components/pages/home/home.component';
 import { authGuard } from './guards/auth.guard';
 import { AdminDashboardComponent } from './components/pages/admin-dashboard/admin-dashboard.component';
 import { UnauthorizedComponent } from './components/pages/unauthorized/unauthorized.component';
+import { HelpComponent } from './components/pages/help/help.component';
+import { AboutComponent } from './components/pages/about/about.component';
 
 export const routes: Routes = [
   {
@@ -42,5 +44,13 @@ export const routes: Routes = [
   {
     path: 'unauthorized',
     component: UnauthorizedComponent,
+  },
+  {
+    path: 'how-to-help',
+    component: HelpComponent,
+  },
+  {
+    path: 'about-us',
+    component: AboutComponent,
   },
 ];

@@ -22,7 +22,7 @@ export class RescueService {
  ensuring that any component or service subscribing to rescues$ will receive the updated data.*/
   private refreshRescues() {
     this.httpClient
-      .get<Rescue[]>(`${this.url}/rescues`)
+      .get<Rescue[]>(`${this.url}/rescues`, { withCredentials: true })
       .subscribe((rescues) => {
         this.rescues$.set(rescues);
       });
@@ -35,7 +35,7 @@ export class RescueService {
 
   getRescue(slug: string) {
     this.httpClient
-      .get<Rescue>(`${this.url}/rescues/${slug}`)
+      .get<Rescue>(`${this.url}/rescues/${slug}`, { withCredentials: true })
       .subscribe((rescue) => {
         this.rescue$.set(rescue);
       });

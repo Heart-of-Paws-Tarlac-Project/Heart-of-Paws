@@ -4,13 +4,30 @@ const CustomNotFoundError = require("../errors/CustomNotFoundError");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const cookieParser = require("cookie-parser");
+const CustomError = require("../errors/CustomError");
 
+//load environment variables
 require("dotenv").config();
 
+//register controller
 exports.registerUser = asyncHandler(async (req, res) => {
-  const { name, email, password } = req.body;
+  const { name, email, password, role = "user" } = req.body;
 
-  console.log(`before hashing: ${password}`);
+  const existingByName = await User.findOne({
+    name: { $regex: new RegExp(`^${name}$`, "i") },
+  });
+
+  const existingByEmail = await User.findOne({
+    email: { $regex: new RegExp(`^${email}$`, "i") },
+  });
+
+  if (existingByName) {
+    throw new CustomError("Username already exists", 400);
+  }
+
+  if (existingByEmail) {
+    throw new CustomError("Email already exists", 400);
+  }
 
   //determine the number of salts
   //generate salt
@@ -23,38 +40,52 @@ exports.registerUser = asyncHandler(async (req, res) => {
     name: name,
     email: email,
     password: hash,
+    role: role,
   };
 
   const result = await User.create(user);
 
   if (!result) {
-    throw new CustomServerError(
-      `Oops! We couldn't process your request in creating a new user. Please try again.`
-    );
+    throw new CustomError("Error creating user", 500);
   }
-  console.log("Successfully created user!");
-  res.status(201).json({
+
+  res.status(201).send({
     message: `User ${user.name} successfully registered`,
-    success: true,
   });
 });
 
+//login controller
 exports.loginUser = asyncHandler(async (req, res) => {
-  const { emailInput, passwordInput } = req.body;
-  console.log(emailInput);
-  console.log(passwordInput);
+  const { email, password } = req.body;
 
-  const user = await User.findOne({ email: emailInput });
-  if (!user || !(await bcrypt.compare(passwordInput, user.password)))
-    throw new CustomNotFoundError("Invalid email or password");
+  const user = await User.findOne({ email: email });
+  if (!user || !(await bcrypt.compare(password, user.password))) {
+    throw new CustomError("Invalid username or password.", 401);
+  }
 
-  const RSA_PRIVATE_KEY = process.env.RSA_PRIVATE_KEY;
+  req.session.user = { id: user.id, name: user.name, role: user.role };
 
-  co;
+  res.status(200).send({ message: "User logged in successfully" }); //set cookie header will be sent along with the response
+});
 
-  const jwtBearerToken = jwt.sign({}, RSA_PRIVATE_KEY, {
-    algorithm: "RS256",
-    expiresIn: 120,
-    subject: user.id,
+exports.logout = asyncHandler(async (req, res) => {
+  if (!req.session) {
+    return res.status(200).send({ message: "No session to logout" });
+  }
+
+  req.session.destroy((err) => {
+    if (err) {
+      throw new CustomError("Failed to logout user, please try again", 500);
+    }
+
+    res.status(200).send({ message: "Logout successful." });
   });
+});
+
+exports.verifyAuth = asyncHandler(async (req, res) => {
+  res.status(200).send({ message: "Authenticated" });
+});
+
+exports.verifyAdminAuth = asyncHandler(async (req, res) => {
+  res.status(200).send({ message: "Admin Authenticated" });
 });

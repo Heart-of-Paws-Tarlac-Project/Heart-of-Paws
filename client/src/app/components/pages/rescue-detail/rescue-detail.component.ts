@@ -4,6 +4,8 @@ import { RescueService } from '../../../services/rescue.service';
 import { WritableSignal } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { CommonModule } from '@angular/common';
+import AOS from 'aos';
+import 'aos/dist/aos.css';
 
 @Component({
   selector: 'app-rescue-detail',
@@ -18,10 +20,9 @@ export class RescueDetailComponent implements OnInit {
     private activatedRoute: ActivatedRoute
   ) {}
 
-  // ActivatedRoute is a service, that provides route-specific information associated with a component that is loaded in an outlet.
-
-  // we use it to find the route parameter here and resolve it to the getRescue function to initiate a request
-
+  ngAfterViewInit(): void {
+    AOS.init();
+  }
   ngOnInit(): void {
     this.activatedRoute.paramMap.subscribe((params) => {
       const slug = params.get('slug'); //extract the slug from the activatedRoute params
@@ -31,9 +32,6 @@ export class RescueDetailComponent implements OnInit {
     });
   }
 
-  //This getter is doing two important things:
-  // It's accessing the rescue$ signal from the rescue service
-  // It's calling the signal with () to get its current value
   get rescue() {
     return this.rescueService.rescue$();
   }

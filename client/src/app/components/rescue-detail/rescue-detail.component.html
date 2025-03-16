@@ -1,19 +1,104 @@
 <div *ngIf="rescue" class="card">
-  <h1>{{ rescue.name }}</h1>
-  <img [src]="rescue.featureImage" alt="{{ rescue.name }}" />
-  <p>{{ rescue.description }}</p>
-  <p>{{ rescue.sex }}</p>
-  <p>{{ rescue.size }}</p>
-  <p>{{ rescue.vetStatus }}</p>
-  <p>{{ rescue.age }}</p>
+  <div
+    class="w-full flex flex-col md:flex-row xl:h-auto gap-2 items-center justify-center"
+  >
+    <div
+      class="h-full w-full flex lg:flex-col gap-2 items-center justify-center lg:w-3/4 xl:h-full xl:gap-5 p-10 2xl:p-20"
+    >
+      <div
+        class="image-container w-full lg:w-80 2xl:w-[50rem] 2xl:h-full grid grid-cols-2 gap-3 place-items-center"
+        data-aos="fade-right"
+        data-aos-duration="800"
+        data-aos-delay="200"
+      >
+        <img
+          *ngFor="let image of rescue.galleryImages"
+          class="rounded-2xl"
+          [src]="image"
+          alt="{{ rescue.name }}"
+        />
+      </div>
+    </div>
+    <div
+      class="h-full p-10 w-full flex flex-col gap-2 items-start justify-start lg:w-2/4 xl:w-1/2 xl:h-full xl:gap-10 sticky-info"
+    >
+      <h1
+        class="text-6xl 2xl:text-9xl"
+        data-aos="fade-up"
+        data-aos-duration="800"
+      >
+        {{ rescue.name }}
+      </h1>
+      <!-- <img [src]="rescue.featureImage" alt="{{ rescue.name }}" /> -->
+      <p
+        class="2xl:text-2xl uppercase flex gap-4 w-3/5 space-x-24"
+        data-aos="fade-up"
+        data-aos-duration="800"
+        data-aos-delay="100"
+      >
+        <span
+          ><span
+            class="text-sm lg:text-lg"
+            data-aos="fade-up"
+            data-aos-duration="800"
+            data-aos-delay="100"
+            >SEX:</span
+          >
+          <br />
+          {{ rescue.sex }}</span
+        >
+        <span>
+          <span class="text-sm lg:text-lg">SIZE:</span> <br />{{
+            rescue.size
+          }}</span
+        >
+      </p>
 
-  <div class="featured-gallery">
-    <div class="image-container">
-      <img
-        *ngFor="let image of rescue.galleryImages"
-        [src]="image"
-        alt="{{ rescue.name }}"
-      />
+      <p
+        class="2xl:text-2xl uppercase"
+        data-aos="fade-up"
+        data-aos-duration="800"
+        data-aos-delay="200"
+      >
+        <span class="text-sm lg:text-lg">VET STATUS:</span><br />
+        {{ rescue.vetStatus }}
+      </p>
+      <p
+        class="2xl:text-2xl uppercase"
+        data-aos="fade-up"
+        data-aos-duration="800"
+        data-aos-delay="300"
+      >
+        <span class="text-sm lg:text-lg">AGE:</span> <br />{{ rescue.age }}
+      </p>
+      <p
+        class="2xl:text-2xl uppercase"
+        data-aos="fade-up"
+        data-aos-duration="800"
+        data-aos-delay="400"
+      >
+        <span
+          class="text-sm lg:text-lg"
+          data-aos="fade-up"
+          data-aos-duration="800"
+          data-aos-delay="500"
+          >DESCRIPTION:</span
+        >
+        <br /><br />
+        <span
+          class="border border-black p-4 rounded-2xl 2xl:text-xl uppercase"
+          >{{ rescue.description }}</span
+        >
+      </p>
+      <button
+        data-aos="fade-up"
+        data-aos-duration="800"
+        data-aos-delay="600"
+        type="button"
+        class="mt-5 text-white bg-blue-700 hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 font-medium rounded-full text-xs sm:text-sm md:text-base lg:text-base xl:text-xl px-4 sm:px-6 md:px-8 lg:px-10 xl:px-12 py-2 sm:py-2.5 md:py-3 lg:py-3.5 xl:py-4 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+      >
+        Default
+      </button>
     </div>
   </div>
 </div>

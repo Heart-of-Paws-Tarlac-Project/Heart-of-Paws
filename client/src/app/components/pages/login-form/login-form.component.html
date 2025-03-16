@@ -1,44 +1,61 @@
-<h1 class="text-center">Login</h1>
-
-<p *ngIf="errorMessage" class="text-red-500 text-center">{{ errorMessage }}</p>
-
-<form
-  class="max-w-sm mx-auto"
-  [formGroup]="loginForm"
-  (ngSubmit)="submitForm()"
+<div
+  class="w-full h-screen flex flex-col md:flex-row xl:h-screen bg-fuchsia-800 justify-center xl:justify-start items-center p-8"
 >
-  <app-form-input
-    label="Email"
-    type="email"
-    id="email"
-    controlName="email"
-    placeholder="johnsmith@gmail.com"
-  ></app-form-input>
+  <div
+    class="h-auto py-20 flex flex-col items-center justify-center w-full md:w-3/4 md:h-2/4 xl:w-2/5 xl:h-[100%] gap-5 p-5 xl:p-10 xl:py-0 bg-gray-200 rounded-2xl"
+  >
+    <h1 class="text-center text-4xl md:text-6xl xl:text-8xl uppercase">
+      welcome back!
+    </h1>
 
-  <div *ngIf="email.invalid && email.touched">
-    <p *ngIf="email.errors?.['required']" class="text-red-500">
-      Email is required.
+    <p *ngIf="errorMessage" class="text-red-500 text-center">
+      {{ errorMessage }}
     </p>
-    <p *ngIf="email.errors?.['email']" class="text-red-500">
-      Enter a valid email.
-    </p>
+
+    <form
+      class="w-full md:w-3/5"
+      [formGroup]="loginForm"
+      (ngSubmit)="submitForm()"
+    >
+      <app-form-input
+        type="email"
+        id="email"
+        controlName="email"
+        placeholder="Email"
+        class="bg-transparent"
+      ></app-form-input>
+
+      <div *ngIf="email.invalid && email.touched" class="mb-5">
+        <p *ngIf="email.errors?.['required']" class="text-red-500">
+          Email is required.
+        </p>
+        <p *ngIf="email.errors?.['email']" class="text-red-500">
+          Enter a valid email.
+        </p>
+      </div>
+
+      <app-form-input
+        type="password"
+        id="password"
+        controlName="password"
+        placeholder="Password"
+        class="bg-transparent"
+      ></app-form-input>
+
+      <div *ngIf="password.invalid && password.touched" class="mb-5">
+        <p *ngIf="password.errors?.['required']" class="text-red-500">
+          Password is required.
+        </p>
+      </div>
+      <app-button text="Login" type="submit" class="w-full"></app-button>
+      <br />
+      Do not have an account?
+      <a routerLink="/register" class="text-blue-500 underline"
+        >Click here to sign up</a
+      >
+    </form>
   </div>
-
-  <app-form-input
-    label="Password"
-    type="password"
-    id="password"
-    controlName="password"
-    placeholder=""
-  ></app-form-input>
-
-  <div *ngIf="password.invalid && password.touched">
-    <p *ngIf="password.errors?.['required']" class="text-red-500">
-      Password is required.
-    </p>
-  </div>
-
-  <a routerLink="/register">Do not have an account? Click here to sign up</a>
-
-  <app-button text="Login" type="submit"></app-button>
-</form>
+  <!-- <div
+    class="flex flex-col items-center justify-center w-full xl:w-3/5 xl:h-full gap-5"
+  ></div> -->
+</div>

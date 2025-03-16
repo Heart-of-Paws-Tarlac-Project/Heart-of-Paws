@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { Rescue } from '../../interfaces/rescue';
-import { RescueService } from '../../services/rescue.service';
+import { Rescue } from '../../../interfaces/rescue';
+import { RescueService } from '../../../services/rescue.service';
 import { CommonModule } from '@angular/common';
-import { RescueCardComponent } from '../rescue-card/rescue-card.component';
+import { RescueCardComponent } from '../../ui/rescue-card/rescue-card.component';
 
 @Component({
   selector: 'app-rescues-list',

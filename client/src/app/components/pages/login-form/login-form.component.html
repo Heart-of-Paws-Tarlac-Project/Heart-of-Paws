@@ -1,0 +1,44 @@
+<h1 class="text-center">Login</h1>
+
+<p *ngIf="errorMessage" class="text-red-500 text-center">{{ errorMessage }}</p>
+
+<form
+  class="max-w-sm mx-auto"
+  [formGroup]="loginForm"
+  (ngSubmit)="submitForm()"
+>
+  <app-form-input
+    label="Email"
+    type="email"
+    id="email"
+    controlName="email"
+    placeholder="johnsmith@gmail.com"
+  ></app-form-input>
+
+  <div *ngIf="email.invalid && email.touched">
+    <p *ngIf="email.errors?.['required']" class="text-red-500">
+      Email is required.
+    </p>
+    <p *ngIf="email.errors?.['email']" class="text-red-500">
+      Enter a valid email.
+    </p>
+  </div>
+
+  <app-form-input
+    label="Password"
+    type="password"
+    id="password"
+    controlName="password"
+    placeholder=""
+  ></app-form-input>
+
+  <div *ngIf="password.invalid && password.touched">
+    <p *ngIf="password.errors?.['required']" class="text-red-500">
+      Password is required.
+    </p>
+  </div>
+
+  <a routerLink="/register">Do not have an account? Click here to sign up</a>
+
+  <app-button text="Login" type="submit"></app-button>
+</form>

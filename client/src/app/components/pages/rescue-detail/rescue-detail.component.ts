@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { Rescue } from '../../interfaces/rescue';
-import { RescueService } from '../../services/rescue.service';
+import { Rescue } from '../../../interfaces/rescue';
+import { RescueService } from '../../../services/rescue.service';
 import { WritableSignal } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { CommonModule } from '@angular/common';

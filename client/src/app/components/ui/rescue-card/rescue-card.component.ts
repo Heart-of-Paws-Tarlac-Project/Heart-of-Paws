@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { Rescue } from '../../interfaces/rescue';
+import { Rescue } from '../../../interfaces/rescue';
 import { RouterLink } from '@angular/router';
 import { RouterModule } from '@angular/router';
 

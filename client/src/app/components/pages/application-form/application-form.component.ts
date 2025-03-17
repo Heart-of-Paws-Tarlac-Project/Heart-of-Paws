@@ -12,6 +12,8 @@ import { FormInputComponent } from '../../ui/form-input/form-input.component';
 import { ButtonComponent } from '../../ui/button/button.component';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
+import AOS from 'aos';
+import 'aos/dist/aos.css';
 
 @Component({
   selector: 'app-application-form',
@@ -28,7 +30,9 @@ import { Router } from '@angular/router';
 export class ApplicationFormComponent implements OnInit {
   isSubmitted: boolean = false;
   errorMessage: string = '';
-
+  ngAfterViewInit(): void {
+    AOS.init();
+  }
   constructor(
     private rescueService: RescueService,
     private activatedRoute: ActivatedRoute,

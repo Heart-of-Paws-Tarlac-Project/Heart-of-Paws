@@ -1,0 +1,15 @@
+app-form-input {
+  display: contents !important; /* Makes the component behave like it's not wrapping the input */
+}
+
+app-form-input input {
+  background: none !important;
+  border: none !important;
+  outline: none !important;
+  padding: 10px !important;
+  margin: 10px !important;
+  box-shadow: none !important;
+}
+
+::ng-deep app-button {
+}

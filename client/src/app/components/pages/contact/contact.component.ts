@@ -12,7 +12,8 @@ import { InquiryService } from '../../../services/inquiry.service';
 import { Router } from '@angular/router';
 import { AuthService } from '../../../services/auth.service';
 import { Subscription } from 'rxjs';
-
+import AOS from 'aos';
+import 'aos/dist/aos.css';
 @Component({
   selector: 'app-contact',
   standalone: true,
@@ -26,6 +27,9 @@ import { Subscription } from 'rxjs';
   styleUrl: './contact.component.css',
 })
 export class ContactComponent implements OnInit {
+  ngAfterViewInit(): void {
+    AOS.init();
+  }
   isAuthenticated: boolean = false;
   private authSubscription: Subscription | null = null;
 

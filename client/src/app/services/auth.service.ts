@@ -51,6 +51,7 @@ export class AuthService {
       tap((response) => {
         if (response || response.message === 'User logged in successfully') {
           this.isAuthenticatedSubject.next(true);
+          localStorage.setItem('userName', response.name);
         }
       })
     );

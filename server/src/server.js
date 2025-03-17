@@ -5,6 +5,7 @@ const morgan = require("morgan");
 const rescuesRouter = require("./routes/rescuesRoutes");
 const authRouter = require("./routes/authRoutes");
 const applicationsRouter = require("./routes/applicationsRoutes");
+const inquiriesRouter = require("./routes/inquiriesRoutes");
 const cookieParser = require("cookie-parser");
 const session = require("express-session");
 const mongoStore = require("connect-mongo");
@@ -45,6 +46,7 @@ app.use(morgan("tiny"));
 app.use("/rescues", rescuesRouter);
 app.use("/auth", authRouter);
 app.use("/applications", applicationsRouter);
+app.use("/inquiries", inquiriesRouter);
 
 //error handler middleware
 app.use((err, req, res, next) => {

@@ -10,6 +10,8 @@ import {
 import { Router, RouterLink } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { AuthService } from '../../../services/auth.service';
+import AOS from 'aos';
+import 'aos/dist/aos.css';
 
 @Component({
   selector: 'app-login-form',
@@ -27,7 +29,9 @@ import { AuthService } from '../../../services/auth.service';
 export class LoginFormComponent {
   isSubmitted: boolean = false;
   errorMessage: string = '';
-
+  ngAfterViewInit(): void {
+    AOS.init();
+  }
   constructor(private router: Router, private authService: AuthService) {}
 
   loginForm = new FormGroup({

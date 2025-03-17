@@ -10,6 +10,7 @@ import { UnauthorizedComponent } from './components/pages/unauthorized/unauthori
 import { HelpComponent } from './components/pages/help/help.component';
 import { AboutComponent } from './components/pages/about/about.component';
 import { ApplicationFormComponent } from './components/pages/application-form/application-form.component';
+import { ContactComponent } from './components/pages/contact/contact.component';
 
 export const routes: Routes = [
   {
@@ -57,5 +58,9 @@ export const routes: Routes = [
     path: 'inquire/:slug',
     component: ApplicationFormComponent,
     canActivate: [authGuard],
+  },
+  {
+    path: 'contact-us',
+    component: ContactComponent,
   },
 ];

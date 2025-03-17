@@ -1,94 +1,160 @@
-<h1 class="text-center">Contact Us</h1>
-
-<p *ngIf="errorMessage" class="text-red-500 text-center">
-  {{ errorMessage }}
-</p>
-
-<form
-  [formGroup]="contactForm"
-  class="max-w-sm mx-auto"
-  (ngSubmit)="onSubmit()"
+<div
+  class="w-full h-auto flex flex-col md:flex-row xl:h-screen justify-center xl:justify-center items-center p-4 md:p-8 2xl:space-x-10"
 >
-  <app-form-input
-    label="Full Name"
-    type="text"
-    id="name"
-    controlName="name"
-    placeholder="John Smith"
-    class="mb-4"
-  ></app-form-input>
+  <div
+    class="h-auto 2xl:py-44 border-b-2 border-black flex flex-col items-center md:items-center justify-center w-full md:w-3/4 md:h-2/4 xl:w-2/5 xl:h-auto gap-5 p-5 xl:py-24 md:border-r-2 md:border-b-0"
+  >
+    <h1
+      class="text-center text-5xl 2xl:text-8xl uppercase"
+      data-aos="fade-up"
+      data-aos-duration="800"
+    >
+      Contact Us
+    </h1>
 
-  <div *ngIf="name.invalid && name.touched">
-    <p *ngIf="name.errors?.['required']" class="text-red-500">
-      Full Name is required.
+    <p *ngIf="errorMessage" class="text-red-500 text-center">
+      {{ errorMessage }}
     </p>
-    <p *ngIf="name.errors?.['minlength']" class="text-red-500">
-      Must be at least 6 characters.
-    </p>
-    <p *ngIf="name.errors?.['maxlength']" class="text-red-500">
-      Must be less than 50 characters.
-    </p>
-    <p *ngIf="name.errors?.['pattern']" class="text-red-500">
-      Only letters and spaces allowed.
-    </p>
-  </div>
 
-  <app-form-input
-    label="Email"
-    type="email"
-    id="email"
-    controlName="email"
-    placeholder="
+    <form
+      [formGroup]="contactForm"
+      class="w-full 2xl:w-3/4"
+      (ngSubmit)="onSubmit()"
+    >
+      <div data-aos="fade-up" data-aos-delay="100" data-aos-duration="800">
+        <app-form-input
+          label="Full Name"
+          type="text"
+          id="name"
+          controlName="name"
+          placeholder="John Smith"
+          class="mb-4"
+        ></app-form-input>
+      </div>
+      <div *ngIf="name.invalid && name.touched">
+        <p *ngIf="name.errors?.['required']" class="text-red-500 mb-4">
+          Full Name is required.
+        </p>
+        <p *ngIf="name.errors?.['minlength']" class="text-red-500 mb-4">
+          Must be at least 6 characters.
+        </p>
+        <p *ngIf="name.errors?.['maxlength']" class="text-red-500 mb-4">
+          Must be less than 50 characters.
+        </p>
+        <p *ngIf="name.errors?.['pattern']" class="text-red-500 mb-4">
+          Only letters and spaces allowed.
+        </p>
+      </div>
+
+      <div data-aos="fade-up" data-aos-delay="200" data-aos-duration="800">
+        <app-form-input
+          label="Email"
+          type="email"
+          id="email"
+          controlName="email"
+          placeholder="
   Enter your email address"
-    class="mb-4"
-  ></app-form-input>
+          class="mb-4"
+        ></app-form-input>
+      </div>
 
-  <div *ngIf="email.invalid && email.touched">
-    <p *ngIf="email.errors?.['required']" class="text-red-500">
-      Email is required.
-    </p>
-    <p *ngIf="email.errors?.['email']" class="text-red-500">
-      Enter a valid email.
-    </p>
+      <div *ngIf="email.invalid && email.touched">
+        <p *ngIf="email.errors?.['required']" class="text-red-500 mb-4">
+          Email is required.
+        </p>
+        <p *ngIf="email.errors?.['email']" class="text-red-500 mb-4">
+          Enter a valid email.
+        </p>
+      </div>
+
+      <div data-aos="fade-up" data-aos-delay="300" data-aos-duration="800">
+        <app-form-input
+          label="Phone Number"
+          type="tel"
+          id="phone"
+          controlName="phoneNo"
+          placeholder="+639123456789"
+          class="mb-4"
+        ></app-form-input>
+      </div>
+
+      <div *ngIf="phoneNo.invalid && phoneNo.touched">
+        <p *ngIf="phoneNo.errors?.['required']" class="text-red-500 mb-4">
+          Phone Number is required.
+        </p>
+        <p *ngIf="phoneNo.errors?.['pattern']" class="text-red-500 mb-4">
+          Must be a valid 11-digit phone number.
+        </p>
+      </div>
+
+      <div data-aos="fade-up" data-aos-delay="400" data-aos-duration="800">
+        <textarea
+          id="message"
+          rows="4"
+          formControlName="inquiry"
+          class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 mb-4"
+          placeholder="How can we help you today?"
+        ></textarea>
+      </div>
+
+      <div *ngIf="inquiry.invalid && inquiry.touched">
+        <p *ngIf="inquiry.errors?.['required']" class="text-red-500 mb-4">
+          Message is required.
+        </p>
+        <p *ngIf="inquiry.errors?.['minlength']" class="text-red-500 mb-4">
+          Must be at least 10 characters.
+        </p>
+        <p *ngIf="inquiry.errors?.['maxlength']" class="text-red-500 mb-4">
+          Must be less than 500 characters.
+        </p>
+      </div>
+
+      <div data-aos="fade-up" data-aos-delay="500" data-aos-duration="800">
+        <app-button text="Submit" type="submit" class="w-full"></app-button>
+      </div>
+    </form>
   </div>
 
-  <app-form-input
-    label="Phone Number"
-    type="tel"
-    id="phone"
-    controlName="phoneNo"
-    placeholder="+639123456789"
-    class="mb-4"
-  ></app-form-input>
-
-  <div *ngIf="phoneNo.invalid && phoneNo.touched">
-    <p *ngIf="phoneNo.errors?.['required']" class="text-red-500">
-      Phone Number is required.
+  <div
+    class="h-auto flex flex-col items-center md:items-center justify-center w-full md:w-3/4 md:h-2/4 xl:w-2/5 xl:h-3/5 gap-7 md:gap-20 p-5 xl:pl-20 rounded-2xl 2xl:pr-32"
+    data-aos="fade-left"
+    data-aos-duration="1000"
+  >
+    <p
+      class="justify-center items-center gap-10 xl:text-2xl flex w-3/5 2xl:gap-32"
+    >
+      <span
+        ><span class="text-sm lg:text-lg">Email</span>
+        <br />
+        jangabperezatgmail</span
+      >
+      <span>
+        <span class="text-sm lg:text-lg">Phone</span> <br />09289549612</span
+      >
     </p>
-    <p *ngIf="phoneNo.errors?.['pattern']" class="text-red-500">
-      Must be a valid 11-digit phone number.
+
+    <p
+      class="justify-center items-center gap-10 xl:text-2xl flex w-3/5 2xl:gap-32"
+    >
+      <span
+        ><span class="text-sm lg:text-lg">Address</span>
+        <br />
+        jangabperezatgmail</span
+      >
+      <span>
+        <span class="text-sm lg:text-lg">Facebook Page</span>
+        <br />09289549612</span
+      >
     </p>
   </div>
+</div>
 
-  <textarea
-    id="message"
-    rows="4"
-    formControlName="inquiry"
-    class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 mb-4"
-    placeholder="How can we help you today?"
-  ></textarea>
-
-  <div *ngIf="inquiry.invalid && inquiry.touched">
-    <p *ngIf="inquiry.errors?.['required']" class="text-red-500">
-      Message is required.
-    </p>
-    <p *ngIf="inquiry.errors?.['minlength']" class="text-red-500">
-      Must be at least 10 characters.
-    </p>
-    <p *ngIf="inquiry.errors?.['maxlength']" class="text-red-500">
-      Must be less than 500 characters.
-    </p>
-  </div>
-
-  <app-button text="Submit" type="submit" class="w-full"></app-button>
-</form>
+<div
+  class="w-full h-auto flex flex-col md:flex-row xl:h-screen justify-center xl:justify-center items-center p-4 md:p-8 2xl:space-x-10"
+>
+  <div
+    class="w-4/5 flex flex-col xl:h-[60vh] p-10 gap-10 items-center justify-start xl:pl-20 pt-20 bg-green-300 mx-auto"
+    data-aos="fade-up"
+    data-aos-duration="1000"
+  ></div>
+</div>

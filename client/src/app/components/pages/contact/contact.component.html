@@ -1,0 +1,94 @@
+<h1 class="text-center">Contact Us</h1>
+
+<p *ngIf="errorMessage" class="text-red-500 text-center">
+  {{ errorMessage }}
+</p>
+
+<form
+  [formGroup]="contactForm"
+  class="max-w-sm mx-auto"
+  (ngSubmit)="onSubmit()"
+>
+  <app-form-input
+    label="Full Name"
+    type="text"
+    id="name"
+    controlName="name"
+    placeholder="John Smith"
+    class="mb-4"
+  ></app-form-input>
+
+  <div *ngIf="name.invalid && name.touched">
+    <p *ngIf="name.errors?.['required']" class="text-red-500">
+      Full Name is required.
+    </p>
+    <p *ngIf="name.errors?.['minlength']" class="text-red-500">
+      Must be at least 6 characters.
+    </p>
+    <p *ngIf="name.errors?.['maxlength']" class="text-red-500">
+      Must be less than 50 characters.
+    </p>
+    <p *ngIf="name.errors?.['pattern']" class="text-red-500">
+      Only letters and spaces allowed.
+    </p>
+  </div>
+
+  <app-form-input
+    label="Email"
+    type="email"
+    id="email"
+    controlName="email"
+    placeholder="
+  Enter your email address"
+    class="mb-4"
+  ></app-form-input>
+
+  <div *ngIf="email.invalid && email.touched">
+    <p *ngIf="email.errors?.['required']" class="text-red-500">
+      Email is required.
+    </p>
+    <p *ngIf="email.errors?.['email']" class="text-red-500">
+      Enter a valid email.
+    </p>
+  </div>
+
+  <app-form-input
+    label="Phone Number"
+    type="tel"
+    id="phone"
+    controlName="phoneNo"
+    placeholder="+639123456789"
+    class="mb-4"
+  ></app-form-input>
+
+  <div *ngIf="phoneNo.invalid && phoneNo.touched">
+    <p *ngIf="phoneNo.errors?.['required']" class="text-red-500">
+      Phone Number is required.
+    </p>
+    <p *ngIf="phoneNo.errors?.['pattern']" class="text-red-500">
+      Must be a valid 11-digit phone number.
+    </p>
+  </div>
+
+  <textarea
+    id="message"
+    rows="4"
+    formControlName="inquiry"
+    class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 mb-4"
+    placeholder="How can we help you today?"
+  ></textarea>
+
+  <div *ngIf="inquiry.invalid && inquiry.touched">
+    <p *ngIf="inquiry.errors?.['required']" class="text-red-500">
+      Message is required.
+    </p>
+    <p *ngIf="inquiry.errors?.['minlength']" class="text-red-500">
+      Must be at least 10 characters.
+    </p>
+    <p *ngIf="inquiry.errors?.['maxlength']" class="text-red-500">
+      Must be less than 500 characters.
+    </p>
+  </div>
+
+  <app-button text="Submit" type="submit" class="w-full"></app-button>
+</form>

@@ -1,5 +1,7 @@
 <h1 class="text-center">Give {{ rescue.name }} a chance.</h1>
 
+<img [src]="rescue.featureImage" alt="{{ rescue.name }}" />
+
 <p *ngIf="errorMessage" class="text-red-500 text-center">
   {{ errorMessage }}
 </p>

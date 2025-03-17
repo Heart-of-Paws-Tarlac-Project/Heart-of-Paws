@@ -1,0 +1,149 @@
+<h1 class="text-center">Give {{ rescue.name }} a chance.</h1>
+
+<p *ngIf="errorMessage" class="text-red-500 text-center">
+  {{ errorMessage }}
+</p>
+
+<form
+  [formGroup]="applicationForm"
+  (ngSubmit)="onSubmit()"
+  class="max-w-sm mx-auto"
+>
+  <app-form-input
+    label="Full Name"
+    type="text"
+    id="name"
+    controlName="name"
+    placeholder="John Smith"
+    class="mb-4"
+  ></app-form-input>
+
+  <div *ngIf="name.invalid && name.touched">
+    <p *ngIf="name.errors?.['required']" class="text-red-500">
+      Full Name is required.
+    </p>
+    <p *ngIf="name.errors?.['minlength']" class="text-red-500">
+      Must be at least 6 characters.
+    </p>
+    <p *ngIf="name.errors?.['maxlength']" class="text-red-500">
+      Must be less than 50 characters.
+    </p>
+    <p *ngIf="name.errors?.['pattern']" class="text-red-500">
+      Only letters and spaces allowed.
+    </p>
+  </div>
+
+  <app-form-input
+    label="Phone Number"
+    type="tel"
+    id="phone"
+    controlName="phone"
+    placeholder="+639123456789"
+    class="mb-4"
+  ></app-form-input>
+
+  <div *ngIf="phoneNo.invalid && phoneNo.touched">
+    <p *ngIf="phoneNo.errors?.['required']" class="text-red-500">
+      Phone Number is required.
+    </p>
+    <p *ngIf="phoneNo.errors?.['pattern']" class="text-red-500">
+      Must be a valid 11-digit phone number.
+    </p>
+  </div>
+
+  <app-form-input
+    label="Address"
+    type="text"
+    id="address"
+    controlName="address"
+    placeholder="Lalam Pangulo St. Barangay Babo Nasi"
+    class="mb-4"
+  ></app-form-input>
+
+  <div *ngIf="address.invalid && address.touched">
+    <p *ngIf="address.errors?.['required']" class="text-red-500">
+      Address is required.
+    </p>
+    <p *ngIf="address.errors?.['minlength']" class="text-red-500">
+      Must be at least 10 characters.
+    </p>
+    <p *ngIf="address.errors?.['maxlength']" class="text-red-500">
+      Must be less than 100 characters.
+    </p>
+  </div>
+
+  <label
+    for="mode"
+    class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+    >Preferred Mode of Contact</label
+  >
+  <select
+    id="mode"
+    formControlName="preferredModeOfContact"
+    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 mb-4"
+  >
+    <option value="">Choose a mode of appointment</option>
+    <option value="online">Online</option>
+    <option value="in-person">In Person</option>
+  </select>
+
+  <div *ngIf="preferredModeOfContact.invalid && preferredModeOfContact.touched">
+    <p *ngIf="preferredModeOfContact.errors?.['required']" class="text-red-500">
+      Preferred Mode of Contact is required.
+    </p>
+  </div>
+
+  <textarea
+    id="message"
+    rows="4"
+    formControlName="introductionMessage"
+    class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 mb-4"
+    placeholder="Share a bit about yourself and why you want to adopt {{
+      rescue.name
+    }}."
+  ></textarea>
+
+  <div *ngIf="introductionMessage.invalid && introductionMessage.touched">
+    <p *ngIf="introductionMessage.errors?.['required']" class="text-red-500">
+      Introduction Message is required.
+    </p>
+    <p *ngIf="introductionMessage.errors?.['minlength']" class="text-red-500">
+      Must be at least 10 characters.
+    </p>
+    <p *ngIf="introductionMessage.errors?.['maxlength']" class="text-red-500">
+      Must be less than 200 characters.
+    </p>
+  </div>
+
+  <!-- <label
+    for="preferred-time"
+    class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+    >Preferred Time</label
+  >
+  <select
+    id="preferred-time"
+    formControlName="preferredTime"
+    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 mb-4"
+  >
+    <option value="">Pick time for interview</option>
+    <option value="10:30 AM">10:30 AM</option>
+    <option value="3:00 PM">3:00 PM</option>
+  </select>
+
+  <label
+    for="preferred-time"
+    class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+    >Preferred Time</label
+  >
+  <select
+    id="preferred-time"
+    formControlName="preferredTime"
+    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 mb-4"
+  >
+    <option value="">Pick time for interview</option>
+    <option value="10:30 AM">10:30 AM</option>
+    <option value="3:00 PM">3:00 PM</option>
+  </select> -->
+
+  <app-button type="submit" text="Submit"></app-button>
+</form>

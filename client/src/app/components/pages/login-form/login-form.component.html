@@ -3,8 +3,16 @@
 >
   <div
     class="h-auto py-20 flex flex-col items-center justify-center w-full md:w-3/4 md:h-2/4 xl:w-2/5 xl:h-[100%] gap-5 p-5 xl:p-10 xl:py-0 bg-gray-200 rounded-2xl"
+    data-aos="fade-right"
+    data-aos-delay="200"
+    data-aos-duration="800"
   >
-    <h1 class="text-center text-4xl md:text-6xl xl:text-8xl uppercase">
+    <h1
+      class="text-center text-4xl md:text-6xl xl:text-8xl uppercase"
+      data-aos="fade-up"
+      data-aos-delay="200"
+      data-aos-duration="800"
+    >
       welcome back!
     </h1>
 
@@ -17,42 +25,64 @@
       [formGroup]="loginForm"
       (ngSubmit)="submitForm()"
     >
-      <app-form-input
-        type="email"
-        id="email"
-        controlName="email"
-        placeholder="Email"
-        class="bg-transparent"
-      ></app-form-input>
-
+      <div data-aos="fade-up" data-aos-delay="300" data-aos-duration="800">
+        <app-form-input
+          type="email"
+          id="email"
+          controlName="email"
+          placeholder="Email"
+          class="bg-transparent"
+        ></app-form-input>
+      </div>
       <div *ngIf="email.invalid && email.touched" class="mb-5">
-        <p *ngIf="email.errors?.['required']" class="text-red-500">
+        <p
+          *ngIf="email.errors?.['required']"
+          class="text-red-500"
+          data-aos="fade"
+          data-aos-duration="800"
+        >
           Email is required.
         </p>
-        <p *ngIf="email.errors?.['email']" class="text-red-500">
+        <p
+          *ngIf="email.errors?.['email']"
+          class="text-red-500"
+          data-aos="fade"
+          data-aos-duration="800"
+        >
           Enter a valid email.
         </p>
       </div>
 
-      <app-form-input
-        type="password"
-        id="password"
-        controlName="password"
-        placeholder="Password"
-        class="bg-transparent"
-      ></app-form-input>
-
+      <div data-aos="fade-up" data-aos-delay="400" data-aos-duration="800">
+        <app-form-input
+          type="password"
+          id="password"
+          controlName="password"
+          placeholder="Password"
+          class="bg-transparent"
+        ></app-form-input>
+      </div>
       <div *ngIf="password.invalid && password.touched" class="mb-5">
-        <p *ngIf="password.errors?.['required']" class="text-red-500">
+        <p
+          *ngIf="password.errors?.['required']"
+          class="text-red-500"
+          data-aos="fade"
+          data-aos-duration="800"
+        >
           Password is required.
         </p>
       </div>
-      <app-button text="Login" type="submit" class="w-full"></app-button>
+      <div data-aos="fade-up" data-aos-delay="500" data-aos-duration="800">
+        <app-button text="Login" type="submit" class="w-full"></app-button>
+      </div>
       <br />
-      Do not have an account?
-      <a routerLink="/register" class="text-blue-500 underline"
-        >Click here to sign up</a
-      >
+
+      <div data-aos="fade-up" data-aos-delay="500" data-aos-duration="800">
+        Do not have an account?
+        <a routerLink="/register" class="text-blue-500 underline"
+          >Click here to sign up</a
+        >
+      </div>
     </form>
   </div>
   <!-- <div

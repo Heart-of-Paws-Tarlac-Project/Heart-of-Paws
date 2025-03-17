@@ -7,6 +7,8 @@ import { CommonModule } from '@angular/common';
 import { passwordMatchValidator } from '../../../shared/validators/passwordMatchValidator';
 import { Router, RouterLink } from '@angular/router';
 import { AuthService } from '../../../services/auth.service';
+import AOS from 'aos';
+import 'aos/dist/aos.css';
 
 @Component({
   selector: 'app-register-form',
@@ -24,7 +26,9 @@ import { AuthService } from '../../../services/auth.service';
 export class RegisterFormComponent {
   isSubmitted: boolean = false;
   errorMessage: string = '';
-
+  ngAfterViewInit(): void {
+    AOS.init();
+  }
   constructor(private router: Router, private authService: AuthService) {}
   //register inputs as a form group and add validators
   registerForm = new FormGroup(

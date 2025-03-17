@@ -8,6 +8,8 @@ const isAdmin = require("../middlewares/isAdmin");
 router.get("/", rescuesController.getAllRescues);
 router.get("/:slug", rescuesController.getRescue);
 
+
+
 //admin routes
 router.post(
   "/createRescue",

@@ -9,6 +9,7 @@ import { AdminDashboardComponent } from './components/pages/admin-dashboard/admi
 import { UnauthorizedComponent } from './components/pages/unauthorized/unauthorized.component';
 import { HelpComponent } from './components/pages/help/help.component';
 import { AboutComponent } from './components/pages/about/about.component';
+import { ApplicationFormComponent } from './components/pages/application-form/application-form.component';
 
 export const routes: Routes = [
   {
@@ -39,7 +40,6 @@ export const routes: Routes = [
   {
     path: 'admin',
     component: AdminDashboardComponent,
-    canActivate: [authGuard],
   },
   {
     path: 'unauthorized',
@@ -52,5 +52,10 @@ export const routes: Routes = [
   {
     path: 'about-us',
     component: AboutComponent,
+  },
+  {
+    path: 'inquire/:slug',
+    component: ApplicationFormComponent,
+    canActivate: [authGuard],
   },
 ];

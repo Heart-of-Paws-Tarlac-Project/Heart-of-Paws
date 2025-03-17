@@ -6,11 +6,12 @@ import { ActivatedRoute } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import AOS from 'aos';
 import 'aos/dist/aos.css';
+import { RouterLink, RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-rescue-detail',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, RouterModule],
   templateUrl: './rescue-detail.component.html',
   styleUrl: './rescue-detail.component.css',
 })

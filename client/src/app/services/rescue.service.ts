@@ -1,19 +1,20 @@
 import { Injectable, signal } from '@angular/core';
 import { HttpClient } from '@angular/common/http'; //import HTTPCLIENT to make http calls
 import { Rescue } from '../interfaces/rescue';
+import { ApiService } from './api.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class RescueService {
-  private url = 'http://localhost:3000';
+  private url = '/rescues';
   rescues$ = signal<Rescue[]>([]); // signal holds a reactive state of an array of Rescue objects, '([]) means that the signal's value is first set to be an empty array.'
 
   rescue$ = signal<Rescue>({} as Rescue); // signal holds a reactive state of a single Rescue object, initially an empty object (asserted as Rescue type)
 
   // The constructor is a special method that is executed when a new instance of the RescueService class is created. It’s part of the Angular dependency injection system.
 
-  constructor(private httpClient: HttpClient) {} //every instance of this service would now have an instance of httpclient to make requests
+  constructor(private httpClient: HttpClient, private apiService: ApiService) {} //every instance of this service would now have an instance of httpclient to make requests
 
   /* refreshRescues() makes an HTTP GET request to fetch a list of rescues from the backend
  and updates the rescues$ signal with the received data.
@@ -21,11 +22,9 @@ export class RescueService {
  it subscribes to the observable and updates the rescues$ signal with the new array of Rescue objects,
  ensuring that any component or service subscribing to rescues$ will receive the updated data.*/
   private refreshRescues() {
-    this.httpClient
-      .get<Rescue[]>(`${this.url}/rescues`, { withCredentials: true })
-      .subscribe((rescues) => {
-        this.rescues$.set(rescues);
-      });
+    this.apiService.get(`${this.url}`).subscribe((rescues) => {
+      this.rescues$.set(rescues);
+    });
   }
 
   getRescues() {
@@ -34,11 +33,9 @@ export class RescueService {
   }
 
   getRescue(slug: string) {
-    this.httpClient
-      .get<Rescue>(`${this.url}/rescues/${slug}`, { withCredentials: true })
-      .subscribe((rescue) => {
-        this.rescue$.set(rescue);
-      });
+    this.apiService.get(`${this.url}/${slug}`).subscribe((rescue) => {
+      this.rescue$.set(rescue);
+    });
   }
 
   /* 
@@ -48,13 +45,16 @@ export class RescueService {
   (such as a success message).
 */
   addRescue(rescue: Rescue) {
-    this.httpClient
-      .post(`${this.url}/rescues`, rescue, {
-        responseType: 'text',
-      })
-      .subscribe(() => {
-        this.refreshRescues();
-        // Refresh the list after adding
-      });
+    this.apiService.post(`/rescues/`, rescue).subscribe(() => {
+      this.refreshRescues();
+      // Refresh the list after adding
+    });
   } //add rescue returns an observable, subscribe to it to refreshRescues
+
+  inquireAboutRescue(application: any) {
+    return this.apiService.post(
+      `/applications/inquire/${application.slug}`,
+      application
+    );
+  }
 }

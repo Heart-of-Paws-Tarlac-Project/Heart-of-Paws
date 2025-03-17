@@ -3,7 +3,8 @@ const connectDB = require("./database");
 const cors = require("cors");
 const morgan = require("morgan");
 const rescuesRouter = require("./routes/rescuesRoutes");
-const authRoutes = require("./routes/authRoutes");
+const authRouter = require("./routes/authRoutes");
+const applicationsRouter = require("./routes/applicationsRoutes");
 const cookieParser = require("cookie-parser");
 const session = require("express-session");
 const mongoStore = require("connect-mongo");
@@ -42,7 +43,8 @@ app.use(
 app.use(morgan("tiny"));
 
 app.use("/rescues", rescuesRouter);
-app.use("/auth", authRoutes);
+app.use("/auth", authRouter);
+app.use("/applications", applicationsRouter);
 
 //error handler middleware
 app.use((err, req, res, next) => {

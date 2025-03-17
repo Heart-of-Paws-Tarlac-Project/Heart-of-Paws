@@ -56,10 +56,17 @@ export class LoginFormComponent {
       password: this.password.value as string,
     };
 
+    const redirectUrl = localStorage.getItem('redirectUrl'); //if an user was redirected from application page
+
     //call authService's login method
     this.authService.loginUser(userCred).subscribe({
       next: () => {
         console.log('User successfully logged in');
+        if (redirectUrl) {
+          localStorage.removeItem('redirectUrl');
+          this.router.navigate([redirectUrl]);
+          return;
+        }
         this.router.navigate(['/']);
       },
       error: (error) => {

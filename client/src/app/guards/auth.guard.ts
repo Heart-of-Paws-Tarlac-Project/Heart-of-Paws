@@ -13,12 +13,13 @@ export const authGuard: CanActivateFn = (route, state) => {
   // If the user is authenticated, the server responds with { message: "Authenticated" } and a 200 OK status.
   // The server responds with an error (e.g., 401 Unauthorized or 403 Forbidden).
   // The catchError() is triggered, the user is redirected to the login page, and false is returned, indicating the user is not authenticated.
-  return authService.isAdmin().pipe(
+  return authService.isAuthenticated().pipe(
     map(() => {
       return true;
     }),
     catchError(() => {
-      router.navigate(['/unauthorized']);
+      localStorage.setItem('redirectUrl', state.url);
+      router.navigate(['/login']);
       return of(false);
     })
   );

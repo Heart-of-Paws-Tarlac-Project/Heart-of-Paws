@@ -8,6 +8,7 @@ const applicationsRouter = require("./routes/applicationsRoutes");
 const userRouter = require("./routes/userRoutes");
 const inquiriesRouter = require("./routes/inquiriesRoutes");
 const adminAuthRouter = require("./routes/adminAuthRoutes");
+const adminRouter = require("./routes/adminRoutes");
 const cookieParser = require("cookie-parser");
 const session = require("express-session");
 const mongoStore = require("connect-mongo");
@@ -47,6 +48,7 @@ app.use(morgan("tiny"));
 
 app.use("/rescues", rescuesRouter);
 app.use("/adminAuth", adminAuthRouter);
+app.use("/admin", adminRouter);
 app.use("/auth", authRouter);
 app.use("/applications", applicationsRouter);
 app.use("/inquiries", inquiriesRouter);

@@ -9,19 +9,20 @@ router.get("/", rescuesController.getAllRescues);
 router.get("/:slug", rescuesController.getRescue);
 
 //admin routes
+//create rescue
 router.post(
   "/createRescue",
-  isAuthenticated,
   isAdmin,
   rescuesController.uploadImages,
   rescuesController.createRescue
 );
-
-//route to get number of applications
+//get total no of applications for rescue
 router.get(
-  "/rescue/:id",
-  isAuthenticated,
+  "/:rescueId/applications",
+  isAdmin,
   rescuesController.getNoOfApplications
 );
+//update rescue details
+router.patch("/:rescueId", isAdmin, rescuesController.updateRescue);
 
 module.exports = router;

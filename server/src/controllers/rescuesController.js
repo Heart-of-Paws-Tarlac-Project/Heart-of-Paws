@@ -7,6 +7,8 @@ const multer = require("multer");
 const storage = multer.memoryStorage();
 const upload = multer({ storage: storage });
 const Application = require("../models/application");
+const CustomError = require("../errors/CustomError");
+const slugify = require("slugify");
 
 //multer middleware to upload multiple images, used in the createRescue route handler
 exports.uploadImages = upload.fields([
@@ -15,7 +17,7 @@ exports.uploadImages = upload.fields([
 ]);
 
 exports.getAllRescues = asyncHandler(async (req, res) => {
-  const rescues = await Rescue.find({});
+  const rescues = await Rescue.find({ availability: "available" });
 
   if (!rescues) {
     throw new CustomNotFoundError("No rescues found.");
@@ -110,22 +112,40 @@ exports.createRescue = asyncHandler(async (req, res) => {
 });
 
 exports.getNoOfApplications = asyncHandler(async (req, res) => {
-  const rescueId = req.params.id;
+  const rescueId = req.params.rescueId;
   console.log(`rescue id: ${rescueId}`);
 
-  // Find the rescue by id
   const rescue = await Rescue.findOne({ _id: rescueId });
   if (!rescue) {
     return res.status(404).json({ message: "Rescue not found" });
   }
 
-  // Count the number of applications for the rescue
-  const applicationCount = await Application.countDocuments({
-    rescue: rescue.id,
-  });
+  const applications = (await Application.find({ rescue: rescue.id })) || [];
 
   res.status(200).json({
     rescue: rescue.name,
-    applicationCount,
+    applications: applications.length > 0 ? applications : [], // Send an empty array if no applications
   });
+});
+
+exports.updateRescue = asyncHandler(async (req, res) => {
+  const rescueId = req.params.rescueId;
+  const updates = req.body;
+
+  if (updates.name) {
+    updates.slug = slugify(updates.name, { lower: true, strict: true });
+  }
+
+  //set all fields based on request body
+  const updatedRescue = await Rescue.findByIdAndUpdate(
+    rescueId,
+    { $set: updates },
+    { new: true, runValidators: true }
+  );
+
+  if (!updatedRescue) {
+    throw new CustomError("Rescue to be updated not found!", 404);
+  }
+
+  res.status(200).send({ rescue: updatedRescue });
 });

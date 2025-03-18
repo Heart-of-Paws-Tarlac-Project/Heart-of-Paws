@@ -8,12 +8,7 @@ const isAdmin = require("../middlewares/isAdmin");
 router.get("/is-authenticated", isAuthenticated, authController.verifyAuth);
 
 //route to verify admin authentication status
-router.get(
-  "/is-admin",
-  isAuthenticated,
-  isAdmin,
-  authController.verifyAdminAuth
-);
+
 
 router.post("/register", authController.registerUser);
 router.post("/login", authController.loginUser);

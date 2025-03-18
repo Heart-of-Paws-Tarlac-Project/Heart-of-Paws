@@ -1,0 +1,68 @@
+<p>{{ userProfile.name }}</p>
+<p>{{ userProfile.email }}</p>
+
+<div class="mx-auto w-64 text-center">
+  <div class="relative w-64">
+    <img
+      class="w-64 h-64 rounded-full absolute"
+      [src]="userProfile.profileImage"
+      alt=""
+    />
+    <p *ngIf="uploadNotification" class="text-green-500 text-center">
+      {{ uploadNotification }}
+    </p>
+    <p *ngIf="errorMessage" class="text-red-500 text-center">
+      {{ errorMessage }}
+    </p>
+    <div
+      class="w-64 h-64 group hover:bg-gray-200 opacity-60 rounded-full absolute flex justify-center items-center cursor-pointer transition duration-500"
+    >
+      <img
+        class="hidden group-hover:block w-12"
+        src="https://www.svgrepo.com/show/33565/upload.svg"
+        alt=""
+      />
+      <input
+        #fileInput
+        type="file"
+        accept="image/*"
+        (change)="onFileSelected($event, userProfile._id)"
+        style="display: none"
+      />
+      <div
+        class="w-64 h-64 group hover:bg-gray-200 opacity-60 rounded-full absolute flex justify-center items-center cursor-pointer transition duration-500"
+        (click)="fileInput.click()"
+      ></div>
+    </div>
+  </div>
+
+  <!-- <div class="card" *ngFor="let application of userApplications">
+    <img
+      [src]="application.rescue.featureImage"
+      alt="{{ application.rescue.name }}"
+    />
+    <p>{{ application.rescue.name }}</p>
+    <p>Appointment mode: {{ application.appointmentMode }}</p>
+    <p class="text-red">{{ application.rescue.name }}.</p>
+    <p>
+      You are currently number {{ application.queuePosition }} out of
+      {{ application.totalApplicants }} applicants for
+      {{ application.rescue.name }}.
+    </p>
+  </div> -->
+
+  <div *ngIf="userApplications.length === 0; else applicationList">
+    <p>You have not applied for any rescue.</p>
+  </div>
+
+  <ng-template #applicationList>
+    <app-application-card
+      *ngFor="let application of userApplications"
+      [rescueImg]="application.rescue.featureImage"
+      [rescueName]="application.rescue.name"
+      [noOfApplications]="application.totalApplicants"
+      [queuePosition]="application.queuePosition"
+    >
+    </app-application-card>
+  </ng-template>
+</div>

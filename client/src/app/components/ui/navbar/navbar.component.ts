@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, ViewChild } from '@angular/core';
 import { Router, RouterLink, RouterLinkActive } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { AuthService } from '../../../services/auth.service';
@@ -6,6 +6,8 @@ import { Subscription } from 'rxjs';
 import { UserService } from '../../../services/user.service';
 import { User } from '../../../interfaces/user';
 import { setThrowInvalidWriteToSignalError } from '@angular/core/primitives/signals';
+import { HostListener } from '@angular/core';
+import { ElementRef } from '@angular/core';
 
 @Component({
   selector: 'app-navbar',
@@ -18,7 +20,11 @@ export class NavbarComponent implements OnInit, OnDestroy {
   userId: string = '';
   userProfileSrc: string = '';
   isAuthenticated: boolean = false;
+  isDropdownOpen = false;
   private authSubscription: Subscription | null = null;
+
+  @ViewChild('dropdownMenu') dropdownMenu!: ElementRef;
+  @ViewChild('dropdownButton') dropdownButton!: ElementRef;
 
   constructor(
     private authService: AuthService,
@@ -38,6 +44,14 @@ export class NavbarComponent implements OnInit, OnDestroy {
     );
   }
 
+  toggleDropdown() {
+    this.isDropdownOpen = !this.isDropdownOpen;
+  }
+
+  closeDropdown() {
+    this.isDropdownOpen = false;
+  }
+
   ngOnDestroy(): void {
     if (this.authSubscription) {
       this.authSubscription.unsubscribe();
@@ -49,6 +63,7 @@ export class NavbarComponent implements OnInit, OnDestroy {
       next: (response) => {
         this.router.navigate(['/']);
         console.log('User successfully logged out');
+        this.isDropdownOpen = false;
       },
       error: (error) => {
         console.error('Error in logging out user', error);
@@ -72,5 +87,19 @@ export class NavbarComponent implements OnInit, OnDestroy {
 
   navigateToUserProfile() {
     this.router.navigate(['user', this.userId]);
+    this.isDropdownOpen = false;
+  }
+  @HostListener('document:click', ['$event'])
+  handleOutsideClick(event: Event) {
+    // If dropdown is open, check if click is inside dropdown or button
+    if (
+      this.isDropdownOpen &&
+      this.dropdownMenu &&
+      this.dropdownButton &&
+      !this.dropdownMenu.nativeElement.contains(event.target) &&
+      !this.dropdownButton.nativeElement.contains(event.target)
+    ) {
+      this.closeDropdown();
+    }
   }
 }

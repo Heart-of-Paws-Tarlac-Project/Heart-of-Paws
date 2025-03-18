@@ -1,11 +1,15 @@
-<app-navbar
-  *ngIf="!isAdminAuthenticated && (isUserAuthenticated || !isUserAuthenticated)"
-></app-navbar
-><app-admin-navbar *ngIf="isAdminAuthenticated"></app-admin-navbar>
-<!-- <p>is admin authenticated {{ isAdminAuthenticated }}</p>
+<main class="bg-primary-light dark:bg-primary-dark">
+  <app-navbar
+    *ngIf="
+      !isAdminAuthenticated && (isUserAuthenticated || !isUserAuthenticated)
+    "
+  ></app-navbar
+  ><app-admin-navbar *ngIf="isAdminAuthenticated"></app-admin-navbar>
+  <!-- <p>is admin authenticated {{ isAdminAuthenticated }}</p>
 <p>is user authenticated {{ isUserAuthenticated }}</p> -->
 
-<div class="router-container">
-  <router-outlet></router-outlet>
-</div>
-<app-footer *ngIf="showFooter()"></app-footer>
+  <div class="router-container">
+    <router-outlet></router-outlet>
+  </div>
+  <app-footer *ngIf="showFooter()"></app-footer>
+</main>

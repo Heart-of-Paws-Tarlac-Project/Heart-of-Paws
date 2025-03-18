@@ -8,7 +8,6 @@ import { AdminAuthService } from './services/admin-auth.service';
 import { AuthService } from './services/auth.service';
 import { Subscription } from 'rxjs';
 import { AdminNavbarComponent } from './components/admin/ui/admin-navbar/admin-navbar.component';
-import { ViewportScroller } from '@angular/common';
 import Lenis from '@studio-freight/lenis';
 
 @Component({
@@ -34,12 +33,16 @@ export class AppComponent implements OnInit, OnDestroy, AfterViewInit {
   constructor(
     private router: Router,
     private adminAuthService: AdminAuthService,
-    private authService: AuthService,
-    private viewportScroller: ViewportScroller
+    private authService: AuthService
   ) {
     this.router.events.subscribe((event) => {
       if (event instanceof NavigationEnd) {
-        this.viewportScroller.scrollToPosition([0, 0]); // Scrolls to top after navigation
+        // Reset scroll smoothly when navigating to a new page
+        if (this.lenis) {
+          this.lenis.scrollTo(0, { immediate: true });
+        } else {
+          window.scrollTo(0, 0);
+        }
       }
     });
   }
@@ -62,6 +65,7 @@ export class AppComponent implements OnInit, OnDestroy, AfterViewInit {
     this.lenis = new Lenis({
       duration: 1.2, // Adjust duration for smoother effect
       easing: (t: number) => 1 - Math.pow(1 - t, 4), // Custom easing
+      smoothWheel: true, // Enables smoother scrolling with the mouse wheel
     });
 
     const raf = (time: number) => {

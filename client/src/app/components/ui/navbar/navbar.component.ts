@@ -32,6 +32,21 @@ export class NavbarComponent implements OnInit, OnDestroy {
     private userService: UserService
   ) {}
 
+  isMenuOpen = false;
+
+  toggleMenu() {
+    this.isMenuOpen = !this.isMenuOpen;
+  }
+
+  closeMenu() {
+    this.isMenuOpen = false;
+  }
+
+  handleNavigation() {
+    this.closeMenu();
+    this.closeDropdown();
+  }
+
   ngOnInit(): void {
     this.authSubscription = this.authService.isAuthenticated$.subscribe(
       (isAuthenticated) => {

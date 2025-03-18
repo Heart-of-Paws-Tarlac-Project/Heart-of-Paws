@@ -3,6 +3,8 @@ import { Rescue } from '../../../interfaces/rescue';
 import { RescueService } from '../../../services/rescue.service';
 import { CommonModule } from '@angular/common';
 import { RescueCardComponent } from '../../ui/rescue-card/rescue-card.component';
+import AOS from 'aos';
+import 'aos/dist/aos.css';
 
 @Component({
   selector: 'app-rescues-list',
@@ -17,7 +19,9 @@ export class RescuesListComponent implements OnInit {
   ngOnInit(): void {
     this.rescueService.getRescues();
   }
-
+  ngAfterViewInit(): void {
+    AOS.init();
+  }
   get rescues() {
     return this.rescueService.rescues$();
   }

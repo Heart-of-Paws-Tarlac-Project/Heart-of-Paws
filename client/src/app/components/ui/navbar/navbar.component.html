@@ -126,13 +126,13 @@
               >Logout</a
             >
           </li>
-          <a *ngIf="isAuthenticated" [routerLink]="['user/', userId]">
+          <button *ngIf="isAuthenticated" (click)="navigateToUserProfile()">
             <img
               class="w-10 h-10 rounded-full"
               [src]="userProfileSrc"
               alt="Rounded avatar"
             />
-          </a>
+          </button>
           <li *ngIf="!isAuthenticated">
             <a
               routerLink="/login"

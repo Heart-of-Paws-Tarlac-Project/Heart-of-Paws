@@ -69,4 +69,8 @@ export class NavbarComponent implements OnInit, OnDestroy {
       },
     });
   }
+
+  navigateToUserProfile() {
+    this.router.navigate(['user', this.userId]);
+  }
 }

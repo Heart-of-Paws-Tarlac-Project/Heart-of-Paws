@@ -23,6 +23,12 @@ const userSchema = new Schema(
       required: true,
       enum: ["admin", "user"],
     },
+    profileImage: {
+      type: String,
+      required: true,
+      default:
+        "https://res.cloudinary.com/dydm43ec5/image/upload/v1742289560/profileImages/le0xekv9hluoehypgmsf.png",
+    },
   },
   {
     timestamps: true,

@@ -40,6 +40,11 @@ const rescueSchema = new Schema({
     type: [String],
     required: true,
   },
+  // availability: {
+  //   type: String,
+  //   enum: ["available", "adopted"],
+  //   required: true,
+  // },
 });
 
 /* Pre-save middleware to generate the slug (for creation). runs before the document is saved to the database. checks for a save event, then generates a slug based on the document's name*/

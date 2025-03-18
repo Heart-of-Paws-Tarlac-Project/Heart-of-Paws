@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { FormInputComponent } from '../../ui/form-input/form-input.component';
 import { ButtonComponent } from '../../ui/button/button.component';
 import {
@@ -12,6 +12,7 @@ import { CommonModule } from '@angular/common';
 import { AuthService } from '../../../services/auth.service';
 import AOS from 'aos';
 import 'aos/dist/aos.css';
+import { AdminAuthService } from '../../../services/admin-auth.service';
 
 @Component({
   selector: 'app-login-form',
@@ -26,13 +27,28 @@ import 'aos/dist/aos.css';
   templateUrl: './login-form.component.html',
   styleUrl: './login-form.component.css',
 })
-export class LoginFormComponent {
+export class LoginFormComponent implements OnInit {
+  @Input() userType: 'admin' | 'user' = 'user';
   isSubmitted: boolean = false;
   errorMessage: string = '';
+  welcomeMessage: string = '';
   ngAfterViewInit(): void {
     AOS.init();
   }
-  constructor(private router: Router, private authService: AuthService) {}
+  constructor(
+    private router: Router,
+    private authService: AuthService,
+    private adminAuthService: AdminAuthService
+  ) {}
+
+  ngOnInit(): void {
+    if (this.userType === 'admin') {
+      console.log(`User type: ${this.userType}`);
+      this.welcomeMessage = 'Admin Login';
+      return;
+    }
+    this.welcomeMessage = 'welcome back!';
+  }
 
   loginForm = new FormGroup({
     email: new FormControl('', [Validators.required, Validators.email]),
@@ -61,6 +77,25 @@ export class LoginFormComponent {
     };
 
     const redirectUrl = localStorage.getItem('redirectUrl'); //if an user was redirected from application page
+
+    //if form was used for admin login
+    if (this.userType === 'admin') {
+      this.adminAuthService.loginAdmin(userCred).subscribe({
+        next: () => {
+          console.log('Admin successfully logged in');
+          this.router.navigate(['/admin']);
+        },
+        error: (error) => {
+          console.log('Error in logging admin.');
+          if (error.status === 401) {
+            this.errorMessage = 'Invalid username or password';
+          } else {
+            this.errorMessage = 'Oops! Something went wrong. Please try again.';
+          }
+        },
+      });
+      return;
+    }
 
     //call authService's login method
     this.authService.loginUser(userCred).subscribe({

@@ -74,7 +74,5 @@ export class AuthService {
     return this.apiService.get(`/auth/is-authenticated`);
   }
 
-  isAdmin() {
-    return this.apiService.get('/auth/is-admin');
-  }
+  
 }

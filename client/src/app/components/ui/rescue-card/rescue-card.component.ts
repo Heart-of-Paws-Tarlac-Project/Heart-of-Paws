@@ -12,4 +12,5 @@ import { RouterModule } from '@angular/router';
 })
 export class RescueCardComponent {
   @Input() rescue!: Rescue;
+  @Input() userType: 'admin' | 'user' = 'user';
 }

@@ -1,0 +1,42 @@
+import { Component, OnInit } from '@angular/core';
+import { AdminAuthService } from '../../../../services/admin-auth.service';
+import { CommonModule } from '@angular/common';
+import { Subscription } from 'rxjs';
+import { Router } from '@angular/router';
+
+@Component({
+  selector: 'app-admin-navbar',
+  standalone: true,
+  imports: [CommonModule],
+  templateUrl: './admin-navbar.component.html',
+  styleUrl: './admin-navbar.component.css',
+})
+export class AdminNavbarComponent implements OnInit {
+  isAdminAuthenticated: boolean = false;
+  private adminAuthSub: Subscription | null = null;
+
+  constructor(
+    private adminAuthService: AdminAuthService,
+    private router: Router
+  ) {}
+
+  ngOnInit(): void {
+    this.adminAuthService.isAdminAuthenticated$.subscribe(
+      (isAdminAuthenticated) => {
+        this.isAdminAuthenticated = isAdminAuthenticated;
+      }
+    );
+  }
+
+  logoutAdmin() {
+    this.adminAuthService.logoutAdmin().subscribe({
+      next: (response) => {
+        console.log('Admin has been successfully logged out');
+        this.router.navigate(['/']);
+      },
+      error: (error) => {
+        console.error('Error logging out admin');
+      },
+    });
+  }
+}

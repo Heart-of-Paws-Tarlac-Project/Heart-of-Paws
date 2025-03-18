@@ -5,7 +5,7 @@
       data-aos="fade-right"
       data-aos-duration="800"
     >
-      <span class="block">Meet Our Rescues</span>
+      <span class="block">{{ rescueListTitle }}</span>
       <span class="block"></span>
       <span class="block text-blue-600 dark:text-blue-400"></span>
     </h1>
@@ -23,6 +23,7 @@
       <app-rescue-card
         *ngFor="let rescue of rescues"
         [rescue]="rescue"
+        [userType]="userType"
       ></app-rescue-card>
     </div>
   </div>

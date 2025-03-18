@@ -1,13 +1,16 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { UserService } from '../../../services/user.service';
-import { CommonModule } from '@angular/common';
 import { RescueService } from '../../../services/rescue.service';
+import { CommonModule } from '@angular/common';
 import { ApplicationCardComponent } from '../../ui/application-card/application-card.component';
+import { ButtonComponent } from '../../ui/button/button.component';
+import AOS from 'aos';
+import 'aos/dist/aos.css';
 
 @Component({
   selector: 'app-user-profile',
   standalone: true,
-  imports: [CommonModule, ApplicationCardComponent],
+  imports: [CommonModule, ApplicationCardComponent, ButtonComponent],
   templateUrl: './user-profile.component.html',
   styleUrl: './user-profile.component.css',
 })
@@ -16,6 +19,12 @@ export class UserProfileComponent implements OnInit {
   userApplications: any[] = [];
   uploadNotification: string = '';
   errorMessage: string = '';
+
+  ngAfterViewInit(): void {
+    AOS.init();
+  }
+
+  @ViewChild('fileInput', { static: false }) fileInput!: ElementRef;
 
   constructor(
     private userService: UserService,
@@ -29,42 +38,43 @@ export class UserProfileComponent implements OnInit {
     }
   }
 
-  getUserProfile(userId: string) {
+  getUserProfile(userId: string): void {
     this.userService.getUserProfile(userId).subscribe({
       next: (response) => {
-        this.userProfile = response.user;
-        this.userApplications = response.applications;
+        this.userProfile = response.user || {};
+        this.userApplications = response.applications || [];
       },
       error: (error) => {
-        console.error('Error in retrieving user profile:', error);
+        console.error('Error retrieving user profile:', error);
+        this.errorMessage = 'Failed to load profile. Please try again.';
       },
     });
   }
 
-  //method to handle profile picture upload
+  openFileInput(): void {
+    if (this.fileInput) {
+      this.fileInput.nativeElement.click();
+    }
+  }
+
   onFileSelected(event: Event, userId: string): void {
     const input = event.target as HTMLInputElement;
     if (input?.files && input.files.length > 0) {
       const file: File = input.files[0];
-
-      // Create a new FormData instance
       const formData = new FormData();
-
-      // Use 'profileImage' to match what your server expects
-      formData.append('profileImage', file, file.name); // Adding file.name can help
-
-      console.log('Uploading file:', file.name, 'size:', file.size);
+      formData.append('profileImage', file, file.name);
 
       this.userService.updateProfileImg(userId, formData).subscribe({
         next: (response) => {
-          console.log('User profile image successfully updated:', response);
+          console.log('Profile image updated:', response);
           this.getUserProfile(userId);
           this.uploadNotification = 'Profile image updated successfully.';
+          this.errorMessage = '';
         },
         error: (error) => {
-          console.error('Error in updating user profile image:', error);
-          this.errorMessage =
-            'Oops! Something went wrong trying to upload your photo. Please try again.';
+          console.error('Error updating profile image:', error);
+          this.uploadNotification = '';
+          this.errorMessage = 'Failed to upload photo. Please try again.';
         },
       });
     }

@@ -1,0 +1,45 @@
+<div
+  class="max-w-md bg-gray-200 rounded-2xl dark:bg-gray-800 min-h-[350px] flex flex-col justify-end cursor-default hover:cursor-pointer p-3"
+>
+  <div class="p-5 flex-grow flex flex-col justify-start">
+    <a href="#">
+      <h5
+        class="mb-2 text-xl sm:text-2xl font-bold tracking-tight text-gray-900 dark:text-white uppercase"
+      >
+        {{ rescueName }}
+      </h5>
+      <p>
+        You are currently number {{ noOfApplications }} out of
+        {{ queuePosition }} applicants for {{ rescueName }}.
+      </p>
+    </a>
+  </div>
+
+  <!-- Image Wrapper with relative position -->
+  <div class="relative w-full overflow-hidden rounded-2xl">
+    <img
+      class="w-full h-80 object-cover transition-transform duration-300 hover:scale-110"
+      [src]="rescueImg"
+      alt="{{ rescueName }}"
+    />
+
+    <!-- Icon Overlay on Image -->
+    <!-- Icon Overlay on Image -->
+
+    <svg
+      class="w-6 h-6"
+      viewBox="0 0 24 24"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      stroke="currentColor"
+    >
+      <path
+        d="M7 17L17 7M17 7H8M17 7V16"
+        stroke="white"
+        stroke-width="2"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      />
+    </svg>
+  </div>
+</div>

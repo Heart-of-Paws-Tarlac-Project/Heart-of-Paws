@@ -5,13 +5,15 @@ import { LoginFormComponent } from './components/pages/login-form/login-form.com
 import { RegisterFormComponent } from './components/pages/register-form/register-form.component';
 import { HomeComponent } from './components/pages/home/home.component';
 import { authGuard } from './guards/auth.guard';
-import { AdminDashboardComponent } from './components/pages/admin-dashboard/admin-dashboard.component';
+import { adminAuthGuard } from './guards/admin-auth.guard';
+import { AdminDashboardComponent } from './components/admin/admin-dashboard/admin-dashboard.component';
 import { UnauthorizedComponent } from './components/pages/unauthorized/unauthorized.component';
 import { HelpComponent } from './components/pages/help/help.component';
 import { AboutComponent } from './components/pages/about/about.component';
 import { ApplicationFormComponent } from './components/pages/application-form/application-form.component';
 import { ContactComponent } from './components/pages/contact/contact.component';
 import { UserProfileComponent } from './components/pages/user-profile/user-profile.component';
+import { AdminLoginComponent } from './components/admin/admin-login/admin-login.component';
 
 export const routes: Routes = [
   {
@@ -42,6 +44,11 @@ export const routes: Routes = [
   {
     path: 'admin',
     component: AdminDashboardComponent,
+    canActivate: [adminAuthGuard],
+  },
+  {
+    path: 'admin-login',
+    component: AdminLoginComponent,
   },
   {
     path: 'unauthorized',
@@ -67,5 +74,9 @@ export const routes: Routes = [
   {
     path: 'user/:id',
     component: UserProfileComponent,
+  },
+  {
+    path: '**',
+    redirectTo: '',
   },
 ];

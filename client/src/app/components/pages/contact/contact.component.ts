@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import {
   ReactiveFormsModule,
   FormControl,
@@ -14,6 +14,12 @@ import { AuthService } from '../../../services/auth.service';
 import { Subscription } from 'rxjs';
 import AOS from 'aos';
 import 'aos/dist/aos.css';
+import Map from 'ol/Map';
+import View from 'ol/View';
+import TileLayer from 'ol/layer/Tile';
+import OSM from 'ol/source/OSM';
+import { fromLonLat } from 'ol/proj';
+
 @Component({
   selector: 'app-contact',
   standalone: true,
@@ -27,9 +33,29 @@ import 'aos/dist/aos.css';
   styleUrl: './contact.component.css',
 })
 export class ContactComponent implements OnInit {
+  @ViewChild('mapContainer', { static: false }) mapContainer!: ElementRef;
+  private map!: Map;
+
   ngAfterViewInit(): void {
     AOS.init();
+    const tarlacCoordinates = fromLonLat([120.5979, 15.4822]);
+
+    this.map = new Map({
+      target: this.mapContainer.nativeElement,
+      layers: [
+        new TileLayer({
+          source: new OSM(),
+        }),
+      ],
+      view: new View({
+        center: tarlacCoordinates, // Set to Tarlac, Tarlac
+        zoom: 14, // Zoom in for better view
+      }),
+    });
+
+    console.log('Map centered at Tarlac, Tarlac');
   }
+
   isAuthenticated: boolean = false;
   private authSubscription: Subscription | null = null;
 

@@ -1,4 +1,4 @@
-import { Routes } from '@angular/router';
+import { Routes, RouterModule } from '@angular/router';
 import { RescuesListComponent } from './components/pages/rescues-list/rescues-list.component';
 import { RescueDetailComponent } from './components/pages/rescue-detail/rescue-detail.component';
 import { LoginFormComponent } from './components/pages/login-form/login-form.component';
@@ -69,3 +69,9 @@ export const routes: Routes = [
     component: UserProfileComponent,
   },
 ];
+
+// Configure RouterModule with Scroll Restoration
+export const AppRoutingModule = RouterModule.forRoot(routes, {
+  scrollPositionRestoration: 'enabled', // Restores scroll position on navigation
+  anchorScrolling: 'enabled', // Enables scrolling to #anchors
+});

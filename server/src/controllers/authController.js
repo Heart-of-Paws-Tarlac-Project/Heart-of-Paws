@@ -90,6 +90,4 @@ exports.verifyAuth = asyncHandler(async (req, res) => {
   res.status(200).send({ message: "Authenticated" });
 });
 
-exports.verifyAdminAuth = asyncHandler(async (req, res) => {
-  res.status(200).send({ message: "Admin Authenticated" });
-});
+

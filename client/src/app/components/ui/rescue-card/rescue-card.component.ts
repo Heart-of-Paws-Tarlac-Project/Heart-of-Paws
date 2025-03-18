@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { Rescue } from '../../../interfaces/rescue';
 import { RouterLink } from '@angular/router';
 import { RouterModule } from '@angular/router';
@@ -10,7 +10,14 @@ import { RouterModule } from '@angular/router';
   templateUrl: './rescue-card.component.html',
   styleUrl: './rescue-card.component.css',
 })
-export class RescueCardComponent {
+export class RescueCardComponent implements OnInit {
+  cardLink: string = '';
   @Input() rescue!: Rescue;
   @Input() userType: 'admin' | 'user' = 'user';
+
+  ngOnInit(): void {
+    this.userType == 'admin'
+      ? (this.cardLink = this.userType)
+      : (this.cardLink = this.userType);
+  }
 }

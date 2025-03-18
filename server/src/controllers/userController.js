@@ -1,0 +1,142 @@
+const Application = require("../models/application");
+const asyncHandler = require("express-async-handler");
+const CustomError = require("../errors/CustomError");
+const Rescue = require("../models/rescue");
+const User = require("../models/user");
+const cloudinary = require("../utils/cloudinary");
+const multer = require("multer");
+const storage = multer.memoryStorage();
+const upload = multer({ storage: storage });
+
+//multer middleware for a single profile image, used in the uploadProfileImage route
+exports.uploadProfileImage = upload.single("profileImage");
+
+//get user profile
+exports.getUserProfile = asyncHandler(async (req, res) => {
+  const userId = req.params.id;
+  console.log(userId);
+
+  const user = await User.findById(userId).select("-password");
+  if (!user) {
+    return res.status(404).json({ message: "User not found" });
+  }
+
+  // Get all applications for user
+  const userApplications = await Application.find({ user: userId })
+    .populate("rescue", "name slug featureImage")
+    .exec();
+
+  const enhancedApplications = await Promise.all(
+    userApplications.map(async (application) => {
+      // For each application, find all applications for the same rescue
+      // that are still pending and sort them by creation date
+      const queueApplications = await Application.find({
+        rescue: application.rescue._id,
+        status: "pending",
+      })
+        .sort({ createdAt: 1 }) // Sort by creation date, oldest first
+        .exec();
+
+      // Find the position of the current application in the queue
+      const position =
+        queueApplications.findIndex(
+          (app) => app._id.toString() === application._id.toString()
+        ) + 1; // Add 1 because array indices start at 0
+
+      // Get total number of applicants for this rescue
+      const totalApplicants = queueApplications.length;
+
+      // Convert the application to a plain object so we can add properties
+      const appObject = application.toObject();
+
+      // Add queue information
+      appObject.queuePosition = position;
+      appObject.totalApplicants = totalApplicants;
+
+      return appObject;
+    })
+  );
+
+  res.status(200).json({
+    user,
+    applications: enhancedApplications,
+  });
+});
+
+//update user profile image
+exports.updateProfileImage = asyncHandler(async (req, res) => {
+  const userId = req.params.id;
+
+  if (!req.file) {
+    throw new CustomError("No profile image uploaded!", 400);
+  }
+  console.log("File received:", req.file);
+
+  const user = await User.findById(userId);
+  console.log(`user: ${user}`);
+
+  if (!user) {
+    throw new CustomError("User not found!", 404);
+  }
+
+  // Store the previous profile image URL
+  const previousImageUrl = user.profileImage;
+
+  // Function to upload to cloudinary that returns a promise of error or the url of the image
+  const uploadToCloudinary = () => {
+    return new Promise((resolve, reject) => {
+      cloudinary.uploader
+        .upload_stream({ folder: "profileImages" }, (error, result) => {
+          if (error) reject(error);
+          else resolve(result.secure_url);
+        })
+        .end(req.file.buffer);
+    });
+  };
+
+  // Upload new image to Cloudinary
+  const profileImageUrl = await uploadToCloudinary();
+  console.log(`New profile image URL: ${profileImageUrl}`);
+
+  if (!profileImageUrl) {
+    throw new CustomError("Error uploading user profile image", 500);
+  }
+
+  // Set found user's profile image field to the new URL
+  user.profileImage = profileImageUrl;
+  await user.save();
+
+  // Delete the previous image from Cloudinary if it exists
+  if (
+    previousImageUrl !==
+    "https://res.cloudinary.com/dydm43ec5/image/upload/v1742289560/profileImages/le0xekv9hluoehypgmsf.png"
+  ) {
+    try {
+      // Extract the public ID from the Cloudinary URL
+      const urlParts = previousImageUrl.split("/");
+      const filenamePart = urlParts[urlParts.length - 1];
+      const folderPart = urlParts[urlParts.length - 2];
+      const publicId = `${folderPart}/${filenamePart.split(".")[0]}`;
+
+      await new Promise((resolve, reject) => {
+        cloudinary.uploader.destroy(publicId, (error, result) => {
+          if (error) {
+            console.error(`Error deleting previous image: ${error}`);
+            resolve(); // Continue even if deletion fails
+          } else {
+            console.log(`Previous image deleted: ${result}`);
+            resolve(result);
+          }
+        });
+      });
+    } catch (error) {
+      console.error(`Error in deletion process: ${error}`);
+      // We continue even if deletion fails
+    }
+  }
+
+  res.status(200).send({
+    message: "User profile image successfully updated",
+    profileImage: profileImageUrl,
+  });
+});

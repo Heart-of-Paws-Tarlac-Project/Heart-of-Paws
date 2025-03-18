@@ -51,6 +51,7 @@ export class RescueService {
     });
   } //add rescue returns an observable, subscribe to it to refreshRescues
 
+  //apply adoption request for a rescue
   inquireAboutRescue(application: any) {
     return this.apiService.post(
       `/applications/inquire/${application.slug}`,
@@ -58,5 +59,7 @@ export class RescueService {
     );
   }
 
-  
+  getRescueNoOfApplications(rescueId: string) {
+    return this.apiService.get(`${this.url}/rescue/${rescueId}`);
+  }
 }

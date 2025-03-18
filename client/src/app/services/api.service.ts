@@ -21,4 +21,10 @@ export class ApiService {
       withCredentials: true,
     });
   }
+
+  patch(url: string, body: any): Observable<any> {
+    return this.httpClient.patch(`${this.baseUrl}${url}`, body, {
+      withCredentials: true,
+    });
+  }
 }

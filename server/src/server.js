@@ -5,6 +5,7 @@ const morgan = require("morgan");
 const rescuesRouter = require("./routes/rescuesRoutes");
 const authRouter = require("./routes/authRoutes");
 const applicationsRouter = require("./routes/applicationsRoutes");
+const userRouter = require("./routes/userRoutes");
 const inquiriesRouter = require("./routes/inquiriesRoutes");
 const cookieParser = require("cookie-parser");
 const session = require("express-session");
@@ -47,6 +48,7 @@ app.use("/rescues", rescuesRouter);
 app.use("/auth", authRouter);
 app.use("/applications", applicationsRouter);
 app.use("/inquiries", inquiriesRouter);
+app.use("/users", userRouter);
 
 //error handler middleware
 app.use((err, req, res, next) => {

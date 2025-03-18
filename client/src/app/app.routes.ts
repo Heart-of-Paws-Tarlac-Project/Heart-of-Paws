@@ -11,6 +11,7 @@ import { HelpComponent } from './components/pages/help/help.component';
 import { AboutComponent } from './components/pages/about/about.component';
 import { ApplicationFormComponent } from './components/pages/application-form/application-form.component';
 import { ContactComponent } from './components/pages/contact/contact.component';
+import { UserProfileComponent } from './components/pages/user-profile/user-profile.component';
 
 export const routes: Routes = [
   {
@@ -62,5 +63,9 @@ export const routes: Routes = [
   {
     path: 'contact-us',
     component: ContactComponent,
+  },
+  {
+    path: 'user/:id',
+    component: UserProfileComponent,
   },
 ];

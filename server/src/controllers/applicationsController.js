@@ -5,10 +5,21 @@ const Rescue = require("../models/rescue");
 
 //create application
 exports.createApplication = asyncHandler(async (req, res) => {
-  const rescue = await Rescue.findOne({ slug: req.params.slug });
+  const userId = req.session.user.id;
 
+  const rescue = await Rescue.findOne({ slug: req.params.slug });
   if (!rescue) {
     throw new CustomError("Rescue not found", 404);
+  }
+
+  //if application exists
+  const isApplicationExisting = await Application.findOne({
+    user: userId,
+    rescue: rescue._id,
+  });
+
+  if (isApplicationExisting) {
+    throw new CustomError("Application already exists", 400);
   }
 
   const application = new Application({

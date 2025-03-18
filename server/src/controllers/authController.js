@@ -65,12 +65,11 @@ exports.loginUser = asyncHandler(async (req, res) => {
 
   req.session.user = { id: user.id, name: user.name, role: user.role };
 
-  res
-    .status(200)
-    .send({
-      message: "User logged in successfully",
-      name: req.session.user.name,
-    }); //set cookie header will be sent along with the response
+  res.status(200).send({
+    message: "User logged in successfully",
+    name: req.session.user.name,
+    id: req.session.user.id,
+  }); //set cookie header will be sent along with the response
 });
 
 exports.logout = asyncHandler(async (req, res) => {

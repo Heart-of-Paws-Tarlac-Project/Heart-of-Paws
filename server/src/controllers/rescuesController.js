@@ -6,6 +6,7 @@ const cloudinary = require("../utils/cloudinary");
 const multer = require("multer");
 const storage = multer.memoryStorage();
 const upload = multer({ storage: storage });
+const Application = require("../models/application");
 
 //multer middleware to upload multiple images, used in the createRescue route handler
 exports.uploadImages = upload.fields([
@@ -106,4 +107,25 @@ exports.createRescue = asyncHandler(async (req, res) => {
   }
 
   res.status(201).send(`New Rescue created: ${rescue}`);
+});
+
+exports.getNoOfApplications = asyncHandler(async (req, res) => {
+  const rescueId = req.params.id;
+  console.log(`rescue id: ${rescueId}`);
+
+  // Find the rescue by id
+  const rescue = await Rescue.findOne({ _id: rescueId });
+  if (!rescue) {
+    return res.status(404).json({ message: "Rescue not found" });
+  }
+
+  // Count the number of applications for the rescue
+  const applicationCount = await Application.countDocuments({
+    rescue: rescue.id,
+  });
+
+  res.status(200).json({
+    rescue: rescue.name,
+    applicationCount,
+  });
 });

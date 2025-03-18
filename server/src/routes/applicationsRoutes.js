@@ -11,4 +11,5 @@ router.post(
   applicationsController.createApplication
 );
 
+
 module.exports = router;

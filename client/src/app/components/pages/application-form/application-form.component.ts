@@ -129,8 +129,9 @@ export class ApplicationFormComponent implements OnInit {
       },
       error: (error) => {
         console.error('Error creating application: ', error);
-        if (error.status) {
-          this.errorMessage = 'Oops! Something went wrong. Please try again.';
+        if (error.status === 400) {
+          this.errorMessage = `You've already applied for an adoption request for ${this.rescue.name}.`;
+          this.applicationForm.reset();
         }
       },
     });

@@ -40,7 +40,7 @@ export class AuthService {
           response.message ===
           `User ${credentials.name} successfully registered`
         ) {
-          this.isAuthenticatedSubject.next(true);
+          this.isAuthenticatedSubject.next(false);
         }
       })
     );
@@ -50,8 +50,10 @@ export class AuthService {
     return this.apiService.post(`/auth/login`, credentials).pipe(
       tap((response) => {
         if (response || response.message === 'User logged in successfully') {
-          this.isAuthenticatedSubject.next(true);
+          console.log(`response id: ${response.id}`);
           localStorage.setItem('userName', response.name);
+          localStorage.setItem('userId', response.id);
+          this.isAuthenticatedSubject.next(true);
         }
       })
     );
@@ -60,6 +62,7 @@ export class AuthService {
   logout() {
     return this.apiService.post(`/auth/logout`, {}).pipe(
       tap((response) => {
+        localStorage.removeItem('userId');
         if (response.message === 'Logout successful.') {
           this.isAuthenticatedSubject.next(false);
         }

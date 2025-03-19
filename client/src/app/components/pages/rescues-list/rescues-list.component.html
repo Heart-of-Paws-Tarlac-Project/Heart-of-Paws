@@ -1,3 +1,4 @@
+<!-- rescues-list.component.html -->
 <div class="w-full px-4 sm:px-6 md:px-16 lg:pt-20 flex flex-col items-center">
   <div class="gallery-heading text-center w-full">
     <h1
@@ -11,9 +12,61 @@
     </h1>
   </div>
 
+  <!-- Size filter buttons -->
+  <div
+    class="filter-controls my-8 flex flex-wrap justify-center gap-4"
+    data-aos="fade-up"
+    data-aos-duration="600"
+  >
+    <button
+      class="px-6 py-2 rounded-full transition-all"
+      [ngClass]="
+        activeFilter === 'all'
+          ? 'bg-localeColors-darkteal text-white'
+          : 'bg-localeColors-red text-white'
+      "
+      (click)="filterRescuesBySize('all')"
+    >
+      All
+    </button>
+    <button
+      class="px-6 py-2 rounded-full transition-all"
+      [ngClass]="
+        activeFilter === 'small'
+          ? 'bg-localeColors-darkteal text-white'
+          : 'bg-localeColors-red text-white'
+      "
+      (click)="filterRescuesBySize('small')"
+    >
+      Small
+    </button>
+    <button
+      class="px-6 py-2 rounded-full transition-all"
+      [ngClass]="
+        activeFilter === 'medium'
+          ? 'bg-localeColors-darkteal text-white'
+          : 'bg-localeColors-red text-white'
+      "
+      (click)="filterRescuesBySize('medium')"
+    >
+      Medium
+    </button>
+    <button
+      class="px-6 py-2 rounded-full transition-all"
+      [ngClass]="
+        activeFilter === 'large'
+          ? 'bg-localeColors-darkteal text-white'
+          : 'bg-localeColors-red text-white'
+      "
+      (click)="filterRescuesBySize('large')"
+    >
+      Large
+    </button>
+  </div>
+
   <!-- Centering the gallery -->
   <div
-    class="rescues-gallery mt-8 w-full max-w-screen-2xl mx-auto flex justify-center items-center flex-col py-10"
+    class="rescues-gallery w-full max-w-screen-2xl mx-auto flex justify-center items-center flex-col py-10"
   >
     <div
       class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10 md:gap-14 w-full justify-center"

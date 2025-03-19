@@ -10,6 +10,3 @@ app-form-input input {
   margin: 10px !important;
   box-shadow: none !important;
 }
-
-::ng-deep app-button {
-}

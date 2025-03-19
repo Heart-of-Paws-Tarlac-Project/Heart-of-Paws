@@ -40,3 +40,27 @@ exports.createApplication = asyncHandler(async (req, res) => {
 
   res.status(201).send({ message: "Application created successfully" });
 });
+
+exports.deleteApplication = asyncHandler(async (req, res) => {
+  const applicationId = req.params.id;
+  const userId = req.session.user.id;
+
+  console.log(`userId: ${userId}`);
+  console.log(`application id: ${applicationId}`);
+  const application = await Application.findById(applicationId);
+  if (!application) {
+    throw new CustomError("Application to delete not found!", 404);
+  }
+
+  if (application.user.toString() !== userId.toString()) {
+    throw new CustomError("Unauthorized request to delete application", 401);
+  }
+
+  const result = await Application.deleteOne(application);
+
+  if (!result) {
+    throw new CustomError("Error in deleting user application", 500);
+  }
+
+  res.status(204).send("Application deleted successfully");
+});

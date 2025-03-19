@@ -82,7 +82,7 @@
 
     <p class="text-xl mt-3 mb-3 ml-5">
       <span class="text-sm">Appointment mode</span><br />
-      {{ application.appointmentMode }}
+      {{ application.appointmentMode | titlecase }}
     </p>
     <!-- <p class="text-red">{{ application.rescue.name }}.</p> -->
     <p class="text-xl ml-5 mb-3">
@@ -92,6 +92,17 @@
       {{ application.rescue.name }}.
       {{ application.status }}
     </p>
-    <app-button text="Cancel" type="submit" class="w-full"></app-button>
+
+    <p class="text-xl ml-5 mb-3">
+      <span class="text-sm">Application Status</span><br />
+      {{ application.status | titlecase }}
+    </p>
+
+    <app-button
+      (click)="deleteUserApplication(application._id)"
+      text="Cancel"
+      type="submit"
+      class="w-full"
+    ></app-button>
   </div>
 </div>

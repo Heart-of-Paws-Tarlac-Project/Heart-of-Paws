@@ -38,6 +38,7 @@ export class UserProfileComponent implements OnInit {
     }
   }
 
+  //to retrieve user's profile on profile component
   getUserProfile(userId: string): void {
     this.userService.getUserProfile(userId).subscribe({
       next: (response) => {
@@ -52,12 +53,25 @@ export class UserProfileComponent implements OnInit {
     });
   }
 
+  deleteUserApplication(applicationId: string) {
+    this.userService.deleteApplication(applicationId).subscribe({
+      next: () => {
+        console.log('Application has been deleted successfully');
+      },
+      error: (error) => {
+        console.error('Error in deleting application: ', error);
+        this.errorMessage = 'Oops! Something went wrong. Please try again.';
+      },
+    });
+  }
+
   openFileInput(): void {
     if (this.fileInput) {
       this.fileInput.nativeElement.click();
     }
   }
 
+  //to update user's profile image
   onFileSelected(event: Event, userId: string): void {
     const input = event.target as HTMLInputElement;
     if (input?.files && input.files.length > 0) {

@@ -4,14 +4,14 @@ const applicationsController = require("../controllers/applicationsController");
 const isAuthenticated = require("../middlewares/isAuthenticated");
 const isAdmin = require("../middlewares/isAdmin");
 
-//create application
+//user routes
+//create application to adopt a rescue
 router.post(
   "/inquire/:slug",
   isAuthenticated,
   applicationsController.createApplication
 );
-
-
-
+//delete application to adopt a rescue
+router.delete("/:id", isAuthenticated, applicationsController.deleteApplication);
 
 module.exports = router;

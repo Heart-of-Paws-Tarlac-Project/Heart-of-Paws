@@ -43,6 +43,7 @@ export class UserProfileComponent implements OnInit {
       next: (response) => {
         this.userProfile = response.user || {};
         this.userApplications = response.applications || [];
+        console.log(this.userApplications);
       },
       error: (error) => {
         console.error('Error retrieving user profile:', error);

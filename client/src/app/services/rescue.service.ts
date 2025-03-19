@@ -62,4 +62,12 @@ export class RescueService {
   getRescueNoOfApplications(rescueId: string) {
     return this.apiService.get(`${this.url}/rescue/${rescueId}`);
   }
+
+  getRescuesBySize(sizeFilter: string) {
+    this.apiService
+      .get(`${this.url}/?size=${sizeFilter}`)
+      .subscribe((rescues) => {
+        this.rescues$.set(rescues);
+      });
+  }
 }

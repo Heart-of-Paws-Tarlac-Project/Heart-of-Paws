@@ -12,6 +12,6 @@ router.post(
   applicationsController.createApplication
 );
 //delete application to adopt a rescue
-router.delete("/:id", applicationsController.deleteApplication);
+router.delete("/:id", isAuthenticated, applicationsController.deleteApplication);
 
 module.exports = router;

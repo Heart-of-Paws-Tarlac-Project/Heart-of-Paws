@@ -6,7 +6,9 @@ const isAdmin = require("../middlewares/isAdmin");
 
 //public routes
 router.get("/", rescuesController.getAllRescues);
+//fetch single rescue
 router.get("/:slug", rescuesController.getRescue);
+//fetch rescues by size
 
 //admin routes
 //create rescue

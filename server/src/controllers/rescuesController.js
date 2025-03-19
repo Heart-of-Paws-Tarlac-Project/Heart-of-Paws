@@ -17,7 +17,16 @@ exports.uploadImages = upload.fields([
 ]);
 
 exports.getAllRescues = asyncHandler(async (req, res) => {
-  const rescues = await Rescue.find({ availability: "available" });
+  const { size } = req.query;
+
+  //assign an object for query parameters
+  let query = {};
+
+  if (size) {
+    query.size = size;
+  }
+
+  const rescues = await Rescue.find({ availability: "available", ...query });
 
   if (!rescues) {
     throw new CustomNotFoundError("No rescues found.");

@@ -29,6 +29,7 @@ const rescueSchema = new Schema({
   size: {
     type: String,
     required: true,
+    enum: ["small", "medium", "large"],
   },
   vetStatus: {
     type: String,

@@ -27,4 +27,10 @@ export class ApiService {
       withCredentials: true,
     });
   }
+
+  delete(url: string): Observable<any> {
+    return this.httpClient.delete(`${this.baseUrl}${url}`, {
+      withCredentials: true,
+    });
+  }
 }

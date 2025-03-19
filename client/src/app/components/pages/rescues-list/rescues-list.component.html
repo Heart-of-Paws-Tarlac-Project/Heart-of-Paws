@@ -14,23 +14,23 @@
 
   <!-- Size filter buttons -->
   <div
-    class="filter-controls my-8 flex flex-wrap justify-center gap-4"
+    class="filter-controls my-8 flex flex-wrap justify-start items-start gap-2"
     data-aos="fade-up"
-    data-aos-duration="600"
+    data-aos-duration="800"
   >
     <button
-      class="px-6 py-2 rounded-full transition-all"
+      class="px-6 py-2 rounded-full transition-all hover:bg-localeColors-darkteal"
       [ngClass]="
         activeFilter === 'all'
           ? 'bg-localeColors-darkteal text-white'
-          : 'bg-localeColors-red text-white'
+          : 'bg-localeColors-red text-white '
       "
       (click)="filterRescuesBySize('all')"
     >
       All
     </button>
     <button
-      class="px-6 py-2 rounded-full transition-all"
+      class="px-6 py-2 rounded-full transition-all hover:bg-localeColors-darkteal"
       [ngClass]="
         activeFilter === 'small'
           ? 'bg-localeColors-darkteal text-white'
@@ -41,7 +41,7 @@
       Small
     </button>
     <button
-      class="px-6 py-2 rounded-full transition-all"
+      class="px-6 py-2 rounded-full transition-all hover:bg-localeColors-darkteal"
       [ngClass]="
         activeFilter === 'medium'
           ? 'bg-localeColors-darkteal text-white'
@@ -52,7 +52,7 @@
       Medium
     </button>
     <button
-      class="px-6 py-2 rounded-full transition-all"
+      class="px-6 py-2 rounded-full transition-all hover:bg-localeColors-darkteal"
       [ngClass]="
         activeFilter === 'large'
           ? 'bg-localeColors-darkteal text-white'
@@ -69,8 +69,9 @@
     class="rescues-gallery w-full max-w-screen-2xl mx-auto flex justify-center items-center flex-col py-10"
   >
     <div
-      class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10 md:gap-14 w-full justify-center"
+      class="grid grid-cols-1 min-h-screen md:grid-cols-2 lg:grid-cols-3 gap-10 md:gap-14 w-full justify-center"
       data-aos="fade-up"
+      data-aos-delay="200"
       data-aos-duration="800"
     >
       <app-rescue-card

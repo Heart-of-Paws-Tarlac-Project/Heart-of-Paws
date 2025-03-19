@@ -16,6 +16,8 @@ import 'aos/dist/aos.css';
 export class RescuesListComponent implements OnInit {
   @Input() userType: 'admin' | 'user' = 'user';
   rescueListTitle: string = '';
+  activeFilter: string = 'all';
+
   constructor(private rescueService: RescueService) {}
   ngOnInit(): void {
     this.rescueService.getRescues();
@@ -29,5 +31,16 @@ export class RescuesListComponent implements OnInit {
   }
   get rescues() {
     return this.rescueService.rescues$();
+  }
+
+  filterRescuesBySize(sizeFilter: string) {
+    this.activeFilter = sizeFilter;
+
+    if (sizeFilter === 'all') {
+      this.rescueService.getRescues();
+      return;
+    }
+
+    this.rescueService.getRescuesBySize(sizeFilter);
   }
 }

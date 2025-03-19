@@ -47,7 +47,7 @@ export class LoginFormComponent implements OnInit {
       this.welcomeMessage = 'Admin Login';
       return;
     }
-    this.welcomeMessage = 'welcome back!';
+    this.welcomeMessage = 'Welcome Back';
   }
 
   loginForm = new FormGroup({

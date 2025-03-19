@@ -2,12 +2,12 @@
   class="w-full h-auto flex flex-col xl:h-screen justify-center xl:justify-center items-center"
 >
   <div
-    class="h-auto w-[90%] lg:w-3/5 2xl:w-auto flex gap-2 items-center flex-col md:flex-row justify-center p-5 bg-gray-100 rounded-3xl"
+    class="h-auto w-[90%] lg:w-3/5 2xl:w-auto flex gap-2 items-center flex-col md:flex-row justify-center p-5 shadow-xl rounded-3xl"
     data-aos="fade-up"
     data-aos-duration="800"
   >
     <div
-      class="h-full w-3/4 flex flex-col md:flex-row items-center justify-center xl:gap-5 2xl:p-20 md:border-r-2 border-black"
+      class="h-full w-3/4 flex flex-col md:flex-row items-center justify-center xl:gap-5 2xl:p-20 md:border-r-2 border-localeColors-red"
     >
       <div
         class="w-auto h-full flex flex-col items-start justify-center p-5 md:p-10"
@@ -31,7 +31,7 @@
         <button
           type="button"
           (click)="openFileInput()"
-          class="mt-5 mx-auto w-3/4 text-white bg-blue-700 hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 font-medium rounded-full text-xs sm:text-sm md:text-base lg:text-base xl:text-xl px-4 sm:px-6 md:px-8 lg:px-30 xl:px-12 py-2 sm:py-2.5 md:py-3 lg:py-3.5 xl:py-4 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+          class="mt-5 mx-auto w-3/4 text-white bg-localeColors-lightteal hover:bg-localeColors-red focus:outline-none font-medium rounded-full text-xs sm:text-sm md:text-base lg:text-base xl:text-xl px-4 sm:px-6 md:px-8 lg:px-30 xl:px-12 py-2 sm:py-2.5 md:py-3 lg:py-3.5 xl:py-4 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
         >
           Change Pic
         </button>
@@ -49,7 +49,9 @@
     <div
       class="w-full h-full flex flex-col gap-2 items-center md:items-center justify-center md:px-10 2xl:px-20"
     >
-      <p class="text-5xl md:text-7xl 2xl:text-9xl 2xl:mb-10">
+      <p
+        class="text-5xl md:text-7xl 2xl:text-9xl 2xl:mb-10 text-localeColors-darkteal"
+      >
         {{ userProfile.name }}
       </p>
       <p class="text-sm 2xl:text-xl">
@@ -60,16 +62,26 @@
     </div>
   </div>
 </div>
+<h1
+  class="ml-10 text-7xl text-left xl:text-8xl xl:mr-80 text-localeColors-darkteal uppercase"
+  data-aos="fade-up"
+  data-aos-duration="800"
+>
+  Adoption Applications
+</h1>
+
 <div
-  class="h-auto w-full grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 place-content-center place-items-center gap-10 p-10 2xl:px-40"
+  class="h-auto w-full grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 place-content-center place-items-center gap-10 p-10 2xl:px-40 mt-10"
   data-aos="fade-up"
   data-aos-duration="800"
 >
   <div
-    class="card w-full h-auto bg-red-400 rounded-2xl p-4"
+    class="card w-full h-auto shadow-2xl rounded-2xl p-4"
     *ngFor="let application of userApplications"
   >
-    <h2 class="text-3xl ml-2 uppercase">{{ application.rescue.name }}</h2>
+    <h2 class="text-3xl ml-2 uppercase">
+      {{ application.rescue.name }}
+    </h2>
     <div class="w-full h-72 bg-white rounded-2xl mt-4 overflow-hidden">
       <img
         [src]="application.rescue.featureImage"
@@ -77,32 +89,41 @@
         class="w-full h-full object-cover rounded-2xl transition-transform duration-300 hover:scale-110"
       />
     </div>
-    <!--       
-       -->
 
-    <p class="text-xl mt-3 mb-3 ml-5">
-      <span class="text-sm">Appointment mode</span><br />
-      {{ application.appointmentMode | titlecase }}
-    </p>
-    <!-- <p class="text-red">{{ application.rescue.name }}.</p> -->
-    <p class="text-xl ml-5 mb-3">
+    <p class="text-lg ml-5 mb-3 mt-3">
       <span class="text-sm">Queue</span><br />
       {{ application.queuePosition }} out of
       {{ application.totalApplicants }} applicants for
       {{ application.rescue.name }}.
-      {{ application.status }}
     </p>
 
-    <p class="text-xl ml-5 mb-3">
-      <span class="text-sm">Application Status</span><br />
-      {{ application.status | titlecase }}
-    </p>
+    <div
+      class="flex justify-between p-3 px-5 border-2 border-localeColors-darkteal mb-4 rounded-3xl"
+    >
+      <p class="text-lg">
+        <span class="text-sm">Application Status</span><br />
+        <span
+          class="w-3 h-3 rounded-full inline-block mr-2"
+          [ngClass]="{
+            'bg-green-500': application.status === 'approved',
+            'bg-yellow-500': application.status === 'pending',
+            'bg-red-500': application.status === 'rejected'
+          }"
+        ></span>
+        {{ application.status | titlecase }}
+      </p>
+      <p class="text-lg">
+        <span class="text-sm">Appointment mode</span><br />
+        {{ application.appointmentMode | titlecase }}
+      </p>
+    </div>
 
-    <app-button
-      (click)="deleteUserApplication(application._id)"
-      text="Cancel"
+    <button
       type="submit"
-      class="w-full"
-    ></app-button>
+      (click)="deleteUserApplication(application._id)"
+      class="text-white w-3/4 bg-localeColors-red hover:bg-red-700 focus:outline-none font-medium rounded-full text-xs sm:text-sm md:text-base lg:text-base xl:text-xl px-4 sm:px-6 md:px-8 lg:px-30 xl:px-12 py-2 sm:py-2.5 md:py-3 lg:py-3.5 xl:py-2.5 text-center dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+    >
+      Cancel
+    </button>
   </div>
 </div>

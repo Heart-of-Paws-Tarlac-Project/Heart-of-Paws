@@ -139,13 +139,55 @@ exports.getNoOfApplications = asyncHandler(async (req, res) => {
 
 exports.updateRescue = asyncHandler(async (req, res) => {
   const rescueId = req.params.rescueId;
+  console.log(rescueId);
   const updates = req.body;
 
+  // Process name for slug if provided
   if (updates.name) {
     updates.slug = slugify(updates.name, { lower: true, strict: true });
   }
 
-  //set all fields based on request body
+  // Handle file uploads if they exist in the request
+  if (req.files) {
+    const uploadToCloudinary = async (file) => {
+      return new Promise((resolve, reject) => {
+        cloudinary.uploader
+          .upload_stream({ folder: "rescuesImages" }, (error, result) => {
+            if (error) reject(error);
+            else resolve(result.secure_url);
+          })
+          .end(file.buffer);
+      });
+    };
+
+    // Handle feature image upload if provided
+    if (req.files.featureImage && req.files.featureImage.length > 0) {
+      const featureImageUrl = await uploadToCloudinary(
+        req.files.featureImage[0]
+      );
+      if (featureImageUrl) {
+        updates.featureImage = featureImageUrl;
+      } else {
+        throw new CustomServerError("Error uploading feature image");
+      }
+    }
+
+    // Handle gallery images upload if provided
+    if (req.files.galleryImages && req.files.galleryImages.length > 0) {
+      const uploadPromises = req.files.galleryImages.map((file) =>
+        uploadToCloudinary(file)
+      );
+
+      try {
+        const galleryImageUrls = await Promise.all(uploadPromises);
+        updates.galleryImages = galleryImageUrls;
+      } catch (error) {
+        throw new CustomServerError("Error uploading gallery images");
+      }
+    }
+  }
+
+  // Update rescue with all fields from the request
   const updatedRescue = await Rescue.findByIdAndUpdate(
     rescueId,
     { $set: updates },
@@ -156,5 +198,7 @@ exports.updateRescue = asyncHandler(async (req, res) => {
     throw new CustomError("Rescue to be updated not found!", 404);
   }
 
-  res.status(200).send({ rescue: updatedRescue });
+  res.status(200).json({
+    rescue: updatedRescue,
+  });
 });

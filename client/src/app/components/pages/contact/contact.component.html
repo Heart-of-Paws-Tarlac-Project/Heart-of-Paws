@@ -7,40 +7,46 @@
     data-aos-duration="1000"
   >
     <h1
-      class="text-left text-5xl 2xl:text-9xl uppercase text-localeColors-darkteal"
+      class="text-left text-5xl 2xl:text-9xl uppercase text-localeColors-darkteal font-WinkySans font-semibold"
       data-aos="fade-up"
       data-aos-duration="800"
     >
       Get in Touch
     </h1>
     <p
-      class="justify-center items-center gap-10 xl:text-2xl flex w-3/5 2xl:gap-32"
+      class="justify-center items-center gap-10 xl:text-2xl flex w-3/5 2xl:gap-32 font-Monteserrat font-normal"
     >
       <span
-        ><span class="text-sm lg:text-lg text-localeColors-darkteal"
+        ><span
+          class="text-sm lg:text-lg text-localeColors-darkteal font-Monteserrat font-light"
           >Email</span
         >
         <br />
         jangabperezatgmail</span
       >
       <span>
-        <span class="text-sm lg:text-lg text-localeColors-darkteal">Phone</span>
+        <span
+          class="text-sm lg:text-lg text-localeColors-darkteal font-Monteserrat font-light"
+          >Phone</span
+        >
         <br />09289549612</span
       >
     </p>
 
     <p
-      class="justify-center items-center gap-10 xl:text-2xl flex w-3/5 2xl:gap-32"
+      class="justify-center items-center gap-10 xl:text-2xl flex w-3/5 2xl:gap-32 font-Monteserrat font-normal"
     >
       <span
-        ><span class="text-sm lg:text-lg text-localeColors-darkteal"
+        ><span
+          class="text-sm lg:text-lg text-localeColors-darkteal font-Monteserrat font-light"
           >Address</span
         >
         <br />
         jangabperezatgmail</span
       >
       <span>
-        <span class="text-sm lg:text-lg text-localeColors-darkteal"
+        <span
+          class="text-sm lg:text-lg text-localeColors-darkteal font-Monteserrat font-light"
           >Facebook Page</span
         >
         <br />09289549612</span
@@ -51,7 +57,10 @@
   <div
     class="h-auto 2xl:py-44 border-localeColors-red flex flex-col items-center justify-center w-full md:w-3/4 md:h-2/4 xl:w-2/5 xl:h-auto gap-5 p-12 xl:py-24 md:border-l-2 md:border-b-0"
   >
-    <p *ngIf="errorMessage" class="text-red-500 text-center">
+    <p
+      *ngIf="errorMessage"
+      class="text-red-500 text-center font-Monteserrat font-light"
+    >
       {{ errorMessage }}
     </p>
 
@@ -71,16 +80,28 @@
         ></app-form-input>
       </div>
       <div *ngIf="name.invalid && name.touched">
-        <p *ngIf="name.errors?.['required']" class="text-red-500 mb-4">
+        <p
+          *ngIf="name.errors?.['required']"
+          class="text-red-500 mb-4 font-Monteserrat font-light text-sm"
+        >
           Full Name is required.
         </p>
-        <p *ngIf="name.errors?.['minlength']" class="text-red-500 mb-4">
+        <p
+          *ngIf="name.errors?.['minlength']"
+          class="text-red-500 mb-4 font-Monteserrat font-light text-sm"
+        >
           Must be at least 6 characters.
         </p>
-        <p *ngIf="name.errors?.['maxlength']" class="text-red-500 mb-4">
+        <p
+          *ngIf="name.errors?.['maxlength']"
+          class="text-red-500 mb-4 font-Monteserrat font-light text-sm"
+        >
           Must be less than 50 characters.
         </p>
-        <p *ngIf="name.errors?.['pattern']" class="text-red-500 mb-4">
+        <p
+          *ngIf="name.errors?.['pattern']"
+          class="text-red-500 mb-4 font-Monteserrat font-light text-sm"
+        >
           Only letters and spaces allowed.
         </p>
       </div>
@@ -98,10 +119,16 @@
       </div>
 
       <div *ngIf="email.invalid && email.touched">
-        <p *ngIf="email.errors?.['required']" class="text-red-500 mb-4">
+        <p
+          *ngIf="email.errors?.['required']"
+          class="text-red-500 mb-4 font-Monteserrat font-light text-sm"
+        >
           Email is required.
         </p>
-        <p *ngIf="email.errors?.['email']" class="text-red-500 mb-4">
+        <p
+          *ngIf="email.errors?.['email']"
+          class="text-red-500 mb-4 font-Monteserrat font-light text-sm"
+        >
           Enter a valid email.
         </p>
       </div>
@@ -118,10 +145,16 @@
       </div>
 
       <div *ngIf="phoneNo.invalid && phoneNo.touched">
-        <p *ngIf="phoneNo.errors?.['required']" class="text-red-500 mb-4">
+        <p
+          *ngIf="phoneNo.errors?.['required']"
+          class="text-red-500 mb-4 font-Monteserrat font-light text-sm"
+        >
           Phone Number is required.
         </p>
-        <p *ngIf="phoneNo.errors?.['pattern']" class="text-red-500 mb-4">
+        <p
+          *ngIf="phoneNo.errors?.['pattern']"
+          class="text-red-500 mb-4 font-Monteserrat font-light text-sm"
+        >
           Must be a valid 11-digit phone number.
         </p>
       </div>
@@ -137,13 +170,22 @@
       </div>
 
       <div *ngIf="inquiry.invalid && inquiry.touched">
-        <p *ngIf="inquiry.errors?.['required']" class="text-red-500 mb-4">
+        <p
+          *ngIf="inquiry.errors?.['required']"
+          class="text-red-500 mb-4 font-Monteserrat font-light text-sm"
+        >
           Message is required.
         </p>
-        <p *ngIf="inquiry.errors?.['minlength']" class="text-red-500 mb-4">
+        <p
+          *ngIf="inquiry.errors?.['minlength']"
+          class="text-red-500 mb-4 font-Monteserrat font-light text-sm"
+        >
           Must be at least 10 characters.
         </p>
-        <p *ngIf="inquiry.errors?.['maxlength']" class="text-red-500 mb-4">
+        <p
+          *ngIf="inquiry.errors?.['maxlength']"
+          class="text-red-500 mb-4 font-Monteserrat font-light text-sm"
+        >
           Must be less than 500 characters.
         </p>
       </div>
@@ -166,7 +208,7 @@
 </div>
 
 <div
-  class="w-full h-auto flex flex-col md:flex-row xl:h-screen justify-center xl:justify-center items-start py-4 md:p-8"
+  class="w-full h-auto flex flex-col md:flex-row justify-center xl:justify-center items-start py-4 md:pb-20 md:p-8"
 >
   <div
     class="w-full h-72 flex flex-col md:w-3/4 md:h-[50vh] items-center justify-start rounded-2xl"

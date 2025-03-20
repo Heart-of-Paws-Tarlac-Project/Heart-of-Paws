@@ -31,7 +31,7 @@
         <button
           type="button"
           (click)="openFileInput()"
-          class="mt-5 mx-auto w-3/4 text-white bg-localeColors-lightteal hover:bg-localeColors-red focus:outline-none font-medium rounded-full text-xs sm:text-sm md:text-base lg:text-base xl:text-xl px-4 sm:px-6 md:px-8 lg:px-30 xl:px-12 py-2 sm:py-2.5 md:py-3 lg:py-3.5 xl:py-4 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+          class="mt-5 mx-auto w-3/4 text-white bg-localeColors-lightteal hover:bg-localeColors-red focus:outline-none font-Monteserrat font-medium rounded-full text-xs sm:text-sm md:text-base lg:text-base xl:text-xl px-4 sm:px-6 md:px-8 lg:px-30 xl:px-12 py-2 sm:py-2.5 md:py-3 lg:py-3.5 xl:py-4 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
         >
           Change Pic
         </button>
@@ -50,12 +50,14 @@
       class="w-full h-full flex flex-col gap-2 items-center md:items-center justify-center md:px-10 2xl:px-20"
     >
       <p
-        class="text-5xl md:text-7xl 2xl:text-9xl 2xl:mb-10 text-localeColors-darkteal"
+        class="text-5xl md:text-7xl 2xl:text-9xl 2xl:mb-10 text-localeColors-darkteal font-WinkySans font-semibold"
       >
         {{ userProfile.name }}
       </p>
       <p class="text-sm 2xl:text-xl">
-        <span class="text-xl md:text-2xl 2xl:text-3xl">
+        <span
+          class="text-xl md:text-2xl 2xl:text-3xl font-Monteserrat font-normal"
+        >
           {{ userProfile.email }}
         </span>
       </p>
@@ -63,7 +65,7 @@
   </div>
 </div>
 <h1
-  class="ml-10 text-7xl text-left xl:text-8xl xl:mr-80 text-localeColors-darkteal uppercase"
+  class="ml-10 mt-10 text-5xl text-left xl:text-8xl xl:mr-80 text-localeColors-darkteal uppercase font-WinkySans font-semibold"
   data-aos="fade-up"
   data-aos-duration="800"
 >
@@ -71,7 +73,7 @@
 </h1>
 
 <div
-  class="h-auto w-full grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 place-content-center place-items-center gap-10 p-10 2xl:px-40 mt-10"
+  class="h-auto w-full grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 place-content-center place-items-center gap-10 p-10 2xl:px-40 2xl:mt-10"
   data-aos="fade-up"
   data-aos-duration="800"
 >

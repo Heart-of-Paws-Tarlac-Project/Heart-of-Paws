@@ -20,6 +20,10 @@ module.exports = {
         danger: "#EF4444", // Danger (error) color
         success: "#10B981", // Success color
       },
+      fontFamily: {
+        WinkySans: ["winky Sans", "sans-serif"],
+        Monteserrat: ["Montserrat", "sans-serif"],
+      },
     },
   },
 

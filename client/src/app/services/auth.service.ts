@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { ApiService } from './api.service';
 import { BehaviorSubject, Observable, tap } from 'rxjs';
+import { AdminAuthService } from './admin-auth.service';
 
 @Injectable({
   providedIn: 'root',
@@ -12,7 +13,10 @@ export class AuthService {
   // isAuthenticated$: This is the observable version of isAuthenticatedSubject. Components can subscribe to this to get updates when the authentication state changes.
   public isAuthenticated$ = this.isAuthenticatedSubject.asObservable();
 
-  constructor(private apiService: ApiService) {
+  constructor(
+    private apiService: ApiService,
+    private adminAuthService: AdminAuthService
+  ) {
     // Check authentication status when service initializes
     this.checkAuthStatus();
   }
@@ -50,6 +54,9 @@ export class AuthService {
     return this.apiService.post(`/auth/login`, credentials).pipe(
       tap((response) => {
         if (response || response.message === 'User logged in successfully') {
+          if (response.role === 'admin') {
+            this.adminAuthService.isAdminAuthenticatedSubject.next(true);
+          }
           console.log(`response id: ${response.id}`);
           localStorage.setItem('userName', response.name);
           localStorage.setItem('userId', response.id);
@@ -73,6 +80,4 @@ export class AuthService {
   isAuthenticated() {
     return this.apiService.get(`/auth/is-authenticated`);
   }
-
-  
 }

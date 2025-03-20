@@ -16,8 +16,9 @@ export class RescueCardComponent implements OnInit {
   @Input() userType: 'admin' | 'user' = 'user';
 
   ngOnInit(): void {
-    this.userType == 'admin'
-      ? (this.cardLink = this.userType)
-      : (this.cardLink = this.userType);
+    this.cardLink =
+      this.userType === 'admin'
+        ? `/admin/rescue/${this.rescue.slug}`
+        : `/rescues/${this.rescue.slug}`;
   }
 }

@@ -36,15 +36,15 @@ const applicationSchema = new Schema(
       maxlength: 2000,
       trim: true,
     },
-    // prefferedDay: {
-    //   type: Date,
-    //   required: true,
-    // },
-    // prefferedTime: {
-    //   type: String,
-    //   required: true,
-
-    // },
+    interviewDate: {
+      type: Date,
+      required: true,
+    },
+    interviewTime: {
+      type: String,
+      required: true,
+      enum: ["11:00 AM - 1:00 PM", "3:00 PM - 5:00 PM"],
+    },
     status: {
       type: String,
       required: true,

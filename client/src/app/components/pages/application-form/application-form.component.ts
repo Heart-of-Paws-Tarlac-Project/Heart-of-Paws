@@ -14,6 +14,11 @@ import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 import AOS from 'aos';
 import 'aos/dist/aos.css';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material/core';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatSelectModule } from '@angular/material/select';
 
 @Component({
   selector: 'app-application-form',
@@ -23,12 +28,21 @@ import 'aos/dist/aos.css';
     FormInputComponent,
     ButtonComponent,
     CommonModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatSelectModule,
   ],
   templateUrl: './application-form.component.html',
   styleUrl: './application-form.component.css',
 })
 export class ApplicationFormComponent implements OnInit {
   isSubmitted: boolean = false;
+  availableDates: { date: string; availableSlots: string[] }[] = [];
+  availableSlots: string[] = [];
+  selectedDate: string = '';
+  selectedTimeSlot: string = '';
   errorMessage: string = '';
   ngAfterViewInit(): void {
     AOS.init();
@@ -44,6 +58,7 @@ export class ApplicationFormComponent implements OnInit {
       const slug = params.get('slug'); //extract the slug from the activatedRoute params
       if (slug) {
         this.rescueService.getRescue(slug);
+        this.loadAvailableDates();
       }
     });
 
@@ -80,8 +95,41 @@ export class ApplicationFormComponent implements OnInit {
       Validators.minLength(10),
       Validators.maxLength(200),
     ]),
+    preferredDate: new FormControl('', [Validators.required]),
+    preferredTime: new FormControl('', [Validators.required]),
   });
   // helper methods
+
+  onDateChange(event: any) {
+    const date = event.value;
+    const formattedDate = `${date.getFullYear()}-${String(
+      date.getMonth() + 1
+    ).padStart(2, '0')}-${String(date.getDate()).padStart(2, '0')}`;
+    const available = this.availableDates.find((d) => d.date === formattedDate);
+    this.availableSlots = available ? available.availableSlots : [];
+  }
+
+  dateFilter = (d: Date | null): boolean => {
+    if (!d) return false;
+    const formattedDate = `${d.getFullYear()}-${String(
+      d.getMonth() + 1
+    ).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`;
+    const available = this.availableDates.find(
+      (slot) => slot.date === formattedDate
+    );
+    return !!available; // Only enable dates with available slots
+  };
+
+  loadAvailableDates() {
+    this.rescueService.loadAvailableDates().subscribe({
+      next: (response) => {
+        this.availableDates = response.availableDates;
+      },
+      error: (error) => {
+        console.error('Error fetching available dates: ', error);
+      },
+    });
+  }
 
   get name() {
     return this.applicationForm.controls['name'];
@@ -106,22 +154,35 @@ export class ApplicationFormComponent implements OnInit {
   onSubmit() {
     if (this.applicationForm.invalid) {
       this.applicationForm.markAllAsTouched();
-      console.log(`Application form is invalid`);
+      console.log('Application form is invalid');
       return;
     }
 
+    // Get the date value
+    const dateValue = this.applicationForm.controls['preferredDate'].value;
+
+    // Create a date object without timezone conversion
+    const selectedDate = new Date(dateValue as string);
+
+    // Get the date in YYYY-MM-DD format while preserving the local date
+    const formattedDate = `${selectedDate.getFullYear()}-${String(
+      selectedDate.getMonth() + 1
+    ).padStart(2, '0')}-${String(selectedDate.getDate()).padStart(2, '0')}`;
+
     const application = {
-      name: this.name.value as string,
+      applicantName: this.name.value as string,
       phoneNo: this.phoneNo.value as string,
       address: this.address.value as string,
-      preferredModeOfContact: this.preferredModeOfContact.value as string,
+      appointmentMode: this.preferredModeOfContact.value as string,
       introductionMessage: this.introductionMessage.value as string,
+      interviewDate: formattedDate, // Use the properly formatted date
+      interviewTime: this.applicationForm.controls['preferredTime'].value,
       slug: this.rescue.slug,
     };
 
     this.rescueService.inquireAboutRescue(application).subscribe({
       next: (response) => {
-        console.log(`Application successful: `, response.message);
+        console.log('Application successful: ', response.message);
         alert(
           `We have received your application for ${this.rescue.name}. We will send you an appointment date for your interview!`
         );
@@ -130,13 +191,12 @@ export class ApplicationFormComponent implements OnInit {
       error: (error) => {
         console.error('Error creating application: ', error);
         if (error.status === 400) {
-          this.errorMessage = `You've already applied for an adoption request for ${this.rescue.name}.`;
+          this.errorMessage = error.error.message;
           this.applicationForm.reset();
         }
       },
     });
   }
-
   // get preferredDate() {
   //   return this.applicationForm.controls['preferredDate'];
   // }

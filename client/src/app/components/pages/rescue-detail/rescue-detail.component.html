@@ -95,7 +95,11 @@
         >
       </p>
       <button
-        [routerLink]="['/inquire', rescue.slug]"
+        [routerLink]="
+          userType === 'admin'
+            ? ['/admin/rescue/edit', rescue.slug]
+            : ['/inquire', rescue.slug]
+        "
         data-aos="fade-up"
         data-aos-duration="800"
         data-aos-delay="400"

@@ -6,7 +6,7 @@ import { BehaviorSubject, tap } from 'rxjs';
   providedIn: 'root',
 })
 export class AdminAuthService {
-  private isAdminAuthenticatedSubject = new BehaviorSubject<boolean>(false);
+  isAdminAuthenticatedSubject = new BehaviorSubject<boolean>(false);
   public isAdminAuthenticated$ =
     this.isAdminAuthenticatedSubject.asObservable();
 

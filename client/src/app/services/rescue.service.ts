@@ -32,6 +32,10 @@ export class RescueService {
     return this.rescues$();
   }
 
+  getRescueData(slug: string) {
+    return this.apiService.get(`${this.url}/slug`);
+  }
+
   getRescue(slug: string) {
     this.apiService.get(`${this.url}/${slug}`).subscribe((rescue) => {
       this.rescue$.set(rescue);
@@ -69,5 +73,9 @@ export class RescueService {
       .subscribe((rescues) => {
         this.rescues$.set(rescues);
       });
+  }
+
+  loadAvailableDates() {
+    return this.apiService.get(`/applications/available-dates`);
   }
 }

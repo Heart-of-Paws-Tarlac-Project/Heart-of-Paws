@@ -12,6 +12,17 @@ router.post(
   applicationsController.createApplication
 );
 //delete application to adopt a rescue
-router.delete("/:id", isAuthenticated, applicationsController.deleteApplication);
+router.delete(
+  "/:id",
+  isAuthenticated,
+  applicationsController.deleteApplication
+);
+
+//get all available dates
+router.get(
+  "/available-dates",
+  isAuthenticated,
+  applicationsController.getAvailableDates
+);
 
 module.exports = router;

@@ -3,6 +3,7 @@ import { AdminAuthService } from '../../../../services/admin-auth.service';
 import { CommonModule } from '@angular/common';
 import { Subscription } from 'rxjs';
 import { Router } from '@angular/router';
+import { AuthService } from '../../../../services/auth.service';
 
 @Component({
   selector: 'app-admin-navbar',
@@ -17,12 +18,14 @@ export class AdminNavbarComponent implements OnInit {
 
   constructor(
     private adminAuthService: AdminAuthService,
-    private router: Router
+    private router: Router,
+    private authService: AuthService
   ) {}
 
   ngOnInit(): void {
     this.adminAuthService.isAdminAuthenticated$.subscribe(
       (isAdminAuthenticated) => {
+        console.log('is admin authenticated: ', isAdminAuthenticated);
         this.isAdminAuthenticated = isAdminAuthenticated;
       }
     );

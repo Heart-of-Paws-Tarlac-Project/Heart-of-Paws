@@ -29,6 +29,9 @@ const userSchema = new Schema(
       default:
         "https://res.cloudinary.com/dydm43ec5/image/upload/v1742289560/profileImages/le0xekv9hluoehypgmsf.png",
     },
+    verificationToken: { type: String },
+    verificationTokenExpires: { type: Date }, // ✅ Add this line
+    isVerified: { type: Boolean, default: false },
   },
   {
     timestamps: true,

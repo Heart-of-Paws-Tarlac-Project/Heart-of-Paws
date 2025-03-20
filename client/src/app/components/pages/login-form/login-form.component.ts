@@ -13,6 +13,8 @@ import { AuthService } from '../../../services/auth.service';
 import AOS from 'aos';
 import 'aos/dist/aos.css';
 import { AdminAuthService } from '../../../services/admin-auth.service';
+import { DialogComponent } from '../../ui/dialog/dialog.component';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-login-form',
@@ -39,7 +41,8 @@ export class LoginFormComponent implements OnInit {
   constructor(
     private router: Router,
     private authService: AuthService,
-    private adminAuthService: AdminAuthService
+    private adminAuthService: AdminAuthService,
+    private dialog: MatDialog
   ) {}
 
   ngOnInit(): void {
@@ -53,7 +56,8 @@ export class LoginFormComponent implements OnInit {
     const verificationMessage = localStorage.getItem('verifMessage');
 
     if (verificationMessage) {
-      this.verifyEmail = verificationMessage;
+      this.openVerifyEmailDialog();
+      // this.verifyEmail = verificationMessage;
       localStorage.removeItem('verifMessage');
       return;
     }
@@ -129,6 +133,17 @@ export class LoginFormComponent implements OnInit {
         if (err.status === 401) {
           this.errorMessage = 'Invalid email or password';
         }
+      },
+    });
+  }
+
+  openVerifyEmailDialog() {
+    this.dialog.open(DialogComponent, {
+      width: '400px',
+      data: {
+        modalTitle: 'Email Verification Required',
+        modalDesc: 'Please verify your email before logging in.',
+        yes: 'ok',
       },
     });
   }

@@ -99,7 +99,7 @@ export class ApplicationFormComponent implements OnInit {
     preferredTime: new FormControl('', [Validators.required]),
   });
   // helper methods
-
+  preferredDate: Date | null = null;
   onDateChange(event: any) {
     const date = event.value;
     const formattedDate = `${date.getFullYear()}-${String(
@@ -107,6 +107,7 @@ export class ApplicationFormComponent implements OnInit {
     ).padStart(2, '0')}-${String(date.getDate()).padStart(2, '0')}`;
     const available = this.availableDates.find((d) => d.date === formattedDate);
     this.availableSlots = available ? available.availableSlots : [];
+    this.preferredDate = event.value;
   }
 
   dateFilter = (d: Date | null): boolean => {

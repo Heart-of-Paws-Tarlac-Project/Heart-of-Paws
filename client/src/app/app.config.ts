@@ -9,6 +9,6 @@ export const appConfig: ApplicationConfig = {
   providers: [
     provideZoneChangeDetection({ eventCoalescing: true }),
     provideRouter(routes),
-    provideHttpClient(withFetch()), provideAnimationsAsync(), //withFetch uses the fetch api which is much modern compared to what the default http client uses. This also applies authInterceptor for all HTTP
+    provideHttpClient(withFetch()), provideAnimationsAsync(), provideAnimationsAsync(), //withFetch uses the fetch api which is much modern compared to what the default http client uses. This also applies authInterceptor for all HTTP
   ],
 };

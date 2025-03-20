@@ -139,8 +139,8 @@ exports.getNoOfApplications = asyncHandler(async (req, res) => {
 
 exports.updateRescue = asyncHandler(async (req, res) => {
   const rescueId = req.params.rescueId;
-  console.log(rescueId);
   const updates = req.body;
+  console.log(`updates: ${updates.name}`);
 
   // Process name for slug if provided
   if (updates.name) {
@@ -197,6 +197,8 @@ exports.updateRescue = asyncHandler(async (req, res) => {
   if (!updatedRescue) {
     throw new CustomError("Rescue to be updated not found!", 404);
   }
+
+  console.log(`updated rescue: ${updatedRescue}`);
 
   res.status(200).json({
     rescue: updatedRescue,

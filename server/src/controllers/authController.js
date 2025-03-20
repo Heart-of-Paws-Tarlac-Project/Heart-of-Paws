@@ -94,6 +94,7 @@ exports.loginUser = asyncHandler(async (req, res) => {
     message: "User logged in successfully",
     name: req.session.user.name,
     id: req.session.user.id,
+    role: user.role,
   }); //set cookie header will be sent along with the response
 });
 

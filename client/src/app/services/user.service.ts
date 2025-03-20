@@ -7,7 +7,7 @@ import { ApiService } from './api.service';
 export class UserService {
   constructor(private apiService: ApiService) {}
 
-  //to retrieve user's profile on profile component
+  //to retrieve user's profile on profile component/application status
   getUserProfile(userId: string) {
     return this.apiService.get(`/users/${userId}`);
   }

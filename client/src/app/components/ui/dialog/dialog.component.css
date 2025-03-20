@@ -1,0 +1,5 @@
+:host ::ng-deep .mat-mdc-dialog-container {
+  background-color: #ffcc80 !important;
+  border-radius: 10px !important;
+  padding: 20px !important;
+}

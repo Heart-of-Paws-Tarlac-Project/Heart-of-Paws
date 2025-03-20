@@ -73,7 +73,58 @@
 </h1>
 
 <div
-  class="h-auto w-full grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 place-content-center place-items-center gap-10 p-10 2xl:px-40 2xl:mt-10"
+  class="filter-controls my-8 flex flex-wrap justify-start items-start gap-2 ml-10"
+  data-aos="fade-up"
+  data-aos-duration="800"
+>
+  <button
+    class="px-6 py-2 rounded-full transition-all hover:bg-localeColors-darkteal font-Monteserrat font-regular"
+    [ngClass]="
+      activeFilter === 'all'
+        ? 'bg-localeColors-darkteal text-white'
+        : 'bg-localeColors-red text-white '
+    "
+    (click)="filterRescuesByStatus('all')"
+  >
+    All
+  </button>
+  <button
+    class="px-6 py-2 rounded-full transition-all hover:bg-localeColors-darkteal font-Monteserrat font-regular"
+    [ngClass]="
+      activeFilter === 'small'
+        ? 'bg-localeColors-darkteal text-white'
+        : 'bg-localeColors-red text-white'
+    "
+    (click)="filterRescuesByStatus('small')"
+  >
+    Pending
+  </button>
+  <button
+    class="px-6 py-2 rounded-full transition-all hover:bg-localeColors-darkteal font-Monteserrat font-regular"
+    [ngClass]="
+      activeFilter === 'medium'
+        ? 'bg-localeColors-darkteal text-white'
+        : 'bg-localeColors-red text-white'
+    "
+    (click)="filterRescuesByStatus('medium')"
+  >
+    Rejected
+  </button>
+  <button
+    class="px-6 py-2 rounded-full transition-all hover:bg-localeColors-darkteal font-Monteserrat font-regular"
+    [ngClass]="
+      activeFilter === 'large'
+        ? 'bg-localeColors-darkteal text-white'
+        : 'bg-localeColors-red text-white'
+    "
+    (click)="filterRescuesByStatus('large')"
+  >
+    Approved
+  </button>
+</div>
+
+<div
+  class="h-auto min-h-[70vh] w-full grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 place-content-center place-items-center gap-10 p-10 2xl:px-40 2xl:mt-10"
   data-aos="fade-up"
   data-aos-duration="800"
 >
@@ -81,7 +132,9 @@
     class="card w-full h-auto shadow-2xl rounded-2xl p-4"
     *ngFor="let application of userApplications"
   >
-    <h2 class="text-3xl ml-2 uppercase">
+    <h2
+      class="text-3xl ml-2 uppercase text-localeColors-darkteal font-semibold font-Monteserrat"
+    >
       {{ application.rescue.name }}
     </h2>
     <div class="w-full h-72 bg-white rounded-2xl mt-4 overflow-hidden">
@@ -92,18 +145,21 @@
       />
     </div>
 
-    <p class="text-lg ml-5 mb-3 mt-3">
-      <span class="text-sm">Queue</span><br />
+    <!-- <p class="text-lg ml-5 mb-3 mt-3">
+      <span
+        class="text-sm text-localeColors-darkteal font-medium font-Monteserrat"
+        >Queue</span
+      ><br />
       {{ application.queuePosition }} out of
       {{ application.totalApplicants }} applicants for
       {{ application.rescue.name }}.
-    </p>
-
-    <div
-      class="flex justify-between p-3 px-5 border-2 border-localeColors-darkteal mb-4 rounded-3xl"
-    >
+    </p> -->
+    <div class="flex justify-between p-3 px-5 mb-4 rounded-3xl">
       <p class="text-lg">
-        <span class="text-sm">Application Status</span><br />
+        <span
+          class="text-sm text-localeColors-darkteal font-medium font-Monteserrat"
+          >Application Status</span
+        ><br />
         <span
           class="w-3 h-3 rounded-full inline-block mr-2"
           [ngClass]="{
@@ -115,11 +171,32 @@
         {{ application.status | titlecase }}
       </p>
       <p class="text-lg">
-        <span class="text-sm">Appointment mode</span><br />
-        {{ application.appointmentMode | titlecase }}
+        <span
+          class="text-sm text-localeColors-darkteal font-medium font-Monteserrat"
+          >Appointment mode</span
+        ><br />
+        {{ application.appointmentMode | titlecase }} Interview
       </p>
     </div>
+    <div
+      class="flex justify-between p-3 px-5 border-t-2 border-localeColors-darkteal mb-4"
+    >
+      <p class="text-lg">
+        <span
+          class="text-sm text-localeColors-darkteal font-medium font-Monteserrat"
+          >Date</span
+        ><br />
+        {{ application.interviewDate | date }}
+      </p>
 
+      <p class="text-lg">
+        <span
+          class="text-sm text-localeColors-darkteal font-medium font-Monteserrat"
+          >Time</span
+        ><br />
+        {{ application.interviewTime }}
+      </p>
+    </div>
     <button
       type="submit"
       (click)="deleteUserApplication(application._id)"

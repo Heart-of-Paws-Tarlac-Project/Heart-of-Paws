@@ -1,0 +1,32 @@
+@use "@angular/material" as mat;
+
+// Define a Material Theme (Required)
+
+// Customizing Dialog Styles
+:root {
+  --mat-dialog-container-color: #f9f6ee;
+  --mat-dialog-title-color: #1c959d;
+  --mat-dialog-actions-button-color: #e22128;
+}
+
+// Override Dialog Styles
+.mat-mdc-dialog-container {
+  background-color: var(--mat-dialog-container-color) !important;
+  border-radius: 10px;
+}
+
+.mat-mdc-dialog-title {
+  color: var(--mat-dialog-title-color) !important;
+}
+.mat-mdc-dialog-actions button:nth-child(1) {
+  color: var(--mat-dialog-actions-button-color) !important;
+}
+.mat-mdc-dialog-actions button:nth-child(2) {
+  background-color: var(--mat-dialog-actions-button-color) !important;
+  color: white !important;
+}
+.mat-mdc-dialog-actions button:hover {
+  background-color: #1c959d !important;
+  color: white !important;
+  transition: 0.3s ease-in-out;
+}

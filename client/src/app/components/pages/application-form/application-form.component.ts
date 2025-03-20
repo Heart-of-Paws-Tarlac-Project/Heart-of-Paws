@@ -218,7 +218,10 @@ export class ApplicationFormComponent implements OnInit {
         console.error('Error creating application: ', error);
         if (error.status === 400) {
           this.errorMessage = error.error.message;
+          alert(`Error: ${this.errorMessage}`);
           this.applicationForm.reset();
+        } else {
+          alert('An unexpected error occurred. Please try again later.');
         }
       },
     });

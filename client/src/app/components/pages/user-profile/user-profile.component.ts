@@ -4,13 +4,21 @@ import { RescueService } from '../../../services/rescue.service';
 import { CommonModule } from '@angular/common';
 import { ApplicationCardComponent } from '../../ui/application-card/application-card.component';
 import { ButtonComponent } from '../../ui/button/button.component';
+import { MatDialog, MatDialogModule } from '@angular/material/dialog';
+import { DialogComponent } from '../../ui/dialog/dialog.component';
 import AOS from 'aos';
 import 'aos/dist/aos.css';
 
 @Component({
   selector: 'app-user-profile',
   standalone: true,
-  imports: [CommonModule, ApplicationCardComponent, ButtonComponent],
+  imports: [
+    CommonModule,
+    ApplicationCardComponent,
+    ButtonComponent,
+    MatDialogModule,
+    DialogComponent,
+  ],
   templateUrl: './user-profile.component.html',
   styleUrl: './user-profile.component.css',
 })
@@ -20,6 +28,8 @@ export class UserProfileComponent implements OnInit {
   uploadNotification: string = '';
   errorMessage: string = '';
 
+  activeFilter: string = 'all';
+
   ngAfterViewInit(): void {
     AOS.init();
   }
@@ -28,7 +38,8 @@ export class UserProfileComponent implements OnInit {
 
   constructor(
     private userService: UserService,
-    private rescueService: RescueService
+    private rescueService: RescueService,
+    private dialog: MatDialog
   ) {}
 
   ngOnInit(): void {
@@ -53,19 +64,32 @@ export class UserProfileComponent implements OnInit {
   }
 
   deleteUserApplication(applicationId: string) {
-    this.userService.deleteApplication(applicationId).subscribe({
-      next: () => {
-        console.log('Application has been deleted successfully');
-        const userId = localStorage.getItem('userId');
-        console.log(`userId: ${userId}`);
-        if (userId) {
-          this.getUserProfile(userId);
-        }
+    const dialogRef = this.dialog.open(DialogComponent, {
+      width: '400px',
+      data: {
+        modalTitle: 'Are you sure you want to cancel your application?',
+        modalDesc: 'This action cannot be undone.',
+        yes: 'yes',
+        no: 'no',
       },
-      error: (error) => {
-        console.error('Error in deleting application: ', error);
-        this.errorMessage = 'Oops! Something went wrong. Please try again.';
-      },
+    });
+
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result) {
+        this.userService.deleteApplication(applicationId).subscribe({
+          next: () => {
+            console.log('Application has been deleted successfully');
+            const userId = localStorage.getItem('userId');
+            if (userId) {
+              this.getUserProfile(userId);
+            }
+          },
+          error: (error) => {
+            console.error('Error in deleting application: ', error);
+            this.errorMessage = ' Something went wrong. Please try again.';
+          },
+        });
+      }
     });
   }
 
@@ -97,5 +121,16 @@ export class UserProfileComponent implements OnInit {
         },
       });
     }
+  }
+
+  filterRescuesByStatus(statusFilter: string) {
+    this.activeFilter = statusFilter;
+
+    if (statusFilter === 'all') {
+      this.rescueService.getRescues();
+      return;
+    }
+
+    this.rescueService.getRescuesBySize(statusFilter);
   }
 }

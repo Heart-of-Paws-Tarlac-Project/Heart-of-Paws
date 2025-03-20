@@ -2,6 +2,7 @@ import { Injectable, signal } from '@angular/core';
 import { HttpClient } from '@angular/common/http'; //import HTTPCLIENT to make http calls
 import { Rescue } from '../interfaces/rescue';
 import { ApiService } from './api.service';
+import { tap } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -61,6 +62,10 @@ export class RescueService {
       `/applications/inquire/${application.slug}`,
       application
     );
+  }
+
+  updateRescueData(rescueId: string, data: FormData) {
+    return this.apiService.patch(`/rescues/${rescueId}`, data);
   }
 
   getRescueNoOfApplications(rescueId: string) {

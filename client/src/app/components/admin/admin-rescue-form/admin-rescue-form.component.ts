@@ -21,9 +21,10 @@ import { FormInputComponent } from '../../ui/form-input/form-input.component';
 import { ButtonComponent } from '../../ui/button/button.component';
 import { RescueService } from '../../../services/rescue.service';
 import { AdminService } from '../../../services/admin.service';
+import { Input } from '@angular/core';
 
 @Component({
-  selector: 'app-update-rescue-form',
+  selector: 'app-admin-rescue-form',
   standalone: true,
   imports: [
     ReactiveFormsModule,
@@ -39,11 +40,13 @@ import { AdminService } from '../../../services/admin.service';
     MatRadioModule,
     MatProgressSpinnerModule,
   ],
-  templateUrl: './update-rescue-form.component.html',
-  styleUrl: './update-rescue-form.component.css',
+  templateUrl: './admin-rescue-form.component.html',
+  styleUrl: './admin-rescue-form.component.css',
 })
-export class UpdateRescueFormComponent implements OnInit {
-  updateForm = new FormGroup({
+export class AdminRescueFormComponent implements OnInit {
+  @Input() mode: 'create' | 'update' = 'create';
+
+  rescueForm = new FormGroup({
     name: new FormControl('', [
       Validators.minLength(3),
       Validators.pattern(/^[A-Za-z\s]+$/),
@@ -71,12 +74,19 @@ export class UpdateRescueFormComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.activatedRoute.paramMap.subscribe((params) => {
-      const slug = params.get('slug');
-      if (slug) {
-        this.rescueService.getRescue(slug);
-      }
-    });
+    if (this.mode === 'update') {
+      this.activatedRoute.paramMap.subscribe((params) => {
+        const slug = params.get('slug');
+        if (slug) {
+          this.rescueService.getRescue(slug);
+          return;
+        }
+      });
+    }
+
+    this.rescueForm.controls['name'].addValidators(Validators.required);
+
+    this.rescueForm.updateValueAndValidity();
   }
 
   get rescue() {
@@ -84,26 +94,26 @@ export class UpdateRescueFormComponent implements OnInit {
   }
 
   get name() {
-    return this.updateForm.controls['name'];
+    return this.rescueForm.controls['name'];
   }
 
   get description() {
-    return this.updateForm.controls['description'];
+    return this.rescueForm.controls['description'];
   }
 
   get age() {
-    return this.updateForm.controls['age'];
+    return this.rescueForm.controls['age'];
   }
 
   get sex() {
-    return this.updateForm.controls['sex'];
+    return this.rescueForm.controls['sex'];
   }
 
   handleFeatureImageUpload(event: Event) {
     const input = event.target as HTMLInputElement;
     if (input.files && input.files.length > 0) {
       const file = input.files[0];
-      this.updateForm.patchValue({
+      this.rescueForm.patchValue({
         featureImage: file,
       });
     }
@@ -113,18 +123,18 @@ export class UpdateRescueFormComponent implements OnInit {
     const input = event.target as HTMLInputElement;
     if (input.files && input.files.length > 0) {
       const files = Array.from(input.files);
-      this.updateForm.patchValue({
+      this.rescueForm.patchValue({
         galleryImages: files,
       });
     }
   }
 
   onSubmit(rescueId: string) {
-    console.log('Form Values:', this.updateForm.value); // Log the form values here
+    console.log('Form Values:', this.rescueForm.value); // Log the form values here
 
     const formData = new FormData();
 
-    Object.entries(this.updateForm.value).forEach(([key, value]) => {
+    Object.entries(this.rescueForm.value).forEach(([key, value]) => {
       if (value !== null && value !== undefined && value !== '') {
         if (key === 'featureImage' && value instanceof File) {
           formData.append('featureImage', value, value.name);

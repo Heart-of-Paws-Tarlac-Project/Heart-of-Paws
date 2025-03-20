@@ -4,11 +4,12 @@ import { CommonModule } from '@angular/common';
 import { Subscription } from 'rxjs';
 import { Router } from '@angular/router';
 import { AuthService } from '../../../../services/auth.service';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-admin-navbar',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, RouterLink],
   templateUrl: './admin-navbar.component.html',
   styleUrl: './admin-navbar.component.css',
 })

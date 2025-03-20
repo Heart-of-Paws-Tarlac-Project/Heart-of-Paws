@@ -13,7 +13,7 @@ const slugify = require("slugify");
 //multer middleware to upload multiple images, used in the createRescue route handler
 exports.uploadImages = upload.fields([
   { name: "featureImage", maxCount: 1 },
-  { name: "galleryImages", maxCount: 3 },
+  { name: "galleryImages", maxCount: 4 },
 ]);
 
 exports.getAllRescues = asyncHandler(async (req, res) => {
@@ -140,7 +140,6 @@ exports.getNoOfApplications = asyncHandler(async (req, res) => {
 exports.updateRescue = asyncHandler(async (req, res) => {
   const rescueId = req.params.rescueId;
   const updates = req.body;
-  console.log(`updates: ${updates.name}`);
 
   // Process name for slug if provided
   if (updates.name) {
@@ -191,7 +190,10 @@ exports.updateRescue = asyncHandler(async (req, res) => {
   const updatedRescue = await Rescue.findByIdAndUpdate(
     rescueId,
     { $set: updates },
-    { new: true, runValidators: true }
+    {
+      new: true,
+      runValidators: false,
+    }
   );
 
   if (!updatedRescue) {
@@ -200,7 +202,5 @@ exports.updateRescue = asyncHandler(async (req, res) => {
 
   console.log(`updated rescue: ${updatedRescue}`);
 
-  res.status(200).json({
-    rescue: updatedRescue,
-  });
+  res.status(200).json(updatedRescue);
 });

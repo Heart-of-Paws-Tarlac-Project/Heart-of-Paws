@@ -6,6 +6,13 @@ const moment = require("moment");
 
 const VALID_TIME_SLOTS = ["11:00 AM - 1:00 PM", "3:00 PM - 5:00 PM"];
 
+// exports.getApplicationsForRescue = asyncHandler(async (req, res) => {
+//   const rescueId = req.params.rescueId;
+
+//   const allRescueApplications = Application.find({})
+// })
+
+
 // Create application
 exports.createApplication = asyncHandler(async (req, res) => {
   const userId = req.session.user.id;
@@ -66,8 +73,8 @@ exports.getAvailableDates = asyncHandler(async (req, res) => {
   // Get all booked slots for the current month (across all rescues)
   const bookedSlots = await Application.find({
     interviewDate: {
-      $gte: moment().startOf("day").toDate(),
-      $lte: moment().endOf("month").toDate(),
+      $gte: moment().startOf("day").toDate(),  // Start from today at 00:00
+      $lte: moment().endOf("month").toDate(),  // End of the month
     },
   });
 
@@ -81,10 +88,10 @@ exports.getAvailableDates = asyncHandler(async (req, res) => {
     bookedDates[date].push(slot.interviewTime);
   });
 
-  // Generate available slots for the current month
+  // Generate available slots starting from today
   const availableDates = [];
-  const startDate = moment().startOf("month");
-  const endDate = moment().endOf("month");
+  const startDate = moment();  // Start from today
+  const endDate = moment().endOf("month");  // End of the month
 
   for (let day = startDate; day.isBefore(endDate); day.add(1, "day")) {
     const date = day.format("YYYY-MM-DD");
@@ -99,9 +106,9 @@ exports.getAvailableDates = asyncHandler(async (req, res) => {
       });
     }
   }
-
   res.status(200).json({ availableDates });
 });
+
 
 // Delete application
 exports.deleteApplication = asyncHandler(async (req, res) => {

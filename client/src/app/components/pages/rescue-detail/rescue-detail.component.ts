@@ -16,6 +16,7 @@ import { RouterLink, RouterModule } from '@angular/router';
 })
 export class RescueDetailComponent implements OnInit {
   @Input() userType: 'admin' | 'user' = 'user';
+  buttonText: string = '';
 
   constructor(
     private rescueService: RescueService,
@@ -32,6 +33,12 @@ export class RescueDetailComponent implements OnInit {
       if (slug) {
         this.rescueService.getRescue(slug);
       }
+
+      if (this.userType === 'admin') {
+        this.buttonText = 'Update';
+        return;
+      }
+      this.buttonText = 'Inquire about';
     });
   }
 

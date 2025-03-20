@@ -25,6 +25,11 @@ router.get(
   rescuesController.getNoOfApplications
 );
 //update rescue details
-router.patch("/:rescueId", isAdmin, rescuesController.updateRescue);
+router.patch(
+  "/:rescueId",
+  isAdmin,
+  rescuesController.uploadImages,
+  rescuesController.updateRescue
+);
 
 module.exports = router;

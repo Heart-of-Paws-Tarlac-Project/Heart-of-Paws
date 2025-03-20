@@ -44,7 +44,6 @@ export class UserProfileComponent implements OnInit {
       next: (response) => {
         this.userProfile = response.user || {};
         this.userApplications = response.applications || [];
-        console.log(this.userApplications);
       },
       error: (error) => {
         console.error('Error retrieving user profile:', error);
@@ -57,6 +56,11 @@ export class UserProfileComponent implements OnInit {
     this.userService.deleteApplication(applicationId).subscribe({
       next: () => {
         console.log('Application has been deleted successfully');
+        const userId = localStorage.getItem('userId');
+        console.log(`userId: ${userId}`);
+        if (userId) {
+          this.getUserProfile(userId);
+        }
       },
       error: (error) => {
         console.error('Error in deleting application: ', error);

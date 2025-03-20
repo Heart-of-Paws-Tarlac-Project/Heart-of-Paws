@@ -13,28 +13,15 @@ import Lenis from '@studio-freight/lenis';
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [
-    RouterOutlet,
-    NavbarComponent,
-    FooterComponent,
-    CommonModule,
-    AdminNavbarComponent,
-  ],
+  imports: [RouterOutlet, NavbarComponent, FooterComponent, CommonModule],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css',
 })
-export class AppComponent implements OnInit, OnDestroy, AfterViewInit {
-  isAdminAuthenticated = false;
-  isUserAuthenticated = false;
-  private adminAuthSub!: Subscription;
-  private userAuthSub!: Subscription;
+export class AppComponent implements AfterViewInit {
   private lenis!: Lenis;
+  isAdminRoute: boolean = false;
 
-  constructor(
-    private router: Router,
-    private adminAuthService: AdminAuthService,
-    private authService: AuthService
-  ) {
+  constructor(private router: Router) {
     this.router.events.subscribe((event) => {
       if (event instanceof NavigationEnd) {
         // Reset scroll smoothly when navigating to a new page
@@ -45,20 +32,12 @@ export class AppComponent implements OnInit, OnDestroy, AfterViewInit {
         }
       }
     });
-  }
 
-  ngOnInit(): void {
-    this.adminAuthSub = this.adminAuthService.isAdminAuthenticated$.subscribe(
-      (isAdminAuthenticated) => {
-        this.isAdminAuthenticated = isAdminAuthenticated;
+    this.router.events.subscribe((event) => {
+      if (event instanceof NavigationEnd) {
+        this.isAdminRoute = event.url.startsWith('/admin');
       }
-    );
-
-    this.userAuthSub = this.authService.isAuthenticated$.subscribe(
-      (isUserAuthenticated) => {
-        this.isUserAuthenticated = isUserAuthenticated;
-      }
-    );
+    });
   }
 
   ngAfterViewInit(): void {
@@ -74,11 +53,6 @@ export class AppComponent implements OnInit, OnDestroy, AfterViewInit {
     };
 
     requestAnimationFrame(raf);
-  }
-
-  ngOnDestroy(): void {
-    if (this.adminAuthSub) this.adminAuthSub.unsubscribe();
-    if (this.userAuthSub) this.userAuthSub.unsubscribe();
   }
 
   showFooter(): boolean {

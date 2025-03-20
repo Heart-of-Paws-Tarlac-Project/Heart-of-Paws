@@ -111,6 +111,11 @@
         </p>
       </div>
 
+      <p *ngIf="isSubmitted" class="text-green-500">
+        An email has been sent to {{ successEmail }}. Please click on the link
+        to complete your registration.
+      </p>
+
       <div data-aos="fade-up" data-aos-delay="700" data-aos-duration="800">
         <app-button text="Submit" type="submit" class="w-full"></app-button>
         <br />

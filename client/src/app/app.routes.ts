@@ -14,6 +14,8 @@ import { ApplicationFormComponent } from './components/pages/application-form/ap
 import { ContactComponent } from './components/pages/contact/contact.component';
 import { UserProfileComponent } from './components/pages/user-profile/user-profile.component';
 import { AdminLoginComponent } from './components/admin/admin-login/admin-login.component';
+import { AdminPageComponent } from './components/admin/admin-page/admin-page.component';
+import { RescueOverviewComponent } from './components/admin/rescue-overview/rescue-overview.component';
 
 export const routes: Routes = [
   {
@@ -43,8 +45,18 @@ export const routes: Routes = [
   },
   {
     path: 'admin',
-    component: AdminDashboardComponent,
+    component: AdminPageComponent,
     canActivate: [adminAuthGuard],
+    children: [
+      {
+        path: '',
+        component: AdminDashboardComponent,
+      },
+      {
+        path: 'rescue/:slug',
+        component: RescueOverviewComponent,
+      },
+    ],
   },
   {
     path: 'admin-login',

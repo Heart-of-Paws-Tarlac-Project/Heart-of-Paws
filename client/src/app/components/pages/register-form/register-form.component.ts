@@ -26,6 +26,7 @@ import 'aos/dist/aos.css';
 export class RegisterFormComponent {
   isSubmitted: boolean = false;
   errorMessage: string = '';
+  successEmail: string = '';
   ngAfterViewInit(): void {
     AOS.init();
   }
@@ -68,32 +69,37 @@ export class RegisterFormComponent {
   }
 
   onSubmit() {
-    console.log('fuck');
     if (!this.registerForm.valid) {
       this.registerForm.markAllAsTouched();
       console.log('Form is invalid');
       return;
     }
 
-    console.log('form is valid');
+    console.log('Form is valid');
 
-    //the values are all retrieved from the getter methods which makes these variables accessible even if they are not explicitly defined.
     const user = {
       name: this.name.value as string,
       email: this.email.value as string,
       password: this.password.value as string,
     };
 
-    //access authService's register method
     this.authService.registerUser(user).subscribe({
       next: (response) => {
+        this.isSubmitted = true;
+        this.errorMessage = '';
+        // Store the email directly for displaying in the success message
+        this.successEmail = user.email;
         console.log('Registration successful', response);
-        this.router.navigate(['/login']);
+
+        // Optionally, navigate to the login page after a delay
+        setTimeout(() => {
+          this.router.navigate(['/login']);
+        }, 3000);
       },
       error: (error) => {
         console.error('Registration failed', error);
+        this.isSubmitted = false;
         if (error.status === 400) {
-          console.log(error.message);
           if (error.error?.message.includes('Username already exists')) {
             this.errorMessage =
               'Username already exists. Please choose a different username.';

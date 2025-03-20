@@ -90,12 +90,21 @@
       {{ application.queuePosition }} out of
       {{ application.totalApplicants }} applicants for
       {{ application.rescue.name }}.
-      {{ application.status }}
     </p>
 
     <p class="text-xl ml-5 mb-3">
       <span class="text-sm">Application Status</span><br />
       {{ application.status | titlecase }}
+    </p>
+
+    <p class="text-xl ml-5 mb-3">
+      <span class="text-sm">Set date</span><br />
+      {{ application.interviewDate | date : "fullDate" }}
+    </p>
+
+    <p class="text-xl ml-5 mb-3">
+      <span class="text-sm">Set Time</span><br />
+      {{ application.interviewTime }}
     </p>
 
     <app-button

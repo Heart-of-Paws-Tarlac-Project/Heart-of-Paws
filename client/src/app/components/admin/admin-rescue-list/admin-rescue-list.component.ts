@@ -1,29 +1,31 @@
-import { Component, OnInit, Input } from '@angular/core';
-import { Rescue } from '../../../interfaces/rescue';
-import { RescueService } from '../../../services/rescue.service';
+import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RescueCardComponent } from '../../ui/rescue-card/rescue-card.component';
 import AOS from 'aos';
 import 'aos/dist/aos.css';
+import { RescueService } from '../../../services/rescue.service';
+import { RescueCardComponent } from '../../ui/rescue-card/rescue-card.component';
 
 @Component({
-  selector: 'app-rescues-list',
+  selector: 'app-admin-rescue-list',
   standalone: true,
   imports: [CommonModule, RescueCardComponent],
-  templateUrl: './rescues-list.component.html',
-  styleUrl: './rescues-list.component.css',
+  templateUrl: './admin-rescue-list.component.html',
+  styleUrl: './admin-rescue-list.component.css',
 })
-export class RescuesListComponent implements OnInit {
+export class AdminRescueListComponent implements OnInit {
   rescueListTitle: string = '';
   activeFilter: string = 'all';
 
   constructor(private rescueService: RescueService) {}
+
   ngOnInit(): void {
     this.rescueService.getRescues();
   }
+
   ngAfterViewInit(): void {
     AOS.init();
   }
+
   get rescues() {
     return this.rescueService.rescues$();
   }

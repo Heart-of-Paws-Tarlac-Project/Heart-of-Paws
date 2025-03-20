@@ -23,35 +23,36 @@
       class="h-full p-10 w-full flex flex-col gap-2 items-start justify-start lg:w-2/4 xl:w-1/2 xl:h-full xl:gap-10 sticky-info"
     >
       <h1
-        class="text-6xl 2xl:text-9xl"
+        class="text-6xl 2xl:text-9xl text-localeColors-darkteal"
         data-aos="fade-up"
         data-aos-duration="800"
       >
         {{ rescue.name }}
       </h1>
-
+      <!-- <img [src]="rescue.featureImage" alt="{{ rescue.name }}" /> -->
       <p
         class="2xl:text-2xl uppercase flex gap-4 w-3/5 space-x-24"
         data-aos="fade-up"
         data-aos-duration="800"
         data-aos-delay="100"
       >
-        <span>
-          <span
-            class="text-sm lg:text-lg"
+        <span
+          ><span
+            class="text-sm lg:text-lg text-localeColors-darkteal"
             data-aos="fade-up"
             data-aos-duration="800"
             data-aos-delay="100"
             >SEX:</span
           >
           <br />
-          {{ rescue.sex }}
-        </span>
+          {{ rescue.sex }}</span
+        >
         <span>
-          <span class="text-sm lg:text-lg">SIZE:</span>
-          <br />
-          {{ rescue.size }}
-        </span>
+          <span class="text-sm lg:text-lg text-localeColors-darkteal"
+            >SIZE:</span
+          >
+          <br />{{ rescue.size }}</span
+        >
       </p>
 
       <p
@@ -60,21 +61,20 @@
         data-aos-duration="800"
         data-aos-delay="200"
       >
-        <span class="text-sm lg:text-lg">VET STATUS:</span><br />
+        <span class="text-sm lg:text-lg text-localeColors-darkteal"
+          >VET STATUS:</span
+        ><br />
         {{ rescue.vetStatus }}
       </p>
-
       <p
         class="2xl:text-2xl uppercase"
         data-aos="fade-up"
         data-aos-duration="800"
         data-aos-delay="300"
       >
-        <span class="text-sm lg:text-lg">AGE:</span>
-        <br />
-        {{ rescue.age }}
+        <span class="text-sm lg:text-lg text-localeColors-darkteal">AGE:</span>
+        <br />{{ rescue.age }}
       </p>
-
       <p
         class="2xl:text-2xl uppercase"
         data-aos="fade-up"
@@ -82,7 +82,7 @@
         data-aos-delay="400"
       >
         <span
-          class="text-sm lg:text-lg"
+          class="text-sm lg:text-lg text-localeColors-darkteal"
           data-aos="fade-up"
           data-aos-duration="800"
           data-aos-delay="500"
@@ -90,12 +90,10 @@
         >
         <br /><br />
         <span
-          class="border border-black p-4 rounded-2xl 2xl:text-xl uppercase"
+          class="border border-localeColors-darkteal p-4 rounded-2xl 2xl:text-lg uppercase"
           >{{ rescue.description }}</span
         >
       </p>
-
-      <!-- Dynamic RouterLink based on userType -->
       <button
         [routerLink]="
           userType === 'admin'
@@ -106,9 +104,9 @@
         data-aos-duration="800"
         data-aos-delay="400"
         type="button"
-        class="mt-5 text-white bg-blue-700 hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 font-medium rounded-full text-xs sm:text-sm md:text-base lg:text-base xl:text-xl px-4 sm:px-6 md:px-8 lg:px-10 xl:px-12 py-2 sm:py-2.5 md:py-3 lg:py-3.5 xl:py-4 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+        class="mt-5 text-white bg-localeColors-red hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 font-medium rounded-full text-xs sm:text-sm md:text-base lg:text-base xl:text-xl px-4 sm:px-6 md:px-8 lg:px-10 xl:px-12 py-2 sm:py-2.5 md:py-3 lg:py-3.5 xl:py-4 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
       >
-        {{ userType === "admin" ? "Edit" : "Inquire about" }} {{ rescue.name }}
+        Inquire about {{ rescue.name }}
       </button>
     </div>
   </div>

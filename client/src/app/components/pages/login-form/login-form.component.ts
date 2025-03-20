@@ -99,21 +99,26 @@ export class LoginFormComponent implements OnInit {
 
     //call authService's login method
     this.authService.loginUser(userCred).subscribe({
-      next: () => {
-        console.log('User successfully logged in');
+      next: (response) => {
+        console.log(`response: ${response.role}`);
+
+        if (response.role === 'admin') {
+          this.router.navigate(['/admin']);
+          return; // Stop further execution if the user is an admin
+        }
+
+        const redirectUrl = localStorage.getItem('redirectUrl');
         if (redirectUrl) {
           localStorage.removeItem('redirectUrl');
           this.router.navigate([redirectUrl]);
-          return;
-        }
-        this.router.navigate(['/']);
-      },
-      error: (error) => {
-        console.log('Error in logging user');
-        if (error.status === 401) {
-          this.errorMessage = 'Invalid username or password';
         } else {
-          this.errorMessage = 'Oops! Something went wrong. Please try again.';
+          this.router.navigate(['/']);
+        }
+      },
+      error: (err) => {
+        console.error('Login error:', err);
+        if (err.status === 401) {
+          this.errorMessage = 'Invalid email or password';
         }
       },
     });

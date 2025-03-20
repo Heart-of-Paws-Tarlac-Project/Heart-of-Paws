@@ -10,4 +10,5 @@ export interface Rescue {
   description: string;
   featureImage: string;
   galleryImages: string[];
+  availability: string;
 }

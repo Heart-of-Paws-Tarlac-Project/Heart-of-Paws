@@ -13,9 +13,9 @@ import { AboutComponent } from './components/pages/about/about.component';
 import { ApplicationFormComponent } from './components/pages/application-form/application-form.component';
 import { ContactComponent } from './components/pages/contact/contact.component';
 import { UserProfileComponent } from './components/pages/user-profile/user-profile.component';
-import { AdminLoginComponent } from './components/admin/admin-login/admin-login.component';
-import { AdminPageComponent } from './components/admin/admin-page/admin-page.component';
 import { RescueOverviewComponent } from './components/admin/rescue-overview/rescue-overview.component';
+import { AdminRescueListComponent } from './components/admin/admin-rescue-list/admin-rescue-list.component';
+import { UpdateRescueFormComponent } from './components/admin/update-rescue-form/update-rescue-form.component';
 
 export const routes: Routes = [
   {
@@ -45,22 +45,22 @@ export const routes: Routes = [
   },
   {
     path: 'admin',
-    component: AdminPageComponent,
+    component: AdminDashboardComponent,
     canActivate: [adminAuthGuard],
     children: [
       {
         path: '',
-        component: AdminDashboardComponent,
+        component: AdminRescueListComponent,
       },
       {
         path: 'rescue/:slug',
         component: RescueOverviewComponent,
       },
+      {
+        path: 'rescue/edit/:slug',
+        component: UpdateRescueFormComponent,
+      },
     ],
-  },
-  {
-    path: 'admin-login',
-    component: AdminLoginComponent,
   },
   {
     path: 'unauthorized',

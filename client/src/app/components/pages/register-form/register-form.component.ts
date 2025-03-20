@@ -26,7 +26,7 @@ import 'aos/dist/aos.css';
 export class RegisterFormComponent {
   isSubmitted: boolean = false;
   errorMessage: string = '';
-  successEmail: string = '';
+  verifyMessage: string = '';
   ngAfterViewInit(): void {
     AOS.init();
   }
@@ -83,19 +83,17 @@ export class RegisterFormComponent {
       password: this.password.value as string,
     };
 
+    console.time('RegisterUser');
     this.authService.registerUser(user).subscribe({
       next: (response) => {
+        console.log('Registration successful', response);
+        this.router.navigate(['/login']);
+        localStorage.setItem('verifMessage', response.message);
         this.isSubmitted = true;
         this.errorMessage = '';
-        // Store the email directly for displaying in the success message
-        this.successEmail = user.email;
-        console.log('Registration successful', response);
-
-        // Optionally, navigate to the login page after a delay
-
-        this.router.navigate(['/login']);
       },
       error: (error) => {
+        console.timeEnd('RegisterUser');
         console.error('Registration failed', error);
         this.isSubmitted = false;
         if (error.status === 400) {

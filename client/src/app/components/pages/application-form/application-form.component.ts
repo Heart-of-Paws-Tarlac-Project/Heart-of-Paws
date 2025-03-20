@@ -111,19 +111,44 @@ export class ApplicationFormComponent implements OnInit {
 
   dateFilter = (d: Date | null): boolean => {
     if (!d) return false;
+
+    // Get today's date (current date) and format it as 'YYYY-MM-DD'
+    const today = new Date();
+    const formattedToday = `${today.getFullYear()}-${String(
+      today.getMonth() + 1
+    ).padStart(2, '0')}-${String(today.getDate()).padStart(2, '0')}`;
+
+    // Format the selected date as 'YYYY-MM-DD'
     const formattedDate = `${d.getFullYear()}-${String(
       d.getMonth() + 1
     ).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`;
+
+    // If the selected date is before today, disable it
+    if (formattedDate < formattedToday) {
+      return false;
+    }
+
+    // Find the available slot for the given date
     const available = this.availableDates.find(
       (slot) => slot.date === formattedDate
     );
-    return !!available; // Only enable dates with available slots
+
+    // Only enable dates with available slots
+    return !!available;
   };
 
   loadAvailableDates() {
     this.rescueService.loadAvailableDates().subscribe({
       next: (response) => {
         this.availableDates = response.availableDates;
+
+        // Log the available dates
+        console.log('Available Dates:', this.availableDates);
+
+        // To log individual date values
+        this.availableDates.forEach((availableDate) => {
+          console.log(`Available Date: ${availableDate.date}`);
+        });
       },
       error: (error) => {
         console.error('Error fetching available dates: ', error);

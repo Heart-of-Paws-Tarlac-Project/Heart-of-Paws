@@ -6,12 +6,41 @@ const moment = require("moment");
 
 const VALID_TIME_SLOTS = ["11:00 AM - 1:00 PM", "3:00 PM - 5:00 PM"];
 
-// exports.getApplicationsForRescue = asyncHandler(async (req, res) => {
-//   const rescueId = req.params.rescueId;
+//get applications for rescue
+exports.getApplicationsForRescue = asyncHandler(async (req, res) => {
+  const rescueSlug = req.params.slug;
 
-//   const allRescueApplications = Application.find({})
-// })
+  const rescue = await Rescue.findOne({ slug: rescueSlug });
 
+  if (!rescue) {
+    throw new CustomError("Rescue not found.", 404);
+  }
+
+  const allRescueApplications = await Application.find({
+    rescue: rescue._id,
+  })
+    .sort({ interviewDate: 1 })
+    .populate("user", "profileImage")
+    .exec();
+
+  res.status(200).json(allRescueApplications);
+});
+
+//get user by application
+exports.getUserByApplication = asyncHandler(async (req, res) => {
+  const applicationId = req.params.applicationId;
+
+  const user = await Application.findById(applicationId)
+    .populate("user")
+    .populate("rescue", "name")
+    .exec();
+
+  if (!user) {
+    throw new CustomError("User not found", 404);
+  }
+
+  res.status(200).json(user);
+});
 
 // Create application
 exports.createApplication = asyncHandler(async (req, res) => {
@@ -73,8 +102,8 @@ exports.getAvailableDates = asyncHandler(async (req, res) => {
   // Get all booked slots for the current month (across all rescues)
   const bookedSlots = await Application.find({
     interviewDate: {
-      $gte: moment().startOf("day").toDate(),  // Start from today at 00:00
-      $lte: moment().endOf("month").toDate(),  // End of the month
+      $gte: moment().startOf("day").toDate(), // Start from today at 00:00
+      $lte: moment().endOf("month").toDate(), // End of the month
     },
   });
 
@@ -90,8 +119,8 @@ exports.getAvailableDates = asyncHandler(async (req, res) => {
 
   // Generate available slots starting from today
   const availableDates = [];
-  const startDate = moment();  // Start from today
-  const endDate = moment().endOf("month");  // End of the month
+  const startDate = moment(); // Start from today
+  const endDate = moment().endOf("month"); // End of the month
 
   for (let day = startDate; day.isBefore(endDate); day.add(1, "day")) {
     const date = day.format("YYYY-MM-DD");
@@ -108,7 +137,6 @@ exports.getAvailableDates = asyncHandler(async (req, res) => {
   }
   res.status(200).json({ availableDates });
 });
-
 
 // Delete application
 exports.deleteApplication = asyncHandler(async (req, res) => {

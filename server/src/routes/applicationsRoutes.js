@@ -17,12 +17,18 @@ router.delete(
   isAuthenticated,
   applicationsController.deleteApplication
 );
-
 //get all available dates
 router.get(
   "/available-dates",
   isAuthenticated,
   applicationsController.getAvailableDates
 );
+
+//admin routes
+// get all applications for rescue
+router.get("/:slug", isAdmin, applicationsController.getApplicationsForRescue);
+
+//get user by applicationId
+router.get("/:applicationId/user", applicationsController.getUserByApplication);
 
 module.exports = router;

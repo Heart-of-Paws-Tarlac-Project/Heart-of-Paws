@@ -1,0 +1,26 @@
+<h1>Application Details for {{ userData.rescue.name }}.</h1>
+<p *ngIf="userData">Applicant Name: {{ userData.applicantName }}</p>
+<p *ngIf="userData.user">User Name: {{ userData.user.name }}</p>
+<img
+  *ngIf="userData.user?.profileImage"
+  [src]="userData.user.profileImage"
+  alt="Profile Image"
+/>
+<p>{{ userData.user.email }}</p>
+<p>{{ userData.email }}</p>
+<p>{{ userData.phoneNumber }}</p>
+<p>{{ userData.address }}</p>
+<h2>Application Details</h2>
+<p>Status: {{ userData.status | titlecase }}</p>
+<p>
+  Scheduled Interview Date: {{ userData.interviewDate | date : "fullDate" }}
+</p>
+<p>Scheduled Interview Time: {{ userData.interviewTime }}</p>
+<p>Appointment Mode: {{ userData.appointmentMode | titlecase }}</p>
+<p>
+  Introduction Message for adoption interest: {{ userData.introductionMessage }}
+</p>
+
+<button (click)="approveApplication(userData._id)">Approve</button>
+<br />
+<button (click)="rejectApplication(userData._id)">Reject</button>

@@ -32,4 +32,5 @@ router.patch(
   rescuesController.updateRescue
 );
 
+
 module.exports = router;

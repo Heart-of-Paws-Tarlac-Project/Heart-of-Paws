@@ -46,9 +46,9 @@ app.use(
 
 app.use(morgan("tiny"));
 
+app.use("/admin", adminRouter);
 app.use("/rescues", rescuesRouter);
 app.use("/adminAuth", adminAuthRouter);
-app.use("/admin", adminRouter);
 app.use("/auth", authRouter);
 app.use("/applications", applicationsRouter);
 app.use("/inquiries", inquiriesRouter);

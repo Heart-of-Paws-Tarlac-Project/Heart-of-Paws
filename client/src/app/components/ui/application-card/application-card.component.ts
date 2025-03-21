@@ -9,6 +9,7 @@ import { Input } from '@angular/core';
   styleUrl: './application-card.component.css',
 })
 export class ApplicationCardComponent {
+  @Input() mode: 'admin' | 'user' = 'user';
   @Input() rescueImg!: string;
   @Input() rescueName!: string;
   @Input() appointmentMode!: string;

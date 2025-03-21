@@ -4,8 +4,10 @@ const Application = require("../models/application");
 const Rescue = require("../models/rescue");
 
 exports.approveOrRejectApplication = asyncHandler(async (req, res) => {
-  const { applicationId } = req.params;
-  const { status } = req.body;
+  const applicationId = req.params.applicationId;
+  console.log(`application id: ${applicationId}`);
+  const status = req.body.status;
+  console.log(`status: ${status}`);
 
   if (!["approved", "rejected"].includes(status)) {
     throw new CustomError("Invalid status", 400);
@@ -13,6 +15,7 @@ exports.approveOrRejectApplication = asyncHandler(async (req, res) => {
 
   const application = await Application.findById(applicationId);
   if (!application) {
+    console.log(`Application: ${application}`);
     throw new CustomError("Application not found", 404);
   }
 

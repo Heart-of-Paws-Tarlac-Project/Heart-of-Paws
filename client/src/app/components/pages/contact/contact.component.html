@@ -2,60 +2,81 @@
   class="w-full h-auto flex flex-col md:flex-row xl:h-screen justify-center xl:justify-center items-center p-4 md:p-8 2xl:space-x-10"
 >
   <div
-    class="h-auto flex flex-col items-center md:items-center justify-center w-full md:w-3/4 md:h-2/4 xl:w-2/5 xl:h-3/5 gap-7 md:gap-20 p-5 xl:pl-20 rounded-2xl 2xl:pr-32"
-    data-aos="fade-left"
-    data-aos-duration="1000"
+    class="h-auto flex flex-col gap-5 items-start justify-start w-full xl:w-1/2 xl:h-4/5"
   >
     <h1
-      class="text-left text-5xl 2xl:text-9xl uppercase text-localeColors-darkteal font-WinkySans font-semibold"
-      data-aos="fade-up"
-      data-aos-duration="800"
+      class="text-left text-6xl xl:text-7xl 2xl:text-9xl uppercase text-localeColors-darkteal font-WinkySans font-semibold"
+      data-aos="fade-right"
+      data-aos-duration="1000"
     >
       Get in Touch
     </h1>
-    <p
-      class="justify-center items-center gap-10 xl:text-2xl flex w-3/5 2xl:gap-32 font-Monteserrat font-normal"
+    <div
+      class="flex-col xl:flex-row justfiy-start items-start xl:justify-between xl:items-center gap-5 xl:text-2xl flex w-full 2xl:gap-32 font-Monteserrat font-normal"
+      data-aos="fade-right"
+      data-aos-duration="1000"
     >
-      <span
+      <span class="w-1/2 text-lg"
         ><span
-          class="text-sm lg:text-lg text-localeColors-darkteal font-Monteserrat font-light"
+          class="text-sm lg:text-md text-localeColors-darkteal font-Monteserrat font-light"
           >Email</span
         >
         <br />
-        jangabperezatgmail</span
+        <a
+          href="mailto:cespawcastro0606@gmail.com"
+          class="hover:text-localeColors-red transition-colors duration-300 ease-in-out"
+        >
+          cespawcastro0606&#64;gmail.com
+        </a></span
       >
-      <span>
+      <span class="w-1/2 text-lg">
         <span
-          class="text-sm lg:text-lg text-localeColors-darkteal font-Monteserrat font-light"
+          class="text-sm lg:text-md text-localeColors-darkteal font-Monteserrat font-light"
           >Phone</span
         >
-        <br />09289549612</span
+        <br />
+        09452458144</span
       >
-    </p>
+    </div>
 
-    <p
-      class="justify-center items-center gap-10 xl:text-2xl flex w-3/5 2xl:gap-32 font-Monteserrat font-normal"
+    <div
+      class="flex-col xl:flex-row justfiy-start items-start xl:justify-between xl:items-center gap-5 xl:text-2xl flex w-full 2xl:gap-32 font-Monteserrat font-normal"
+      data-aos="fade-right"
+      data-aos-duration="1000"
     >
-      <span
+      <span class="w-1/2 text-lg"
         ><span
-          class="text-sm lg:text-lg text-localeColors-darkteal font-Monteserrat font-light"
+          class="text-sm lg:text-md text-localeColors-darkteal font-Monteserrat font-light"
           >Address</span
         >
         <br />
         jangabperezatgmail</span
       >
-      <span>
+      <span class="w-1/2 text-lg">
         <span
-          class="text-sm lg:text-lg text-localeColors-darkteal font-Monteserrat font-light"
+          class="text-sm lg:text-md text-localeColors-darkteal font-Monteserrat font-light"
           >Facebook Page</span
         >
-        <br />09289549612</span
+        <br /><a
+          href="https://www.facebook.com/profile.php?id=61558267808657&sk=about"
+          target="_blank"
+          class="hover:text-localeColors-red transition-colors duration-300 ease-in-out"
+          >Heart of Paws Tarlac</a
+        ></span
       >
-    </p>
+    </div>
+
+    <div
+      class="w-full h-72 hidden md:flex flex-col md:w-full items-center justify-center rounded-2xl p-5 2xl:h-full"
+      data-aos="fade-right"
+      data-aos-duration="1000"
+    >
+      <div #mapContainer class="w-full h-full rounded-2xl"></div>
+    </div>
   </div>
 
   <div
-    class="h-auto 2xl:py-44 border-localeColors-red flex flex-col items-center justify-center w-full md:w-3/4 md:h-2/4 xl:w-2/5 xl:h-auto gap-5 p-12 xl:py-24 md:border-l-2 md:border-b-0"
+    class="h-auto 2xl:py-44 border-localeColors-red flex flex-col items-center justify-center w-full xl:w-2/5 xl:h-auto gap-5 p-12 xl:py-24 md:border-l-2 md:border-b-0"
   >
     <p
       *ngIf="errorMessage"
@@ -208,13 +229,13 @@
 </div>
 
 <div
-  class="w-full h-auto flex flex-col md:flex-row justify-center xl:justify-center items-start py-4 md:pb-20 md:p-8"
+  class="w-full h-auto flex flex-col md:flex-row justify-center xl:justify-center items-start pb-20 p-2"
 >
   <div
-    class="w-full h-72 flex flex-col md:w-3/4 md:h-[50vh] items-center justify-start rounded-2xl"
+    class="w-full h-72 flex md:hidden flex-col md:w-full rounded-2xl 2xl:h-full"
     data-aos="fade-up"
     data-aos-duration="1000"
   >
-    <div #mapContainer class="w-full h-full rounded-2xl"></div>
+    <div #mapContainer2 class="w-full h-full rounded-2xl"></div>
   </div>
 </div>

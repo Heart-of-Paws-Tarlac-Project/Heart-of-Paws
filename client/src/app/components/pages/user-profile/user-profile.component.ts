@@ -111,7 +111,7 @@ export class UserProfileComponent implements OnInit {
         next: (response) => {
           console.log('Profile image updated:', response);
           this.getUserProfile(userId);
-          this.uploadNotification = 'Profile image updated successfully.';
+          // this.uploadNotification = 'Profile image updated successfully.';
           this.errorMessage = '';
         },
         error: (error) => {

@@ -20,16 +20,3 @@ body {
   margin: 0;
   font-family: Roboto, "Helvetica Neue", sans-serif;
 }
-
-html,
-body {
-  height: 100%;
-}
-body {
-  margin: 0;
-  font-family: Roboto, "Helvetica Neue", sans-serif;
-}
-
-.mdc-text-field--outlined.mdc-text-field--focused {
-  --mdc-outlined-text-field-outline-color: #008080 !important; /* Custom Teal */
-}

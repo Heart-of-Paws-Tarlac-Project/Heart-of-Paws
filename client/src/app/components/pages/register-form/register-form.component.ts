@@ -36,8 +36,8 @@ export class RegisterFormComponent {
     {
       name: new FormControl('', [
         Validators.required,
-        Validators.minLength(2),
-        Validators.maxLength(50),
+        Validators.minLength(6),
+        Validators.maxLength(20),
         Validators.pattern(/^[A-Za-z\s]+$/),
       ]),
       email: new FormControl('', [Validators.required, Validators.email]),

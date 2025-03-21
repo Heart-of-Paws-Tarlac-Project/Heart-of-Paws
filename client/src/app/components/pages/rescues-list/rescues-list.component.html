@@ -19,10 +19,10 @@
     data-aos-duration="800"
   >
     <button
-      class="px-6 py-2 rounded-full transition-all hover:bg-localeColors-darkteal font-Monteserrat font-regular"
+      class="px-6 py-2 rounded-full transition-all hover:bg-localeColors-lightteal active:bg-localeColors-darkteal font-Monteserrat font-regular"
       [ngClass]="
         activeFilter === 'all'
-          ? 'bg-localeColors-darkteal text-white'
+          ? 'bg-localeColors-lightteal text-white'
           : 'bg-localeColors-red text-white '
       "
       (click)="filterRescuesBySize('all')"
@@ -30,10 +30,10 @@
       All
     </button>
     <button
-      class="px-6 py-2 rounded-full transition-all hover:bg-localeColors-darkteal font-Monteserrat font-regular"
+      class="px-6 py-2 rounded-full transition-all hover:bg-localeColors-lightteal active:bg-localeColors-darkteal font-Monteserrat font-regular"
       [ngClass]="
         activeFilter === 'small'
-          ? 'bg-localeColors-darkteal text-white'
+          ? 'bg-localeColors-lightteal text-white'
           : 'bg-localeColors-red text-white'
       "
       (click)="filterRescuesBySize('small')"
@@ -41,10 +41,10 @@
       Small
     </button>
     <button
-      class="px-6 py-2 rounded-full transition-all hover:bg-localeColors-darkteal font-Monteserrat font-regular"
+      class="px-6 py-2 rounded-full transition-all hover:bg-localeColors-lightteal active:bg-localeColors-darkteal font-Monteserrat font-regular"
       [ngClass]="
         activeFilter === 'medium'
-          ? 'bg-localeColors-darkteal text-white'
+          ? 'bg-localeColors-lightteal text-white'
           : 'bg-localeColors-red text-white'
       "
       (click)="filterRescuesBySize('medium')"
@@ -52,10 +52,10 @@
       Medium
     </button>
     <button
-      class="px-6 py-2 rounded-full transition-all hover:bg-localeColors-darkteal font-Monteserrat font-regular"
+      class="px-6 py-2 rounded-full transition-all hover:bg-localeColors-lightteal active:bg-localeColors-darkteal font-Monteserrat font-regular"
       [ngClass]="
         activeFilter === 'large'
-          ? 'bg-localeColors-darkteal text-white'
+          ? 'bg-localeColors-lightteal text-white'
           : 'bg-localeColors-red text-white'
       "
       (click)="filterRescuesBySize('large')"

@@ -8,9 +8,8 @@ describe('AdminNavbarComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [AdminNavbarComponent]
-    })
-    .compileComponents();
+      imports: [AdminNavbarComponent],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(AdminNavbarComponent);
     component = fixture.componentInstance;

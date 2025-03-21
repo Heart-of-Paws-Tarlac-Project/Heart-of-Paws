@@ -1,0 +1,11 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.scrolled {
+  @apply opacity-100 bg-localeColors-darkteal transition ease-in-out duration-500 hover:-translate-y-2 hover:bg-localeColors-red active:hover:-translate-y-0;
+}
+
+.hidden-on-scroll {
+  @apply opacity-0 transition ease-in-out duration-500;
+}

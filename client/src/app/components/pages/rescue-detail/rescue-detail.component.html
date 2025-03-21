@@ -3,7 +3,7 @@
     class="w-full flex flex-col md:flex-row xl:h-auto gap-2 items-center justify-center"
   >
     <div
-      class="h-auto w-4/5 flex lg:flex-col gap-2 items-center justify-center xl:h-full xl:gap-5 p-10 2xl:p-20"
+      class="h-auto w-4/5 flex lg:flex-col gap-2 items-center justify-center xl:h-full xl:gap-5 2xl:p-20"
     >
       <div
         class="image-container w-full lg:w-80 xl:w-3/5 2xl:w-[50rem] 2xl:h-full grid grid-cols-2 gap-3 place-items-center"
@@ -13,7 +13,7 @@
       >
         <img
           *ngFor="let image of rescue.galleryImages"
-          class="rounded-2xl"
+          class="rounded-2xl aspect-square object-cover"
           [src]="image"
           alt="{{ rescue.name }}"
         />

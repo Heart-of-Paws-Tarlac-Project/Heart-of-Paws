@@ -7,51 +7,57 @@ const cookieParser = require("cookie-parser");
 const CustomError = require("../errors/CustomError");
 const crypto = require("crypto");
 const sendEmail = require("../utils/sendEmail");
+const validateEmail = require("../utils/emailValidator");
 
 //load environment variables
 require("dotenv").config();
 
-//register controller
 exports.registerUser = asyncHandler(async (req, res) => {
   const { name, email, password, role = "user" } = req.body;
 
-  // Check for existing user by name
-  const existingByName = await User.findOne({
-    name: { $regex: new RegExp(`^${name}$`, "i") },
+  const existingUser = await User.findOne({
+    $or: [
+      { name: { $regex: new RegExp(`^${name}$`, "i") } },
+      { email: { $regex: new RegExp(`^${email}$`, "i") } },
+    ],
   });
 
-  if (existingByName) {
-    throw new CustomError("Username already exists", 400);
+  if (existingUser) {
+    if (existingUser.name.toLowerCase() === name.toLowerCase()) {
+      throw new CustomError("Username already exists", 400);
+    }
+    if (
+      existingUser.email.toLowerCase() === email.toLowerCase() &&
+      existingUser.isVerified
+    ) {
+      throw new CustomError("Email already exists", 400);
+    }
   }
 
-  // Check for existing user by email
-  const existingByEmail = await User.findOne({
-    email: { $regex: new RegExp(`^${email}$`, "i") },
-  });
-
-  const saltRounds = 10;
-  const salt = await bcrypt.genSalt(saltRounds);
-  const hash = await bcrypt.hash(password, salt);
+  // Move email validation after database check to avoid unnecessary API calls
+  if (!existingUser || !existingUser.isVerified) {
+    const emailValidationResult = await validateEmail(email);
+    console.log(`emailvalidation result: ${emailValidationResult.isValid}`);
+    if (!emailValidationResult || !emailValidationResult.isValid) {
+      throw new CustomError("Please use a valid email address", 400);
+    }
+  }
 
   const verificationToken = crypto.randomBytes(32).toString("hex");
-  const verificationTokenExpires = new Date(Date.now() + 3600000); // 1 hour expiry
+  const verificationTokenExpires = new Date(Date.now() + 3600000);
+
+  const hash = await bcrypt.hash(password, 8);
 
   let user;
 
-  // If email exists but not verified, update the verification token
-  if (existingByEmail && !existingByEmail.isVerified) {
-    existingByEmail.name = name;
-    existingByEmail.password = hash;
-    existingByEmail.role = role;
-    existingByEmail.verificationToken = verificationToken;
-    existingByEmail.verificationTokenExpires = verificationTokenExpires;
-
-    user = await existingByEmail.save();
-  } else if (existingByEmail) {
-    // If email exists and is verified, don't allow re-registration
-    throw new CustomError("Email already exists", 400);
+  if (existingUser && !existingUser.isVerified) {
+    existingUser.name = name;
+    existingUser.password = hash;
+    existingUser.role = role;
+    existingUser.verificationToken = verificationToken;
+    existingUser.verificationTokenExpires = verificationTokenExpires;
+    user = await existingUser.save();
   } else {
-    // Create new user if email doesn't exist
     user = await User.create({
       name,
       email,
@@ -64,7 +70,7 @@ exports.registerUser = asyncHandler(async (req, res) => {
 
   const verificationLink = `${process.env.BASE_URL}/auth/verify-email?token=${verificationToken}`;
 
-  await sendEmail({
+  sendEmail({
     to: email,
     subject: "Verify Your Email",
     html: `
@@ -72,10 +78,10 @@ exports.registerUser = asyncHandler(async (req, res) => {
       <p>Please click the link below to verify your email:</p>
       <a href="${verificationLink}" target="_blank">Verify Email</a>
     `,
-  });
+  }).catch((err) => console.error("Email sending failed:", err));
 
   res.status(201).send({
-    message: `User ${user.name} successfully registered. A verification email has been sent to ${user.email}.`,
+    message: user.email,
   });
 });
 
@@ -83,7 +89,7 @@ exports.registerUser = asyncHandler(async (req, res) => {
 exports.loginUser = asyncHandler(async (req, res) => {
   const { email, password } = req.body;
 
-  const user = await User.findOne({ email: email });
+  const user = await User.findOne({ email: email, isVerified: true });
   if (!user || !(await bcrypt.compare(password, user.password))) {
     throw new CustomError("Invalid username or password.", 401);
   }
@@ -141,5 +147,7 @@ exports.verifyEmail = asyncHandler(async (req, res) => {
 
   await user.save();
 
-  res.status(200).send({ message: "Email verified successfully." });
+  res
+    .status(200)
+    .send({ message: `Email verified successfully ${user.email}. ` });
 });

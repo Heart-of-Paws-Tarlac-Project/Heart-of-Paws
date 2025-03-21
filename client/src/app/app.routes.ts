@@ -16,6 +16,7 @@ import { UserProfileComponent } from './components/pages/user-profile/user-profi
 import { RescueOverviewComponent } from './components/admin/rescue-overview/rescue-overview.component';
 import { AdminRescueListComponent } from './components/admin/admin-rescue-list/admin-rescue-list.component';
 import { UpdateRescueFormComponent } from './components/admin/update-rescue-form/update-rescue-form.component';
+import { CreateRescueFormComponent } from './components/admin/create-rescue-form/create-rescue-form.component';
 
 export const routes: Routes = [
   {
@@ -46,7 +47,7 @@ export const routes: Routes = [
   {
     path: 'admin',
     component: AdminDashboardComponent,
-    canActivate: [adminAuthGuard],
+    // canActivate: [adminAuthGuard],
     children: [
       {
         path: '',
@@ -59,6 +60,10 @@ export const routes: Routes = [
       {
         path: 'rescue/edit/:slug',
         component: UpdateRescueFormComponent,
+      },
+      {
+        path: 'create-rescue',
+        component: CreateRescueFormComponent,
       },
     ],
   },

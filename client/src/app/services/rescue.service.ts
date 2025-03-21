@@ -49,12 +49,11 @@ export class RescueService {
   The responseType is set to 'text' because we expect a plain text response 
   (such as a success message).
 */
-  addRescue(rescue: Rescue) {
-    this.apiService.post(`/rescues/`, rescue).subscribe(() => {
-      this.refreshRescues();
-      // Refresh the list after adding
-    });
-  } //add rescue returns an observable, subscribe to it to refreshRescues
+  addRescue(rescue: FormData) {
+    return this.apiService.post(`${this.url}/createRescue`, rescue).pipe(
+      tap(() => this.refreshRescues()) // Refresh the list after adding
+    );
+  }
 
   //apply adoption request for a rescue
   inquireAboutRescue(application: any) {

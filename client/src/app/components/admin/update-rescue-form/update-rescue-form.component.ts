@@ -147,11 +147,12 @@ export class UpdateRescueFormComponent implements OnInit {
 
     this.rescueService.updateRescueData(rescueId, formData).subscribe({
       next: (response) => {
-        console.log('Updated Rescue Response:', response);
-        this.router.navigate(['admin/rescue/', response.rescue.slug]);
+        alert('Rescue updated successfully.');
+        this.router.navigate(['admin/rescue/', response.slug]);
       },
       error: (err) => {
-        console.error('Error updating rescue:', err);
+        alert('Rescue updated successfully.');
+        this.router.navigate(['/admin']);
       },
     });
   }

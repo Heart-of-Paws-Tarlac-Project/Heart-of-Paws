@@ -1,0 +1,301 @@
+<!-- <h1>Add a new Rescue</h1> -->
+<form class="w-3/4" [formGroup]="createForm" (ngSubmit)="onSubmit()">
+  <app-form-input
+    label="Rescue Name"
+    type="text"
+    id="name"
+    controlName="name"
+    placeholder="Rescue's name"
+    class="mb-4"
+  ></app-form-input>
+
+  <div *ngIf="name.invalid && name.touched">
+    <p
+      *ngIf="name.errors?.['required']"
+      class="text-red-500 text-sm mb-4 -mt-4 ml-5"
+    >
+      Rescue name is required.
+    </p>
+    <p
+      *ngIf="name.errors?.['minlength']"
+      class="text-red-500 text-sm mb-4 -mt-4 ml-5"
+    >
+      Must be at least 3 characters.
+    </p>
+    <p
+      *ngIf="name.errors?.['maxlength']"
+      class="text-red-500 text-sm mb-4 -mt-4 ml-5"
+    >
+      Must be less than 10 characters.
+    </p>
+    <p
+      *ngIf="name.errors?.['pattern']"
+      class="text-red-500 text-sm mb-4 -mt-4 ml-5"
+    >
+      Only letters and spaces allowed.
+    </p>
+  </div>
+
+  <label
+    class="block mb-2 text-sm font-medium text-localeColors-darkteal dark:text-white"
+  >
+    Sex
+  </label>
+
+  <div class="flex gap-4">
+    <label class="inline-flex items-center">
+      <input
+        type="radio"
+        formControlName="sex"
+        value="male"
+        class="w-4 h-4 text-localeColors-lightteal bg-gray-100 border-gray-300 focus:ring-localeColors-lightteal dark:focus:ring-blue-600 dark:ring-offset-gray-800 dark:bg-gray-700 dark:border-gray-600"
+      />
+      <span class="ml-2 text-gray-900 dark:text-white">Male</span>
+    </label>
+
+    <label class="inline-flex items-center">
+      <input
+        type="radio"
+        formControlName="sex"
+        value="female"
+        class="w-4 h-4 text-localeColors-lightteal bg-gray-100 border-gray-300 focus:ring-localeColors-lightteal dark:focus:ring-blue-600 dark:ring-offset-gray-800 dark:bg-gray-700 dark:border-gray-600"
+      />
+      <span class="ml-2 text-gray-900 dark:text-white">Female</span>
+    </label>
+  </div>
+
+  <div *ngIf="sex.invalid && sex.touched">
+    <p *ngIf="sex.errors?.['required']" class="text-red-500 text-sm mt-1">
+      Rescue's sex is required.
+    </p>
+  </div>
+
+  <label
+    class="block mb-2 text-sm font-medium text-localeColors-darkteal dark:text-white"
+  >
+    Age
+  </label>
+
+  <div class="flex gap-4">
+    <input
+      type="number"
+      min="1"
+      formControlName="ageValue"
+      placeholder="Enter age"
+      class="w-20 p-2 border rounded-md"
+    />
+
+    <select formControlName="ageUnit" class="p-2 border rounded-md">
+      <option value="years">Years</option>
+      <option value="months">Months</option>
+      <option value="days">Days</option>
+    </select>
+  </div>
+
+  <div
+    *ngIf="
+      createForm.controls['ageValue'].invalid &&
+      createForm.controls['ageValue'].touched
+    "
+  >
+    <p
+      *ngIf="createForm.controls['ageValue'].errors?.['required']"
+      class="text-red-500 text-sm mt-1"
+    >
+      Age is required.
+    </p>
+    <p
+      *ngIf="createForm.controls['ageValue'].errors?.['min']"
+      class="text-red-500 text-sm mt-1"
+    >
+      Must be at least 1.
+    </p>
+    <p
+      *ngIf="createForm.controls['ageValue'].errors?.['pattern']"
+      class="text-red-500 text-sm mt-1"
+    >
+      Only numbers are allowed.
+    </p>
+  </div>
+
+  <label
+    class="block mb-2 text-sm font-medium text-localeColors-darkteal dark:text-white"
+  >
+    Rescue Size
+  </label>
+
+  <div class="flex gap-4">
+    <label class="inline-flex items-center">
+      <input
+        type="radio"
+        formControlName="size"
+        value="small"
+        class="w-4 h-4 text-localeColors-lightteal bg-gray-100 border-gray-300 focus:ring-localeColors-lightteal dark:focus:ring-blue-600 dark:ring-offset-gray-800 dark:bg-gray-700 dark:border-gray-600"
+      />
+      <span class="ml-2 text-gray-900 dark:text-white">Small</span>
+    </label>
+
+    <label class="inline-flex items-center">
+      <input
+        type="radio"
+        formControlName="size"
+        value="medium"
+        class="w-4 h-4 text-localeColors-lightteal bg-gray-100 border-gray-300 focus:ring-localeColors-lightteal dark:focus:ring-blue-600 dark:ring-offset-gray-800 dark:bg-gray-700 dark:border-gray-600"
+      />
+      <span class="ml-2 text-gray-900 dark:text-white">Medium</span>
+    </label>
+
+    <label class="inline-flex items-center">
+      <input
+        type="radio"
+        formControlName="size"
+        value="large"
+        class="w-4 h-4 text-localeColors-lightteal bg-gray-100 border-gray-300 focus:ring-localeColors-lightteal dark:focus:ring-blue-600 dark:ring-offset-gray-800 dark:bg-gray-700 dark:border-gray-600"
+      />
+      <span class="ml-2 text-gray-900 dark:text-white">Large</span>
+    </label>
+  </div>
+
+  <div *ngIf="size.invalid && size.touched">
+    <p
+      *ngIf="createForm.controls['size'].errors?.['required']"
+      class="text-red-500 text-sm mt-1"
+    >
+      Size is required.
+    </p>
+  </div>
+
+  <label
+    class="block mb-2 text-sm font-medium text-localeColors-darkteal dark:text-white"
+  >
+    Vet Status
+  </label>
+
+  <div class="flex gap-4">
+    <label class="inline-flex items-center">
+      <input
+        type="radio"
+        formControlName="vetStatus"
+        value="Spayed"
+        class="w-4 h-4 text-localeColors-lightteal bg-gray-100 border-gray-300 focus:ring-localeColors-lightteal dark:focus:ring-blue-600 dark:ring-offset-gray-800 dark:bg-gray-700 dark:border-gray-600"
+      />
+      <span class="ml-2 text-gray-900 dark:text-white">Spayed(female)</span>
+    </label>
+
+    <label class="inline-flex items-center">
+      <input
+        type="radio"
+        formControlName="vetStatus"
+        value="Neutered"
+        class="w-4 h-4 text-localeColors-lightteal bg-gray-100 border-gray-300 focus:ring-localeColors-lightteal dark:focus:ring-blue-600 dark:ring-offset-gray-800 dark:bg-gray-700 dark:border-gray-600"
+      />
+      <span class="ml-2 text-gray-900 dark:text-white">Neutered(male)</span>
+    </label>
+
+    <label class="inline-flex items-center">
+      <input
+        type="radio"
+        formControlName="vetStatus"
+        value="None"
+        class="w-4 h-4 text-localeColors-lightteal bg-gray-100 border-gray-300 focus:ring-localeColors-lightteal dark:focus:ring-blue-600 dark:ring-offset-gray-800 dark:bg-gray-700 dark:border-gray-600"
+      />
+      <span class="ml-2 text-gray-900 dark:text-white">None</span>
+    </label>
+
+    <div *ngIf="vetStatus.invalid && vetStatus.touched">
+      <p
+        *ngIf="createForm.controls['vetStatus'].errors?.['required']"
+        class="text-red-500 text-sm mt-1"
+      >
+        Vet Status is required.
+      </p>
+    </div>
+  </div>
+
+  <label
+    class="block mb-2 text-sm font-medium text-localeColors-darkteal dark:text-white"
+  >
+    Description
+  </label>
+
+  <textarea
+    id="description"
+    rows="4"
+    formControlName="description"
+    class="block p-2.5 w-full text-sm text-gray-900 bg-transparent border-black border-2 focus:ring-localeColors-lightteal focus:border rounded-lg focus:border-localeColors-lightteal dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 mb-4"
+  ></textarea>
+
+  <div *ngIf="description.invalid && description.touched">
+    <p
+      *ngIf="description.errors?.['required']"
+      class="text-red-500 text-sm mb-4 -mt-4 ml-5"
+    >
+      Description is required.
+    </p>
+    <p
+      *ngIf="description.errors?.['minlength']"
+      class="text-red-500 text-sm mb-4 -mt-4 ml-5"
+    >
+      Must be at least 10 characters.
+    </p>
+    <p
+      *ngIf="description.errors?.['maxlength']"
+      class="text-red-500 text-sm mb-4 -mt-4 ml-5"
+    >
+      Must be less than 200 characters.
+    </p>
+  </div>
+
+  <label
+    class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+    for="file_input"
+    >Upload Rescue Featured Image</label
+  >
+  <input
+    formControlName="featuredImage"
+    class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
+    id="file_input"
+    type="file"
+    (change)="handleFeatureImageUpload($event)"
+    accept="image/*"
+  />
+
+  <div *ngIf="featuredImage.invalid && featuredImage.touched">
+    <p
+      *ngIf="featuredImage.errors?.['required']"
+      class="text-red-500 text-sm mb-4 -mt-4 ml-5"
+    >
+      Featured image is required
+    </p>
+  </div>
+
+  <label
+    class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+    for="multiple_files"
+    >Upload gallery images (4)</label
+  >
+  <input
+    class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
+    id="multiple_files"
+    type="file"
+    (change)="handleGalleryImagesUpload($event)"
+    accept="image/*"
+    multiple
+  />
+
+  <div *ngIf="galleryImages.invalid && galleryImages.touched">
+    <p
+      *ngIf="galleryImages.errors?.['required']"
+      class="text-red-500 text-sm mb-4 -mt-4 ml-5"
+    >
+      Gallery images are required
+    </p>
+  </div>
+
+  <button
+    type="submit"
+    class="text-white w-full bg-localeColors-red hover:bg-localeColors-lightteal focus:outline-none font-medium rounded-full text-xs sm:text-sm md:text-base lg:text-base xl:text-xl px-4 sm:px-6 md:px-8 lg:px-30 xl:px-12 py-2 sm:py-2.5 md:py-3 lg:py-3.5 xl:py-4 text-center dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+  >
+    Create Rescue
+  </button>
+</form>

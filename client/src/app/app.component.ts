@@ -60,7 +60,8 @@ export class AppComponent implements AfterViewInit {
     return (
       currentUrl !== '/login' &&
       currentUrl !== '/register' &&
-      currentUrl !== '/admin-login'
+      currentUrl !== '/admin-login' &&
+      !currentUrl.startsWith('/admin')
     );
   }
 }

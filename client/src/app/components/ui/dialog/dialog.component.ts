@@ -33,7 +33,7 @@ import { CommonModule } from '@angular/common';
 export class DialogComponent {
   readonly dialogRef = inject(MatDialogRef<DialogComponent>);
 
-  constructor(@Inject(MAT_DIALOG_DATA) public data: any) {} // ✅ Fix here
+  constructor(@Inject(MAT_DIALOG_DATA) public data: any) {}
 
   onConfirm(): void {
     this.dialogRef.close(true);

@@ -1,24 +1,25 @@
-import { Component } from '@angular/core';
-import { RescueService } from '../../../services/rescue.service';
-import { ActivatedRoute } from '@angular/router';
-import { OnInit } from '@angular/core';
+// filepath: c:\Users\user\Desktop\awebfinals\Heart-of-Paws-Tarlac-Web-Application\client\src\app\components\pages\application-form\application-form.component.ts
+import { Component, OnInit } from '@angular/core';
 import {
   FormControl,
   ReactiveFormsModule,
   Validators,
   FormGroup,
 } from '@angular/forms';
-import { FormInputComponent } from '../../ui/form-input/form-input.component';
-import { ButtonComponent } from '../../ui/button/button.component';
+import { MatDialog } from '@angular/material/dialog';
+import { ActivatedRoute, Router } from '@angular/router';
+import { RescueService } from '../../../services/rescue.service';
+import { DialogComponent } from '../../ui/dialog/dialog.component';
 import { CommonModule } from '@angular/common';
-import { Router } from '@angular/router';
-import AOS from 'aos';
-import 'aos/dist/aos.css';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
+import { FormInputComponent } from '../../ui/form-input/form-input.component';
+import { ButtonComponent } from '../../ui/button/button.component';
+import AOS from 'aos';
+import 'aos/dist/aos.css';
 
 @Component({
   selector: 'app-application-form',
@@ -44,13 +45,16 @@ export class ApplicationFormComponent implements OnInit {
   selectedDate: string = '';
   selectedTimeSlot: string = '';
   errorMessage: string = '';
+
   ngAfterViewInit(): void {
     AOS.init();
   }
+
   constructor(
     private rescueService: RescueService,
     private activatedRoute: ActivatedRoute,
-    private router: Router
+    private router: Router,
+    private dialog: MatDialog
   ) {}
 
   ngOnInit(): void {
@@ -98,6 +102,7 @@ export class ApplicationFormComponent implements OnInit {
     preferredDate: new FormControl('', [Validators.required]),
     preferredTime: new FormControl('', [Validators.required]),
   });
+
   // helper methods
   preferredDate: Date | null = null;
   onDateChange(event: any) {
@@ -184,53 +189,57 @@ export class ApplicationFormComponent implements OnInit {
       return;
     }
 
-    // Get the date value
-    const dateValue = this.applicationForm.controls['preferredDate'].value;
-
-    // Create a date object without timezone conversion
-    const selectedDate = new Date(dateValue as string);
-
-    // Get the date in YYYY-MM-DD format while preserving the local date
-    const formattedDate = `${selectedDate.getFullYear()}-${String(
-      selectedDate.getMonth() + 1
-    ).padStart(2, '0')}-${String(selectedDate.getDate()).padStart(2, '0')}`;
-
-    const application = {
-      applicantName: this.name.value as string,
-      phoneNo: this.phoneNo.value as string,
-      address: this.address.value as string,
-      appointmentMode: this.preferredModeOfContact.value as string,
-      introductionMessage: this.introductionMessage.value as string,
-      interviewDate: formattedDate, // Use the properly formatted date
-      interviewTime: this.applicationForm.controls['preferredTime'].value,
-      slug: this.rescue.slug,
-    };
-
-    this.rescueService.inquireAboutRescue(application).subscribe({
-      next: (response) => {
-        console.log('Application successful: ', response.message);
-        alert(
-          `We have received your application for ${this.rescue.name}. We will send you an appointment date for your interview!`
-        );
-        this.router.navigate(['/rescues']);
-      },
-      error: (error) => {
-        console.error('Error creating application: ', error);
-        if (error.status === 400) {
-          this.errorMessage = error.error.message;
-          alert(`Error: ${this.errorMessage}`);
-          this.applicationForm.reset();
-        } else {
-          alert('An unexpected error occurred. Please try again later.');
-        }
+    const dialogRef = this.dialog.open(DialogComponent, {
+      width: '400px',
+      data: {
+        modalTitle: 'Confirm Application',
+        modalDesc: `Are you sure you want to apply for the adoption of ${this.rescue.name}?`,
+        yes: 'Yes',
+        no: 'No',
       },
     });
-  }
-  // get preferredDate() {
-  //   return this.applicationForm.controls['preferredDate'];
-  // }
 
-  // get preferredTime() {
-  //   return this.applicationForm.controls['preferredTime'];
-  // }
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result) {
+        // Get the date value
+        const dateValue = this.applicationForm.controls['preferredDate'].value;
+
+        // Create a date object without timezone conversion
+        const selectedDate = new Date(dateValue as string);
+
+        // Get the date in YYYY-MM-DD format while preserving the local date
+        const formattedDate = `${selectedDate.getFullYear()}-${String(
+          selectedDate.getMonth() + 1
+        ).padStart(2, '0')}-${String(selectedDate.getDate()).padStart(2, '0')}`;
+
+        const application = {
+          applicantName: this.name.value as string,
+          phoneNo: this.phoneNo.value as string,
+          address: this.address.value as string,
+          appointmentMode: this.preferredModeOfContact.value as string,
+          introductionMessage: this.introductionMessage.value as string,
+          interviewDate: formattedDate, // Use the properly formatted date
+          interviewTime: this.applicationForm.controls['preferredTime'].value,
+          slug: this.rescue.slug,
+        };
+
+        this.rescueService.inquireAboutRescue(application).subscribe({
+          next: (response) => {
+            console.log('Application successful: ', response.message);
+            alert(
+              `We have received your application for ${this.rescue.name}. We will send you an appointment date for your interview!`
+            );
+            this.router.navigate(['/rescues']);
+          },
+          error: (error) => {
+            console.error('Error creating application: ', error);
+            if (error.status === 400) {
+              this.errorMessage = error.error.message;
+              this.applicationForm.reset();
+            }
+          },
+        });
+      }
+    });
+  }
 }

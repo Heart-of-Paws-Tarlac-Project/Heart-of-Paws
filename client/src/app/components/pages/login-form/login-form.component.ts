@@ -56,8 +56,8 @@ export class LoginFormComponent implements OnInit {
     const verificationMessage = localStorage.getItem('verifMessage');
 
     if (verificationMessage) {
+      this.verifyEmail = verificationMessage;
       this.openVerifyEmailDialog();
-      // this.verifyEmail = verificationMessage;
       localStorage.removeItem('verifMessage');
       return;
     }
@@ -142,7 +142,7 @@ export class LoginFormComponent implements OnInit {
       width: '400px',
       data: {
         modalTitle: 'Email Verification Required',
-        modalDesc: 'Please verify your email before logging in.',
+        modalDesc: `We have sent a verification email to ${this.verifyEmail}. Please check your inbox and follow the instructions to activate your account.`,
         yes: 'ok',
       },
     });

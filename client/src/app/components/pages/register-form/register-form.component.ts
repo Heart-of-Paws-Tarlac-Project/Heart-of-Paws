@@ -103,6 +103,10 @@ export class RegisterFormComponent {
           } else if (error.error?.message.includes('Email already exists')) {
             this.errorMessage =
               'Email already exists. Please use a different email or login.';
+          } else if (
+            error.error?.message.includes('Please use a valid email address')
+          ) {
+            this.errorMessage = 'Please provide a valid email address.';
           }
         } else {
           this.errorMessage =

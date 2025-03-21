@@ -117,4 +117,11 @@ export class NavbarComponent implements OnInit, OnDestroy {
       this.closeDropdown();
     }
   }
+
+  isScrolled = false;
+
+  @HostListener('window:scroll', [])
+  onWindowScroll() {
+    this.isScrolled = window.scrollY > 50; // Adjust the scroll value as needed
+  }
 }

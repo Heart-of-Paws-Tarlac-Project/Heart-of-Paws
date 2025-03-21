@@ -1,76 +1,85 @@
-<form [formGroup]="updateForm" (ngSubmit)="onSubmit(rescue._id)">
-  <app-form-input
-    label="Rescue Name"
-    type="text"
-    controlName="name"
-    [placeholder]="rescue.name"
-  ></app-form-input>
-
-  <label
-    for="sex"
-    class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-    >Sex</label
-  >
-  <select
-    formControlName="sex"
-    id="sex"
-    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-  >
-    <option [value]="rescue.sex">{{ rescue.sex }}</option>
-    <option value="Male">Male</option>
-    <option value="Female">Female</option>
-  </select>
-
-  <app-form-input
-    label="Age"
-    type="text"
-    controlName="age"
-    [placeholder]="rescue.age"
-  ></app-form-input>
-
-  <label
-    for="description"
-    class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-    >Description</label
-  >
-  <textarea
-    id="description"
-    rows="4"
-    formControlName="description"
-    class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 mb-4"
-    [placeholder]="rescue.description"
-  ></textarea>
-
-  <div class="mb-4">
-    <label
-      for="featureImage"
-      class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-      >Feature Image</label
+<div class="w-full min-h-screen flex justify-center items-center">
+  <div class="w-full 2xl:w-1/2 h-auto">
+    <h1
+      class="text-5xl 2xl:text-7xl tracking-tight leading-tight text-left text-localeColors-darkteal font-WinkySans font-semibold mb-5"
     >
-    <input
-      id="featureImage"
-      type="file"
-      (change)="handleFeatureImageUpload($event)"
-      accept="image/*"
-      class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
-    />
-  </div>
+      UPDATE RESCUED DOGS
+    </h1>
+    <form [formGroup]="updateForm" (ngSubmit)="onSubmit(rescue._id)">
+      <app-form-input
+        label="Rescue Name"
+        type="text"
+        controlName="name"
+        [placeholder]="rescue.name"
+      ></app-form-input>
 
-  <div class="mb-4">
-    <label
-      for="galleryImages"
-      class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-      >Gallery Images</label
-    >
-    <input
-      id="galleryImages"
-      type="file"
-      (change)="handleGalleryImagesUpload($event)"
-      accept="image/*"
-      multiple
-      class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
-    />
-  </div>
+      <label
+        for="sex"
+        class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+        >Sex</label
+      >
+      <select
+        formControlName="sex"
+        id="sex"
+        class="mb-4 bg-transparent border-2 border-black text-gray-900 text-sm rounded-lg focus:border-localeColors-lightteal block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+      >
+        <option value="Male">Male</option>
+        <option value="Female">Female</option>
+      </select>
 
-  <app-button type="submit" text="Update Rescue"></app-button>
-</form>
+      <app-form-input
+        label="Age"
+        type="text"
+        controlName="age"
+        [placeholder]="rescue.age"
+      ></app-form-input>
+
+      <label
+        for="description"
+        class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+        >Description</label
+      >
+      <textarea
+        id="description"
+        rows="4"
+        formControlName="description"
+        class="mb-4 block p-2.5 w-full text-sm text-gray-900 bg-transparent rounded-lg border-2 border-black focus:border-localeColors-lightteal dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+        [placeholder]="rescue.description"
+      ></textarea>
+
+      <div class="flex justify-between gap-10">
+        <div class="mb-4 w-full">
+          <label
+            for="featureImage"
+            class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+            >Feature Image</label
+          >
+          <input
+            id="featureImage"
+            type="file"
+            (change)="handleFeatureImageUpload($event)"
+            accept="image/*"
+            class="block w-full text-sm text-gray-900 border-2 border-black bg-transparent rounded-lg focus:border-localeColors-lightteal cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
+          />
+        </div>
+
+        <div class="mb-4 w-full">
+          <label
+            for="galleryImages"
+            class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+            >Gallery Images</label
+          >
+          <input
+            id="galleryImages"
+            type="file"
+            (change)="handleGalleryImagesUpload($event)"
+            accept="image/*"
+            multiple
+            class="mb-4 block w-full text-sm text-gray-900 border-2 border-black bg-transparent rounded-lg focus:border-localeColors-lightteal cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
+          />
+        </div>
+      </div>
+      <app-button type="submit" text="Update Rescue"></app-button>
+    </form>
+  </div>
+</div>

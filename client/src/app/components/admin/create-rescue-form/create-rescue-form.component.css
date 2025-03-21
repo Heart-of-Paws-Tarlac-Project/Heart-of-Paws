@@ -1,0 +1,15 @@
+app-form-input {
+  display: hidden; /* Ensure it's properly displayed */
+  width: 100% !important;
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+app-form-input input {
+  background: none !important;
+  border: none !important;
+  outline: none !important;
+  padding: 10px !important;
+  margin: 10px !important;
+  box-shadow: none !important;
+}

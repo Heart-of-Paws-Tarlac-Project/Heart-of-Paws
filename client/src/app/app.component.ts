@@ -9,6 +9,7 @@ import { AuthService } from './services/auth.service';
 import { Subscription } from 'rxjs';
 import { AdminNavbarComponent } from './components/admin/ui/admin-navbar/admin-navbar.component';
 import Lenis from '@studio-freight/lenis';
+import { HostListener } from '@angular/core';
 
 @Component({
   selector: 'app-root',
@@ -42,9 +43,10 @@ export class AppComponent implements AfterViewInit {
 
   ngAfterViewInit(): void {
     this.lenis = new Lenis({
-      duration: 1.2, // Adjust duration for smoother effect
-      easing: (t: number) => 1 - Math.pow(1 - t, 4), // Custom easing
-      smoothWheel: true, // Enables smoother scrolling with the mouse wheel
+      duration: 1.2,
+      easing: (t: number) => 1 - Math.pow(1 - t, 5),
+      smoothWheel: true,
+      gestureOrientation: 'vertical',
     });
 
     const raf = (time: number) => {
@@ -63,5 +65,23 @@ export class AppComponent implements AfterViewInit {
       currentUrl !== '/admin-login' &&
       !currentUrl.startsWith('/admin')
     );
+  }
+
+  isScrolled = false;
+  lastScrollTop = 0;
+
+  @HostListener('window:scroll', [])
+  onScroll(): void {
+    const currentScroll = window.scrollY || document.documentElement.scrollTop;
+
+    if (currentScroll > 200) {
+      this.isScrolled = true; // Show button when scrolling down
+    } else {
+      this.isScrolled = false; // Hide button when at the top
+    }
+  }
+
+  scrollToTop() {
+    this.lenis.scrollTo(0);
   }
 }

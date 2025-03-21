@@ -12,7 +12,7 @@ const slugify = require("slugify");
 
 //multer middleware to upload multiple images, used in the createRescue route handler
 exports.uploadImages = upload.fields([
-  { name: "featureImage", maxCount: 1 },
+  { name: "featuredImage", maxCount: 1 },
   { name: "galleryImages", maxCount: 4 },
 ]);
 
@@ -52,7 +52,6 @@ exports.getRescue = asyncHandler(async (req, res) => {
 exports.createRescue = asyncHandler(async (req, res) => {
   const { name, sex, age, size, vetStatus, description } = req.body;
 
-  //multer resolves image upload to req.file
   if (!req.files) {
     throw new CustomNotFoundError("No images uploaded");
   }
@@ -68,8 +67,7 @@ exports.createRescue = asyncHandler(async (req, res) => {
     });
   };
 
-  // Upload feature image - this will be a single file
-  const featureImageUrl = await uploadToCloudinary(req.files.featureImage[0]);
+  const featureImageUrl = await uploadToCloudinary(req.files.featuredImage[0]);
   if (!featureImageUrl)
     throw new CustomNotFoundError("Error uploading feature image");
 
@@ -107,7 +105,7 @@ exports.createRescue = asyncHandler(async (req, res) => {
     galleryImages: galleryImageUrls,
   });
 
-  console.log(`Rescue data: ${rescue}`);
+ 
 
   const result = await rescue.save();
 
@@ -117,7 +115,7 @@ exports.createRescue = asyncHandler(async (req, res) => {
     );
   }
 
-  res.status(201).send(`New Rescue created: ${rescue}`);
+  res.status(201).json({ message: `New Rescue created: ${rescue}` });
 });
 
 exports.getNoOfApplications = asyncHandler(async (req, res) => {

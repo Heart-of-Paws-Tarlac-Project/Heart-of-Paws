@@ -2,11 +2,12 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { RescueService } from '../../../services/rescue.service';
 import { RescueDetailComponent } from '../../pages/rescue-detail/rescue-detail.component';
+import { RescueApplicationsComponent } from '../rescue-applications/rescue-applications.component';
 
 @Component({
   selector: 'app-rescue-overview',
   standalone: true,
-  imports: [RescueDetailComponent],
+  imports: [RescueDetailComponent, RescueApplicationsComponent],
   templateUrl: './rescue-overview.component.html',
   styleUrl: './rescue-overview.component.css',
 })

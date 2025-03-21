@@ -7,5 +7,18 @@ import { ApiService } from './api.service';
 export class AdminService {
   constructor(private apiService: ApiService) {}
 
-  
+  getAllApplicationsForRescue(rescueId: string) {
+    return this.apiService.get(`/applications/${rescueId}`);
+  }
+
+  getUserByApplication(applicationId: string) {
+    return this.apiService.get(`/applications/${applicationId}/user`);
+  }
+
+  approveApplication(applicationId: string, status: string) {
+    return this.apiService.patch(
+      `/admin/applications/${applicationId}/status`,
+      { status }
+    );
+  }
 }

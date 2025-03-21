@@ -17,6 +17,7 @@ import { RescueOverviewComponent } from './components/admin/rescue-overview/resc
 import { AdminRescueListComponent } from './components/admin/admin-rescue-list/admin-rescue-list.component';
 import { UpdateRescueFormComponent } from './components/admin/update-rescue-form/update-rescue-form.component';
 import { CreateRescueFormComponent } from './components/admin/create-rescue-form/create-rescue-form.component';
+import { ApplicationDetailComponent } from './components/admin/application-detail/application-detail.component';
 
 export const routes: Routes = [
   {
@@ -64,6 +65,10 @@ export const routes: Routes = [
       {
         path: 'create-rescue',
         component: CreateRescueFormComponent,
+      },
+      {
+        path: 'rescue/applications/:applicationId',
+        component: ApplicationDetailComponent,
       },
     ],
   },

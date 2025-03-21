@@ -10,6 +10,4 @@ router.patch(
   adminController.approveOrRejectApplication
 );
 
-
-
 module.exports = router;

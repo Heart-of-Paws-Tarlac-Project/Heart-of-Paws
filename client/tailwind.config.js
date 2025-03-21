@@ -7,13 +7,14 @@ module.exports = {
         primary: {
           DEFAULT: "#1E40AF", // Primary color
           light: "#F9F6EE", // Lighter shade
-          dark: "#373a3b", // Darker shade
+          dark: "#1B1B1B", // Darker shade
         },
         localeColors: {
           DEFAULT: "#9333EA",
           darkteal: "#1c959d",
           lightteal: "#47c2ca",
           cyan: "#40bfc8",
+          lightestteal: "#1beaf7",
           red: "#E22128",
         },
         accentCyan: "#b3f8fc", // Accent color

@@ -108,7 +108,19 @@
         type="button"
         class="mt-5 text-white bg-localeColors-red hover:bg-localeColors-lightteal focus:outline-none focus:ring-4 focus:ring-localeColors-lightteal font-medium rounded-full text-xs sm:text-sm md:text-base lg:text-base xl:text-xl px-4 sm:px-6 md:px-8 lg:px-10 xl:px-12 py-2 sm:py-2.5 md:py-3 lg:py-3.5 xl:py-4 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
       >
-        {{ buttonText }} {{ rescue.name }}
+        {{ buttonPrimaryText }} {{ rescue.name }}
+      </button>
+      <!-- deleters button -->
+      <button
+        *ngIf="userType === 'admin'"
+        data-aos="fade-up"
+        (click)="deleteRescue(rescue._id)"
+        data-aos-duration="800"
+        data-aos-delay="200"
+        type="button"
+        class="mt-5 text-white bg-localeColors-red hover:bg-localeColors-lightteal focus:outline-none focus:ring-4 focus:ring-localeColors-lightteal font-medium rounded-full text-xs sm:text-sm md:text-base lg:text-base xl:text-xl px-4 sm:px-6 md:px-8 lg:px-10 xl:px-12 py-2 sm:py-2.5 md:py-3 lg:py-3.5 xl:py-4 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+      >
+        Delete {{ rescue.name }}
       </button>
     </div>
   </div>

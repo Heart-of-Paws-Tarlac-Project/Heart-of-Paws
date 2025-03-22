@@ -105,8 +105,6 @@ exports.createRescue = asyncHandler(async (req, res) => {
     galleryImages: galleryImageUrls,
   });
 
- 
-
   const result = await rescue.save();
 
   if (!result) {
@@ -201,4 +199,20 @@ exports.updateRescue = asyncHandler(async (req, res) => {
   console.log(`updated rescue: ${updatedRescue}`);
 
   res.status(200).json(updatedRescue);
+});
+
+//delete rescue
+exports.deleteRescue = asyncHandler(async (req, res) => {
+  const rescueId = req.params.rescueId;
+
+  const rescue = await Rescue.findByIdAndDelete(rescueId);
+
+  if (!rescue) {
+    throw new CustomError("Rescue to delete not found", 404);
+  }
+
+  //delete associated applications
+  await Application.deleteMany({ rescue: rescueId });
+
+  res.status(204).send(); 
 });

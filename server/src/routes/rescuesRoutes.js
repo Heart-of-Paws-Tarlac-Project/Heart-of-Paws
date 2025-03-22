@@ -32,5 +32,6 @@ router.patch(
   rescuesController.updateRescue
 );
 
+router.delete("/rescue/:rescueId", isAdmin, rescuesController.deleteRescue);
 
 module.exports = router;

@@ -4,6 +4,8 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { MatDialog } from '@angular/material/dialog';
 import { DialogComponent } from '../../ui/dialog/dialog.component';
+import AOS from 'aos';
+import 'aos/dist/aos.css';
 
 @Component({
   selector: 'app-application-detail',
@@ -36,6 +38,10 @@ export class ApplicationDetailComponent implements OnInit {
         this.loadApplication();
       }
     });
+  }
+
+  ngAfterViewInit(): void {
+    AOS.init();
   }
 
   loadApplication() {

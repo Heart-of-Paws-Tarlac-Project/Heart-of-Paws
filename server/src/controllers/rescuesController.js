@@ -16,6 +16,18 @@ exports.uploadImages = upload.fields([
   { name: "galleryImages", maxCount: 4 },
 ]);
 
+exports.searchRescues = asyncHandler(async (req, res) => {
+  let payload = req.body.payload;
+
+  let search = await Rescue.find({
+    name: { $regex: new RegExp("^" + payload + ".*", "i") },
+  }).exec();
+
+  search = search.slice(0, 10); //limit the results to 10
+
+  res.status(200).send({ payload: search });
+});
+
 exports.getAllRescues = asyncHandler(async (req, res) => {
   const { size } = req.query;
 
@@ -117,20 +129,21 @@ exports.createRescue = asyncHandler(async (req, res) => {
 });
 
 exports.getNoOfApplications = asyncHandler(async (req, res) => {
-  const rescueId = req.params.rescueId;
-  console.log(`rescue id: ${rescueId}`);
+  const rescueSlug = req.params.slug;
+  console.log(`rescue slug: ${rescueSlug}`);
 
-  const rescue = await Rescue.findOne({ _id: rescueId });
+  const rescue = await Rescue.findOne({ slug: rescueSlug });
   if (!rescue) {
     return res.status(404).json({ message: "Rescue not found" });
   }
 
-  const applications = (await Application.find({ rescue: rescue.id })) || [];
-
-  res.status(200).json({
-    rescue: rescue.name,
-    applications: applications.length > 0 ? applications : [], // Send an empty array if no applications
+  const applicationsCount = await Application.countDocuments({
+    rescue: rescue.id,
   });
+
+  console.log(`application count: ${applicationsCount}`);
+
+  res.status(200).json({ applicationsCount });
 });
 
 exports.updateRescue = asyncHandler(async (req, res) => {
@@ -214,5 +227,5 @@ exports.deleteRescue = asyncHandler(async (req, res) => {
   //delete associated applications
   await Application.deleteMany({ rescue: rescueId });
 
-  res.status(204).send(); 
+  res.status(204).send();
 });

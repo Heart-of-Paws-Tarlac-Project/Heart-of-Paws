@@ -4,6 +4,8 @@ const userController = require("../controllers/userController");
 const isAuthenticated = require("../middlewares/isAuthenticated");
 const isAdmin = require("../middlewares/isAdmin");
 
+router.post("/getUsers", userController.getUsers);
+
 //route to get user profile
 router.get("/:id", isAuthenticated, userController.getUserProfile);
 router.patch(
@@ -18,5 +20,7 @@ router.get("/", isAdmin, userController.getAllUsers);
 
 //route to get a specific user
 router.get("/user/:userId", isAdmin, userController.getUserWithApplications);
+
+//route for search
 
 module.exports = router;

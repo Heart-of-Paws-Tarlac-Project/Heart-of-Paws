@@ -1,5 +1,7 @@
 import { Injectable } from '@angular/core';
 import { ApiService } from './api.service';
+import { User } from '../interfaces/user';
+import { map } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -24,5 +26,11 @@ export class UserService {
 
   getApplicationsByStatus(status: string, userId: string) {
     return this.apiService.get(`/users/${userId}?status=${status}`);
+  }
+
+  searchUsers(query: string) {
+    return this.apiService
+      .post('/users/getUsers', { payload: query })
+      .pipe(map((data) => data.payload));
   }
 }

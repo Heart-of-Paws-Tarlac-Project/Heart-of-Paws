@@ -14,6 +14,21 @@
     </h1>
   </div>
 
+  <!-- Search Bar -->
+  <input
+    type="text"
+    name="search-box"
+    class="search-box"
+    (keyup)="sendData($event)"
+  />
+  <section class="search-results">
+    <p *ngIf="filteredRescues.length < 1 && hasQuery">No rescue found.</p>
+    <ng-template ngFor let-rescue [ngForOf]="filteredRescues" let-i="index">
+    <hr *ngIf="i > 0" />
+    <p (click)="viewRescueDetails(rescue.slug)">{{ rescue.name }}</p>
+    </ng-template>
+  </section>
+
   <!-- Size filter buttons -->
   <div class="filter-controls my-8 flex flex-wrap justify-center gap-4">
     <button

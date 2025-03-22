@@ -11,6 +11,18 @@ const upload = multer({ storage: storage });
 //multer middleware for a single profile image, used in the uploadProfileImage route
 exports.uploadProfileImage = upload.single("profileImage");
 
+exports.getUsers = asyncHandler(async (req, res) => {
+  let payload = req.body.payload;
+
+  let search = await User.find({
+    name: { $regex: new RegExp("^" + payload + ".*", "i") },
+  }).exec();
+
+  search = search.slice(0, 10); //limit the results to 10
+
+  res.status(200).send({ payload: search });
+});
+
 //get user along with applications
 exports.getUserWithApplications = asyncHandler(async (req, res) => {
   const userId = req.params.userId;

@@ -2,7 +2,7 @@ import { Injectable, signal } from '@angular/core';
 import { HttpClient } from '@angular/common/http'; //import HTTPCLIENT to make http calls
 import { Rescue } from '../interfaces/rescue';
 import { ApiService } from './api.service';
-import { tap } from 'rxjs';
+import { tap, map } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -67,8 +67,8 @@ export class RescueService {
     return this.apiService.patch(`/rescues/${rescueId}`, data);
   }
 
-  getRescueNoOfApplications(rescueId: string) {
-    return this.apiService.get(`${this.url}/rescue/${rescueId}`);
+  getRescueNoOfApplications(slug: string) {
+    return this.apiService.get(`${this.url}/${slug}/applications`);
   }
 
   getRescuesBySize(sizeFilter: string) {
@@ -81,5 +81,11 @@ export class RescueService {
 
   loadAvailableDates() {
     return this.apiService.get(`/applications/available-dates`);
+  }
+
+  searchRescues(query: string) {
+    return this.apiService
+      .post(`/rescues/searchRescues`, { payload: query })
+      .pipe(map((data) => data.payload));
   }
 }

@@ -10,7 +10,7 @@
     >
       ADD RESCUED DOGS
     </h1>
-    <form class="w-full" [formGroup]="createForm" (ngSubmit)="onSubmit()">
+    <form class="w-full" [formGroup]="createForm">
       <app-form-input
         label="Rescue Name"
         type="text"
@@ -60,6 +60,7 @@
             formControlName="sex"
             value="male"
             class="w-4 h-4 text-localeColors-lightteal bg-gray-100 border-black focus:ring-localeColors-lightteal dark:focus:ring-blue-600 dark:ring-offset-gray-800 dark:bg-gray-700 dark:border-gray-600"
+            (change)="onSexChange('male')"
           />
           <span class="ml-2 text-gray-900 dark:text-white">Male</span>
         </label>
@@ -70,6 +71,7 @@
             formControlName="sex"
             value="female"
             class="w-4 h-4 text-localeColors-lightteal bg-gray-100 border-black focus:ring-localeColors-lightteal dark:focus:ring-blue-600 dark:ring-offset-gray-800 dark:bg-gray-700 dark:border-gray-600"
+            (change)="onSexChange('female')"
           />
           <span class="ml-2 text-gray-900 dark:text-white">Female</span>
         </label>
@@ -189,22 +191,24 @@
       </label>
 
       <div class="flex gap-4 mb-4">
-        <label class="inline-flex items-center">
+        <label class="inline-flex items-center" [class.opacity-50]="isMale">
           <input
             type="radio"
             formControlName="vetStatus"
             value="Spayed"
             class="w-4 h-4 text-localeColors-lightteal bg-gray-100 border-black focus:ring-localeColors-lightteal dark:focus:ring-blue-600 dark:ring-offset-gray-800 dark:bg-gray-700 dark:border-gray-600"
+            [disabled]="isMale"
           />
           <span class="ml-2 text-gray-900 dark:text-white">Spayed(female)</span>
         </label>
 
-        <label class="inline-flex items-center">
+        <label class="inline-flex items-center" [class.opacity-50]="isFemale">
           <input
             type="radio"
             formControlName="vetStatus"
             value="Neutered"
             class="w-4 h-4 text-localeColors-lightteal bg-gray-100 border-black focus:ring-localeColors-lightteal dark:focus:ring-blue-600 dark:ring-offset-gray-800 dark:bg-gray-700 dark:border-gray-600"
+            [disabled]="isFemale"
           />
           <span class="ml-2 text-gray-900 dark:text-white">Neutered(male)</span>
         </label>
@@ -280,11 +284,8 @@
           />
 
           <div *ngIf="featuredImage.invalid && featuredImage.touched">
-            <p
-              *ngIf="featuredImage.errors?.['required']"
-              class="text-red-500 text-sm mb-4 -mt-4"
-            >
-              Featured image is required
+            <p class="text-red-500 text-sm -mt-4 mb-4">
+              A featured image is required.
             </p>
           </div>
         </div>
@@ -305,11 +306,8 @@
           />
 
           <div *ngIf="galleryImages.invalid && galleryImages.touched">
-            <p
-              *ngIf="galleryImages.errors?.['required']"
-              class="text-red-500 text-sm mb-4 -mt-4"
-            >
-              Gallery images are required
+            <p class="text-red-500 text-sm -mt-4 mb-4">
+              You must upload exactly 4 images for the gallery.
             </p>
           </div>
         </div>

@@ -24,11 +24,6 @@ import { UserDetailComponent } from './components/admin/user-detail/user-detail.
 export const routes: Routes = [
   {
     path: '',
-    pathMatch: 'full',
-    redirectTo: '',
-  },
-  {
-    path: '',
     component: HomeComponent,
   },
   {

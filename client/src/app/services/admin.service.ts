@@ -29,4 +29,8 @@ export class AdminService {
   getAllUsers() {
     return this.apiService.get('/users');
   }
+
+  deleteRescue(rescueId: string) {
+    return this.apiService.delete(`/rescues/rescue/${rescueId}`);
+  }
 }

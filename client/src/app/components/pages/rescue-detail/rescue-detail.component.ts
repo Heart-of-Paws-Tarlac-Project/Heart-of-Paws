@@ -1,11 +1,12 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Rescue } from '../../../interfaces/rescue';
 import { RescueService } from '../../../services/rescue.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import AOS from 'aos';
 import 'aos/dist/aos.css';
 import { RouterLink, RouterModule } from '@angular/router';
+import { AdminService } from '../../../services/admin.service';
 
 @Component({
   selector: 'app-rescue-detail',
@@ -16,11 +17,13 @@ import { RouterLink, RouterModule } from '@angular/router';
 })
 export class RescueDetailComponent implements OnInit {
   @Input() userType: 'admin' | 'user' = 'user';
-  buttonText: string = '';
+  buttonPrimaryText: string = '';
 
   constructor(
     private rescueService: RescueService,
-    private activatedRoute: ActivatedRoute
+    private activatedRoute: ActivatedRoute,
+    private adminService: AdminService,
+    private router: Router
   ) {}
 
   ngAfterViewInit(): void {
@@ -35,14 +38,27 @@ export class RescueDetailComponent implements OnInit {
       }
 
       if (this.userType === 'admin') {
-        this.buttonText = 'Update';
+        this.buttonPrimaryText = 'Update';
         return;
       }
-      this.buttonText = 'Inquire about';
+      this.buttonPrimaryText = 'Inquire about';
     });
   }
 
   get rescue() {
     return this.rescueService.rescue$();
+  }
+
+  deleteRescue(rescueId: string) {
+    this.adminService.deleteRescue(rescueId).subscribe({
+      next: () => {
+        alert('Rescue successfully deleted');
+        this.router.navigate(['/admin']);
+      },
+      error: (error) => {
+        alert('Error in deleting rescue');
+        this.router.navigate(['/admin']);
+      },
+    });
   }
 }

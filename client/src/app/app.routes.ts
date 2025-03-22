@@ -18,6 +18,8 @@ import { AdminRescueListComponent } from './components/admin/admin-rescue-list/a
 import { UpdateRescueFormComponent } from './components/admin/update-rescue-form/update-rescue-form.component';
 import { CreateRescueFormComponent } from './components/admin/create-rescue-form/create-rescue-form.component';
 import { ApplicationDetailComponent } from './components/admin/application-detail/application-detail.component';
+import { UserListComponent } from './components/admin/user-list/user-list.component';
+import { UserDetailComponent } from './components/admin/user-detail/user-detail.component';
 
 export const routes: Routes = [
   {
@@ -53,6 +55,14 @@ export const routes: Routes = [
       {
         path: '',
         component: AdminRescueListComponent,
+      },
+      {
+        path: 'users',
+        component: UserListComponent,
+      },
+      {
+        path: 'users/user/:id',
+        component: UserDetailComponent,
       },
       {
         path: 'rescue/:slug',

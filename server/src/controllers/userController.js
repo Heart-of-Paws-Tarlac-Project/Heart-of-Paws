@@ -11,6 +11,40 @@ const upload = multer({ storage: storage });
 //multer middleware for a single profile image, used in the uploadProfileImage route
 exports.uploadProfileImage = upload.single("profileImage");
 
+//get user along with applications
+exports.getUserWithApplications = asyncHandler(async (req, res) => {
+  const userId = req.params.userId;
+  console.log(`userid: ${userId}`);
+
+  const applications = await Application.find({ user: userId })
+    .populate("rescue", "name featureImage")
+    .sort({ interviewDate: 1 });
+
+  if (!applications) {
+    throw new CustomError("Applications not found", 404);
+  }
+
+  const user = await User.findById(userId).select("-password");
+
+  if (!user) {
+    throw new CustomError("User not found", 404);
+  }
+
+  res.status(200).send({ user, applications });
+});
+
+exports.getAllUsers = asyncHandler(async (req, res) => {
+  const users = await User.find({ role: "user" }).select(
+    "-password -verificationToken -role -updatedAt -verificationTokenExpires -isVerified"
+  );
+
+  if (!users) {
+    throw new CustomError("No users found", 404);
+  }
+
+  res.status(200).json(users);
+});
+
 //get user profile
 exports.getUserProfile = asyncHandler(async (req, res) => {
   const userId = req.params.id;

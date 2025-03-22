@@ -1,0 +1,28 @@
+<div
+  class="card w-full h-auto shadow-2xl rounded-2xl p-4"
+  data-aos="fade-up"
+  data-aos-duration="800"
+  (click)="viewUserDetails(user._id)"
+>
+  <div class="card w-full h-auto shadow-2xl rounded-2xl p-4">
+    <h2
+      class="text-3xl ml-2 uppercase text-localeColors-darkteal font-semibold font-Monteserrat"
+    >
+      {{ user.name }}
+    </h2>
+    <div class="w-full h-72 bg-white rounded-2xl mt-4 overflow-hidden">
+      <img
+        [src]="user.profileImage"
+        alt="{{ user.name }}"
+        class="w-full h-full object-cover rounded-2xl transition-transform duration-300 hover:scale-110"
+      />
+    </div>
+    <p class="text-lg text-center">
+      <span
+        class="text-sm text-localeColors-darkteal font-medium font-Monteserrat"
+        >User</span
+      ><br />
+      {{ user.name | titlecase }}
+    </p>
+  </div>
+</div>

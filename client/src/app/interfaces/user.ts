@@ -1,5 +1,7 @@
 export interface User {
-  name?: string;
+  _id: string;
+  name: string;
   email: string;
-  password: string;
+  profileImage: string;
+  createdAt: Date;
 }

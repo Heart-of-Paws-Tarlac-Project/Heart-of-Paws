@@ -42,6 +42,8 @@ exports.getUserByApplication = asyncHandler(async (req, res) => {
   res.status(200).json(user);
 });
 
+exports.getApplicationsByStatus = asyncHandler(async (req, res) => {});
+
 // Create application
 exports.createApplication = asyncHandler(async (req, res) => {
   const userId = req.session.user.id;

@@ -11,6 +11,7 @@ router.post(
   isAuthenticated,
   applicationsController.createApplication
 );
+// router.get('/')
 //delete application to adopt a rescue
 router.delete(
   "/:id",
@@ -23,6 +24,7 @@ router.get(
   isAuthenticated,
   applicationsController.getAvailableDates
 );
+
 
 //admin routes
 // get all applications for rescue

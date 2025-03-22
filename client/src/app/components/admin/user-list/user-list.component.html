@@ -33,10 +33,10 @@
           {{ user.email }}
         </td>
         <td class="p-4 text-lg w-1/4">
-          {{ user.name }}
+          {{ user.applicationsCount }}
         </td>
         <td class="p-4 text-lg w-1/4">
-          {{ user.name }}
+          {{ user.createdAt | date : "shortDate" }}
         </td>
         <td class="p-4 text-lg w-1/4 text-center">
           <button

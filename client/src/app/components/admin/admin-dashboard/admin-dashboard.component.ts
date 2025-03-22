@@ -1,6 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { RescuesListComponent } from '../../pages/rescues-list/rescues-list.component';
-import { Router, RouterLink, RouterOutlet } from '@angular/router';
+import {
+  NavigationEnd,
+  Router,
+  RouterLink,
+  RouterOutlet,
+} from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { AuthService } from '../../../services/auth.service';
 import { Subscription } from 'rxjs';
@@ -16,12 +21,19 @@ import { AdminAuthService } from '../../../services/admin-auth.service';
 export class AdminDashboardComponent {
   isAdminAuthenticated: boolean = false;
   private adminAuthSub: Subscription | null = null;
+  isSidebarHidden: boolean = true;
 
   constructor(
     private adminAuthService: AdminAuthService,
     private router: Router,
     private authService: AuthService
-  ) {}
+  ) {
+    this.router.events.subscribe((event) => {
+      if (event instanceof NavigationEnd) {
+        this.isSidebarHidden = true;
+      }
+    });
+  }
 
   ngOnInit(): void {
     this.adminAuthService.isAdminAuthenticated$.subscribe(
@@ -47,9 +59,6 @@ export class AdminDashboardComponent {
   isSidebarOpen: boolean = false;
 
   toggleSidebar() {
-    const sidebar = document.getElementById('sidebar');
-    if (sidebar) {
-      sidebar.classList.toggle('-translate-x-full');
-    }
+    this.isSidebarHidden = !this.isSidebarHidden;
   }
 }

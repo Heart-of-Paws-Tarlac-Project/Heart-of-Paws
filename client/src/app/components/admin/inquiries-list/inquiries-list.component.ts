@@ -7,6 +7,8 @@ import {
   Router,
   ActivatedRoute,
 } from '@angular/router';
+import AOS from 'aos';
+import 'aos/dist/aos.css';
 
 @Component({
   selector: 'app-inquiries-list',
@@ -17,12 +19,16 @@ import {
 })
 export class InquiriesListComponent implements OnInit {
   inquiries: any[] = [];
+  isInboxHidden: boolean = false; // Default: Inbox is open
+
   constructor(
     private adminService: AdminService,
     private router: Router,
     private route: ActivatedRoute
   ) {}
-
+  ngAfterViewInit(): void {
+    AOS.init();
+  }
   ngOnInit(): void {
     this.loadInquiries();
   }
@@ -41,7 +47,7 @@ export class InquiriesListComponent implements OnInit {
           localStorage.setItem('inquiries', JSON.stringify(response));
         }
       },
-      error: (error) => {
+      error: () => {
         console.error('Error retrieving all inquiries');
       },
     });
@@ -49,5 +55,14 @@ export class InquiriesListComponent implements OnInit {
 
   viewInquiry(inquiryId: string) {
     this.router.navigate(['inquiry', inquiryId], { relativeTo: this.route });
+
+    // Close inbox on mobile after selecting an inquiry
+    if (window.innerWidth < 1024) {
+      this.isInboxHidden = true;
+    }
+  }
+
+  toggleInbox() {
+    this.isInboxHidden = !this.isInboxHidden;
   }
 }

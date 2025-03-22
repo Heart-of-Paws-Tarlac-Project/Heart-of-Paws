@@ -46,13 +46,13 @@ app.use(
 
 app.use(morgan("tiny"));
 
+app.use("/users", userRouter);
 app.use("/admin", adminRouter);
 app.use("/rescues", rescuesRouter);
 app.use("/adminAuth", adminAuthRouter);
 app.use("/auth", authRouter);
 app.use("/applications", applicationsRouter);
 app.use("/inquiries", inquiriesRouter);
-app.use("/users", userRouter);
 
 //error handler middleware
 app.use((err, req, res, next) => {

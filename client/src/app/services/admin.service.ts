@@ -21,4 +21,12 @@ export class AdminService {
       { status }
     );
   }
+
+  getUser(userId: string) {
+    return this.apiService.get(`/users/user/${userId}`);
+  }
+
+  getAllUsers() {
+    return this.apiService.get('/users');
+  }
 }

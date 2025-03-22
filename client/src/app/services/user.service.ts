@@ -21,4 +21,5 @@ export class UserService {
   deleteApplication(applicationId: string) {
     return this.apiService.delete(`/applications/${applicationId}`);
   }
+
 }

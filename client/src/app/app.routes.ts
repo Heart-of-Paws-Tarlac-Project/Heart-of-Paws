@@ -33,7 +33,10 @@ export const routes: Routes = [
   },
   {
     path: 'rescues',
-    component: RescuesListComponent,
+    loadComponent: () =>
+      import('./components/pages/rescues-list/rescues-list.component').then(
+        (m) => m.RescuesListComponent
+      ),
   },
   {
     path: 'rescues/:slug',
@@ -88,11 +91,17 @@ export const routes: Routes = [
   },
   {
     path: 'how-to-help',
-    component: HelpComponent,
+    loadComponent: () =>
+      import('./components/pages/help/help.component').then(
+        (m) => m.HelpComponent
+      ),
   },
   {
     path: 'about-us',
-    component: AboutComponent,
+    loadComponent: () =>
+      import('./components/pages/about/about.component').then(
+        (m) => m.AboutComponent
+      ),
   },
   {
     path: 'inquire/:slug',

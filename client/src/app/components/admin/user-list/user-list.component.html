@@ -1,7 +1,80 @@
 <div
-  class="users-list h-auto min-h-[70vh] w-full grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 place-content-center place-items-center gap-10 p-10 2xl:px-40 2xl:mt-10"
-  data-aos="fade-up"
-  data-aos-duration="800"
+  class="users-list h-auto min-h-[70vh] w-full gap-10"
+  data-aos="fade-right"
+  data-aos-duration="1000"
 >
-  <app-user-card *ngFor="let user of users" [user]="user"> </app-user-card>
+  <!-- 📌 Responsive Table for md+ screens -->
+  <table
+    class="hidden xl:table table-auto md:table-fixed w-full border-collapse"
+  >
+    <thead>
+      <tr class="border-b">
+        <th class="md:w-1/5 p-4 text-left">PROFILE PHOTO</th>
+        <th class="md:w-2/5 p-4 text-left">Username</th>
+        <th class="md:w-2/4 p-4 text-left">Email</th>
+        <th class="md:w-1/5 p-4 text-left">Applications</th>
+        <th class="md:w-1/5 p-4 text-left">Date Joined</th>
+        <th class="md:w-1/5 p-4 text-left">View User Details</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let user of users" class="border-b">
+        <td class="p-4 w-2/5">
+          <img
+            [src]="user.profileImage"
+            alt="{{ user.name }}"
+            class="w-20 h-20 object-cover rounded-2xl transition-transform duration-300 hover:scale-110"
+          />
+        </td>
+        <td class="p-4 w-1/4">
+          {{ user.name }}
+        </td>
+        <td class="p-4 text-lg w-1/4">
+          {{ user.email }}
+        </td>
+        <td class="p-4 text-lg w-1/4">
+          {{ user.name }}
+        </td>
+        <td class="p-4 text-lg w-1/4">
+          {{ user.name }}
+        </td>
+        <td class="p-4 text-lg w-1/4 text-center">
+          <button
+            class="mx-auto xl:block text-white bg-localeColors-red hover:bg-localeColors-lightteal active:bg-localeColors-darkteal focus:outline-none font-medium rounded-full text-sm md:text-base lg:text-lg px-4 py-2"
+            (click)="viewUserDetails(user._id)"
+          >
+            View Users
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <!-- 📌 Mobile-friendly Cards for sm screens -->
+  <div
+    *ngFor="let user of users"
+    class="xl:hidden flex flex-col bg-white rounded-lg shadow-md p-4 mb-4"
+  >
+    <div class="flex items-center gap-4">
+      <img
+        [src]="user.profileImage"
+        alt="{{ user.name }}"
+        class="w-16 h-16 object-cover rounded-full"
+      />
+      <div>
+        <h2 class="text-lg font-semibold">{{ user.name }}</h2>
+        <p class="text-sm text-gray-500">{{ user.email }}</p>
+      </div>
+    </div>
+    <div class="mt-4">
+      <p><strong>Applications:</strong> {{ user.name }}</p>
+      <p><strong>Date Joined:</strong> {{ user.dateJoined }}</p>
+    </div>
+    <button
+      class="mt-4 w-full text-white bg-localeColors-red hover:bg-localeColors-lightteal active:bg-localeColors-darkteal font-medium rounded-md text-sm py-2"
+      (click)="viewUserDetails(user._id)"
+    >
+      View User Details
+    </button>
+  </div>
 </div>

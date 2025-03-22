@@ -10,6 +10,8 @@ import { ButtonComponent } from '../../ui/button/button.component';
 import { CommonModule } from '@angular/common';
 import { RescueService } from '../../../services/rescue.service';
 import { Router } from '@angular/router';
+import { DialogComponent } from '../../ui/dialog/dialog.component';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-create-rescue-form',
@@ -55,7 +57,11 @@ export class CreateRescueFormComponent {
     galleryImages: new FormControl<File[]>([]),
   });
 
-  constructor(private rescueService: RescueService, private router: Router) {}
+  constructor(
+    private rescueService: RescueService,
+    private router: Router,
+    private dialog: MatDialog
+  ) {}
 
   get name() {
     return this.createForm.controls['name'];
@@ -166,5 +172,36 @@ export class CreateRescueFormComponent {
     }
 
     return newRescue;
+  }
+
+  confirmSubmission(event: Event) {
+    event.preventDefault();
+
+    const dialogRef = this.dialog.open(DialogComponent, {
+      width: '400px',
+      data: {
+        modalTitle: 'Confirm Submission',
+        modalDesc: 'Are you sure you want to create this rescue?',
+        yes: 'Confirm',
+        no: 'Cancel',
+      },
+    });
+
+    dialogRef.afterClosed().subscribe((result: any) => {
+      if (result) {
+        this.submitForm();
+      }
+    });
+  }
+
+  // Submit form if confirmed
+  submitForm() {
+    if (this.createForm.valid) {
+      this.rescueService
+        .addRescue(this.createFormData(this.createForm.value))
+        .subscribe(() => {
+          this.router.navigate(['/rescue-list']);
+        });
+    }
   }
 }

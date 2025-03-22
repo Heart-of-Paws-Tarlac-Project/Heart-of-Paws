@@ -21,6 +21,8 @@ import { FormInputComponent } from '../../ui/form-input/form-input.component';
 import { ButtonComponent } from '../../ui/button/button.component';
 import { RescueService } from '../../../services/rescue.service';
 import { AdminService } from '../../../services/admin.service';
+import { MatDialog } from '@angular/material/dialog';
+import { DialogComponent } from '../../ui/dialog/dialog.component';
 
 @Component({
   selector: 'app-update-rescue-form',
@@ -67,7 +69,8 @@ export class UpdateRescueFormComponent implements OnInit {
     private rescueService: RescueService,
     private adminService: AdminService,
     private activatedRoute: ActivatedRoute,
-    private router: Router
+    private router: Router,
+    private dialog: MatDialog
   ) {}
 
   ngOnInit(): void {
@@ -121,9 +124,10 @@ export class UpdateRescueFormComponent implements OnInit {
 
   onSubmit(rescueId: string) {
     console.log('Form Values:', this.updateForm.value); // Log the form values here
+  }
 
+  private createFormData(): FormData {
     const formData = new FormData();
-
     Object.entries(this.updateForm.value).forEach(([key, value]) => {
       if (value !== null && value !== undefined && value !== '') {
         if (key === 'featureImage' && value instanceof File) {
@@ -139,22 +143,7 @@ export class UpdateRescueFormComponent implements OnInit {
         }
       }
     });
-
-    console.log('Individual FormData values:');
-    formData.forEach((value, key) => {
-      console.log(`${key}:`, value);
-    });
-
-    this.rescueService.updateRescueData(rescueId, formData).subscribe({
-      next: (response) => {
-        alert('Rescue updated successfully.');
-        this.router.navigate(['admin/rescue/', response.slug]);
-      },
-      error: (err) => {
-        alert('Rescue updated successfully.');
-        this.router.navigate(['/admin']);
-      },
-    });
+    return formData;
   }
 
   markFormGroupTouched(formGroup: FormGroup) {
@@ -162,6 +151,34 @@ export class UpdateRescueFormComponent implements OnInit {
       control.markAsTouched();
       if (control instanceof FormGroup) {
         this.markFormGroupTouched(control);
+      }
+    });
+  }
+  confirmUpdate(rescueId: string) {
+    const dialogRef = this.dialog.open(DialogComponent, {
+      width: '400px',
+      data: {
+        modalTitle: 'Confirm Update',
+        modalDesc: 'Are you sure you want to update this rescue?',
+        yes: 'Update',
+        no: 'Cancel',
+      },
+    });
+
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result) {
+        this.rescueService
+          .updateRescueData(rescueId, this.createFormData())
+          .subscribe({
+            next: (response) => {
+              alert('Rescue updated successfully.');
+              this.router.navigate(['admin/rescue/', response.slug]);
+            },
+            error: (err) => {
+              alert('An error occurred while updating the rescue.');
+              this.router.navigate(['/admin']);
+            },
+          });
       }
     });
   }

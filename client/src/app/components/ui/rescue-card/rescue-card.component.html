@@ -1,12 +1,12 @@
 <div
-  class="max-w-md bg-accentCyan rounded-2xl dark:bg-gray-800 min-h-[350px] flex flex-col justify-end cursor-default hover:cursor-pointer"
+  class="max-w-md bg-accentCyan rounded-2xl dark:bg-gray-800 flex flex-col justify-end cursor-default hover:cursor-pointer aspect-square"
   [routerLink]="cardLink"
 >
   <!-- Image Wrapper with relative positioning -->
-  <div class="relative w-full overflow-hidden rounded-2xl">
+  <div class="relative w-full h-full overflow-hidden rounded-2xl">
     <!-- Background Image -->
     <img
-      class="w-full h-[350px] object-cover transition-transform duration-300 hover:scale-110"
+      class="w-full h-full object-cover transition-transform duration-300 hover:scale-110"
       [src]="rescue.featureImage"
       alt="{{ rescue.name }}"
     />

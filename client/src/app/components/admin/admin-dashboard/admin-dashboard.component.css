@@ -1,3 +1,7 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 app-form-input {
   display: block !important; /* Ensure it's properly displayed */
   width: 100% !important;
@@ -14,5 +18,6 @@ app-form-input input {
   box-shadow: none !important;
 }
 
-::ng-deep app-button {
+.active {
+  @apply text-white bg-localeColors-red;
 }

@@ -4,6 +4,7 @@ import {
   NavigationEnd,
   Router,
   RouterLink,
+  RouterLinkActive,
   RouterOutlet,
 } from '@angular/router';
 import { CommonModule } from '@angular/common';
@@ -16,7 +17,13 @@ import { DialogComponent } from '../../ui/dialog/dialog.component';
 @Component({
   selector: 'app-admin-dashboard',
   standalone: true,
-  imports: [RescuesListComponent, RouterOutlet, CommonModule, RouterLink],
+  imports: [
+    RescuesListComponent,
+    RouterOutlet,
+    CommonModule,
+    RouterLink,
+    RouterLinkActive,
+  ],
   templateUrl: './admin-dashboard.component.html',
   styleUrl: './admin-dashboard.component.css',
 })

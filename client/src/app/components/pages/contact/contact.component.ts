@@ -91,6 +91,11 @@ export class ContactComponent implements OnInit {
       Validators.required,
       Validators.pattern(/^[0-9]{11}$/),
     ]),
+    subject: new FormControl('', [
+      Validators.required,
+      Validators.minLength(6),
+      Validators.maxLength(50),
+    ]),
     inquiry: new FormControl('', [
       Validators.required,
       Validators.minLength(10),
@@ -105,11 +110,6 @@ export class ContactComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    const userName = localStorage.getItem('userName');
-    if (userName) {
-      this.contactForm.controls['name'].setValue(userName);
-    }
-
     this.authSubscription = this.authService.isAuthenticated$.subscribe(
       (isAuthenticated) => {
         console.log(
@@ -133,6 +133,10 @@ export class ContactComponent implements OnInit {
     return this.contactForm.controls['phoneNo'];
   }
 
+  get subject() {
+    return this.contactForm.controls['subject'];
+  }
+
   get inquiry() {
     return this.contactForm.controls['inquiry'];
   }
@@ -153,6 +157,7 @@ export class ContactComponent implements OnInit {
       email: this.email.value as string,
       phoneNo: this.phoneNo.value as string,
       inquiry: this.inquiry.value as string,
+      subject: this.subject.value as string,
     };
 
     this.inquiryService.submitInquiry(inquiry).subscribe({

@@ -33,4 +33,18 @@ export class AdminService {
   deleteRescue(rescueId: string) {
     return this.apiService.delete(`/rescues/rescue/${rescueId}`);
   }
+
+  getAllInquiries() {
+    return this.apiService.get('/inquiries');
+  }
+
+  getInquiry(inquiryId: string) {
+    return this.apiService.get(`/inquiries/inquiry/${inquiryId}`);
+  }
+
+  sendResponse(inquiryId: string, message: any) {
+    return this.apiService.post(`/admin/inquiries/inquiry/${inquiryId}`, {
+      message,
+    });
+  }
 }

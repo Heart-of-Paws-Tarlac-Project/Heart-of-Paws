@@ -180,6 +180,40 @@
         </p>
       </div>
 
+      <!-- subject -->
+      <div data-aos="fade-up" data-aos-delay="300" data-aos-duration="800">
+        <app-form-input
+          label="Subject"
+          type="text"
+          id="text"
+          controlName="subject"
+          placeholder="I didn't know Ampher had Rabies!"
+          class="mb-4"
+        ></app-form-input>
+      </div>
+
+      <div *ngIf="subject.invalid && subject.touched">
+        <p
+          *ngIf="subject.errors?.['required']"
+          class="text-red-500 mb-4 font-Monteserrat font-light text-sm"
+        >
+          Subject is required.
+        </p>
+        <p
+          *ngIf="subject.errors?.['minlength']"
+          class="text-red-500 mb-4 font-Monteserrat font-light text-sm"
+        >
+          Must be at least 6 characters long.
+        </p>
+        <p
+          *ngIf="subject.errors?.['maxlength']"
+          class="text-red-500 mb-4 font-Monteserrat font-light text-sm"
+        >
+          Must not exceed 50 characters.
+        </p>
+      </div>
+      <!-- subject -->
+
       <div data-aos="fade-up" data-aos-delay="400" data-aos-duration="800">
         <textarea
           id="message"

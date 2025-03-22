@@ -1,0 +1,13 @@
+<div class="inquiries-list">
+  <h2>Inbox</h2>
+  <ul>
+    <li *ngFor="let inquiry of inquiries" (click)="viewInquiry(inquiry._id)">
+      <strong>{{ inquiry.subject }}</strong> - {{ inquiry.senderName }}
+      {{ inquiry.createdAt | date : "longDate" }}
+      {{ inquiry.createdAt | date : "    hh:mm a" }}
+    </li>
+  </ul>
+</div>
+<div class="inquiry-details">
+  <router-outlet></router-outlet>
+</div>

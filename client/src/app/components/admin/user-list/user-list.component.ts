@@ -17,6 +17,8 @@ import 'aos/dist/aos.css';
 })
 export class UserListComponent implements OnInit {
   users: any[] = [];
+  hasQuery: boolean = false;
+  filteredUsers: any[] = [];
 
   constructor(
     private adminService: AdminService,
@@ -30,6 +32,24 @@ export class UserListComponent implements OnInit {
 
   ngAfterViewInit(): void {
     AOS.init();
+  }
+
+  sendData(event: any) {
+    let query: string = event.target.value;
+
+    //will match if query is nothing or is only spaces
+    let matchSpaces: any = query.match(/\s*/);
+    if (matchSpaces[0] === query) {
+      this.filteredUsers = [];
+      this.hasQuery = false;
+      return;
+    }
+
+    this.userService.searchUsers(query.trim()).subscribe((results) => {
+      this.filteredUsers = results;
+      this.hasQuery = true;
+      console.log(results);
+    });
   }
 
   viewUserDetails(userId: string) {

@@ -4,6 +4,20 @@
   data-aos-duration="1000"
 >
   <!-- 📌 Responsive Table for md+ screens -->
+  <h1>Search</h1>
+  <input
+    type="text"
+    name="search-box"
+    class="search-box"
+    (keyup)="sendData($event)"
+  />
+  <section class="search-results">
+    <p *ngIf="filteredUsers.length < 1 && hasQuery">No user found.</p>
+    <ng-template ngFor let-user [ngForOf]="filteredUsers" let-i="index">
+      <hr *ngIf="i > 0" />
+      <p (click)="viewUserDetails(user._id)">{{ user.name }}</p>
+    </ng-template>
+  </section>
   <table
     class="hidden xl:table table-auto md:table-fixed w-full border-collapse"
   >

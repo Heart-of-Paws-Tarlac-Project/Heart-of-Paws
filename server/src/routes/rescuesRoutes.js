@@ -9,6 +9,7 @@ router.get("/", rescuesController.getAllRescues);
 //fetch single rescue
 router.get("/:slug", rescuesController.getRescue);
 //fetch rescues by size
+router.post("/searchRescues", rescuesController.searchRescues);
 
 //admin routes
 //create rescue
@@ -20,7 +21,7 @@ router.post(
 );
 //get total no of applications for rescue
 router.get(
-  "/:rescueId/applications",
+  "/:slug/applications",
   isAdmin,
   rescuesController.getNoOfApplications
 );

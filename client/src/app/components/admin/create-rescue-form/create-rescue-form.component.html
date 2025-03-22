@@ -10,7 +10,7 @@
     >
       ADD RESCUED DOGS
     </h1>
-    <form class="w-full" [formGroup]="createForm" (ngSubmit)="onSubmit()">
+    <form class="w-full" [formGroup]="createForm">
       <app-form-input
         label="Rescue Name"
         type="text"
@@ -181,7 +181,7 @@
       </label>
 
       <div class="flex gap-4 mb-4">
-        <label class="inline-flex items-center">
+        <label class="inline-flex items-center" [class.opacity-50]="isMale">
           <input
             type="radio"
             formControlName="vetStatus"
@@ -191,7 +191,7 @@
           <span class="ml-2 text-gray-900">Spayed(female)</span>
         </label>
 
-        <label class="inline-flex items-center">
+        <label class="inline-flex items-center" [class.opacity-50]="isFemale">
           <input
             type="radio"
             formControlName="vetStatus"
@@ -270,11 +270,8 @@
           />
 
           <div *ngIf="featuredImage.invalid && featuredImage.touched">
-            <p
-              *ngIf="featuredImage.errors?.['required']"
-              class="text-red-500 text-sm mb-4 -mt-4"
-            >
-              Featured image is required
+            <p class="text-red-500 text-sm -mt-4 mb-4">
+              A featured image is required.
             </p>
           </div>
         </div>
@@ -295,11 +292,8 @@
           />
 
           <div *ngIf="galleryImages.invalid && galleryImages.touched">
-            <p
-              *ngIf="galleryImages.errors?.['required']"
-              class="text-red-500 text-sm mb-4 -mt-4"
-            >
-              Gallery images are required
+            <p class="text-red-500 text-sm -mt-4 mb-4">
+              You must upload exactly 4 images for the gallery.
             </p>
           </div>
         </div>

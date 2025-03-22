@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, AfterViewInit } from '@angular/core';
 import {
   FormControl,
   ReactiveFormsModule,
@@ -12,6 +12,8 @@ import { RescueService } from '../../../services/rescue.service';
 import { Router } from '@angular/router';
 import { DialogComponent } from '../../ui/dialog/dialog.component';
 import { MatDialog } from '@angular/material/dialog';
+import AOS from 'aos';
+import 'aos/dist/aos.css';
 
 @Component({
   selector: 'app-create-rescue-form',
@@ -25,43 +27,69 @@ import { MatDialog } from '@angular/material/dialog';
   templateUrl: './create-rescue-form.component.html',
   styleUrl: './create-rescue-form.component.css',
 })
-export class CreateRescueFormComponent {
+export class CreateRescueFormComponent implements AfterViewInit {
+  isMale: boolean = false;
+  isFemale: boolean = false;
+
   createForm = new FormGroup({
-    name: new FormControl('', [
+    name: new FormControl({ value: '', disabled: false }, [
       Validators.minLength(3),
       Validators.pattern(/^[A-Za-z\s]+$/),
       Validators.maxLength(20),
       Validators.required,
     ]),
-    sex: new FormControl('', Validators.required),
-    ageValue: new FormControl('', [
+    sex: new FormControl({ value: '', disabled: false }, Validators.required),
+    ageValue: new FormControl({ value: '', disabled: false }, [
       Validators.required,
       Validators.min(1),
       Validators.pattern(/^[0-9]+$/),
     ]),
-    ageUnit: new FormControl('', Validators.required),
-    size: new FormControl('', Validators.required),
-    vetStatus: new FormControl('', [
+    ageUnit: new FormControl(
+      { value: '', disabled: false },
+      Validators.required
+    ),
+    size: new FormControl({ value: '', disabled: false }, Validators.required),
+    vetStatus: new FormControl({ value: '', disabled: false }, [
       Validators.minLength(3),
       Validators.pattern(/^[A-Za-z\s]+$/),
       Validators.maxLength(10),
       Validators.required,
     ]),
-    description: new FormControl('', [
+    description: new FormControl({ value: '', disabled: false }, [
       Validators.minLength(10),
       Validators.pattern(/^[A-Za-z\s]+$/),
       Validators.maxLength(50),
       Validators.required,
     ]),
-    featuredImage: new FormControl<File | null>(null),
-    galleryImages: new FormControl<File[]>([]),
+    featuredImage: new FormControl<File | null>(
+      { value: null, disabled: false },
+      Validators.required
+    ),
+    galleryImages: new FormControl<File[]>({ value: [], disabled: false }, [
+      Validators.required,
+      Validators.minLength(4),
+      Validators.maxLength(4),
+    ]),
   });
+
+  ngAfterViewInit(): void {
+    AOS.init();
+  }
 
   constructor(
     private rescueService: RescueService,
     private router: Router,
     private dialog: MatDialog
   ) {}
+
+  onSexChange(selectedSex: string) {
+    this.isMale = selectedSex === 'male';
+    this.isFemale = selectedSex === 'female';
+
+    this.createForm.patchValue({
+      vetStatus: '',
+    });
+  }
 
   get name() {
     return this.createForm.controls['name'];
@@ -111,33 +139,6 @@ export class CreateRescueFormComponent {
     }
   }
 
-  onSubmit() {
-    if (this.createForm.invalid) {
-      this.markFormGroupTouched(this.createForm);
-      return;
-    }
-    console.log(this.createForm.value);
-
-    const formData = this.createFormData(this.createForm.value);
-
-    formData.forEach((value, key) => {
-      console.log(`form submission: ${key}: ${value}`);
-    });
-
-    this.rescueService.addRescue(formData).subscribe({
-      next: (response) => {
-        if (response) {
-          alert('Successfully created rescue');
-          this.router.navigate(['/admin']);
-        }
-      },
-      error: (error) => {
-        alert(`Error in creating rescue: ${error} `);
-        this.router.navigate(['/admin']);
-      },
-    });
-  }
-
   markFormGroupTouched(formGroup: FormGroup) {
     Object.values(formGroup.controls).forEach((control) => {
       control.markAsTouched();
@@ -177,6 +178,11 @@ export class CreateRescueFormComponent {
   confirmSubmission(event: Event) {
     event.preventDefault();
 
+    if (this.createForm.invalid) {
+      this.markFormGroupTouched(this.createForm);
+      return;
+    }
+
     const dialogRef = this.dialog.open(DialogComponent, {
       width: '400px',
       data: {
@@ -194,14 +200,19 @@ export class CreateRescueFormComponent {
     });
   }
 
-  // Submit form if confirmed
   submitForm() {
-    if (this.createForm.valid) {
-      this.rescueService
-        .addRescue(this.createFormData(this.createForm.value))
-        .subscribe(() => {
-          this.router.navigate(['/rescue-list']);
-        });
-    }
+    this.rescueService
+      .addRescue(this.createFormData(this.createForm.value))
+      .subscribe({
+        next: () => {
+          alert('Rescue successfully created');
+          this.router.navigate(['/admin']);
+        },
+        error: (error) => {
+          console.error('Error in creating rescue: ', error);
+          alert('Rescue could not be created right now. Please try again.');
+          this.router.navigate(['/admin']);
+        },
+      });
   }
 }

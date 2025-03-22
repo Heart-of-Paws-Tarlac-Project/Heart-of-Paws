@@ -20,6 +20,8 @@ import { CreateRescueFormComponent } from './components/admin/create-rescue-form
 import { ApplicationDetailComponent } from './components/admin/application-detail/application-detail.component';
 import { UserListComponent } from './components/admin/user-list/user-list.component';
 import { UserDetailComponent } from './components/admin/user-detail/user-detail.component';
+import { InquiriesListComponent } from './components/admin/inquiries-list/inquiries-list.component';
+import { InquiryDetailComponent } from './components/admin/inquiry-detail/inquiry-detail.component';
 
 export const routes: Routes = [
   {
@@ -77,6 +79,16 @@ export const routes: Routes = [
       {
         path: 'rescue/applications/:applicationId',
         component: ApplicationDetailComponent,
+      },
+      {
+        path: 'inquiries',
+        component: InquiriesListComponent,
+        children: [
+          {
+            path: 'inquiry/:inquiryId',
+            component: InquiryDetailComponent,
+          },
+        ],
       },
     ],
   },

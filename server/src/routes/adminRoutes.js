@@ -10,4 +10,11 @@ router.patch(
   adminController.approveOrRejectApplication
 );
 
+//respond to inquiry
+router.post(
+  "/inquiries/inquiry/:inquiryId",
+  isAdmin,
+  adminController.respondToInquiry
+);
+
 module.exports = router;

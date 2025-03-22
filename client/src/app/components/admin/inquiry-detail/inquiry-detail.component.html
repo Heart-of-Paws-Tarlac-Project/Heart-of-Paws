@@ -1,0 +1,63 @@
+<div class="container">
+  <div *ngIf="inquiryData">
+    <!-- inquiries by users -->
+    <p>
+      <strong>Subject:</strong>
+      {{ inquiryData.subject }}
+    </p>
+    <p><strong>From:</strong> {{ inquiryData.senderName }}</p>
+    <p><strong>Message:</strong> {{ inquiryData.inquiry }}</p>
+    <p>Date: {{ inquiryData.createdAt | date : "longDate" }}</p>
+    <p>Time: {{ inquiryData.createdAt | date : "hh:mm a" }}</p>
+    <!--  -->
+    <p>Email: {{ inquiryData.senderEmail }}</p>
+    <ng-template #noResponses>
+      <p>No responses yet.</p>
+    </ng-template>
+
+    <!-- responses by admin -->
+    <ul *ngIf="inquiryData.responses?.length > 0; else noResponses">
+      <li
+        *ngFor="let response of inquiryData.responses"
+        style="
+          margin-top: 15px;
+          margin-bottom: 15px;
+          border: 1px solid #ddd;
+          padding-bottom: 10px;
+        "
+      >
+        <p>Admin: {{ response.message }}</p>
+        <small>{{ response.timestamp | date : "fullDate" }}</small>
+      </li>
+    </ul>
+    <!--  -->
+
+    <form (ngSubmit)="respondToInquiry()" #responseForm="ngForm">
+      <textarea
+        id="message"
+        name="message"
+        [(ngModel)]="message"
+        placeholder="Type your response here..."
+        required
+        #name="ngModel"
+      ></textarea>
+
+      <div
+        [hidden]="
+          responseForm.form.controls['message'].valid ||
+          responseForm.form.controls['message'].pristine
+        "
+        class="alert alert-danger"
+      >
+        Response is required
+      </div>
+
+      <button
+        class="bg-gray-700 p-2 w-full text-white rounded-3xl h-14 mb-5"
+        [disabled]="!responseForm.valid"
+      >
+        Send Response
+      </button>
+    </form>
+  </div>
+</div>

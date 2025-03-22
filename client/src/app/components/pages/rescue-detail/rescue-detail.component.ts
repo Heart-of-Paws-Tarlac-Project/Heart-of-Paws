@@ -49,16 +49,18 @@ export class RescueDetailComponent implements OnInit, AfterViewInit {
   }
 
   confirmDelete(rescueId: string) {
-    const dialogData = {
-      title: 'Confirm Deletion',
-      message: 'Are you sure you want to delete this rescue?',
+    const data = {
+      modalTitle: 'Confirm Deletion',
+      modalDesc: 'Are you sure you want to delete this rescue?',
+      yes: 'Yes',
+      no: 'No',
     };
 
-    console.log('Opening Dialog with Data:', dialogData); // Debugging
+    console.log('Opening Dialog with Data:', data); // Debugging
 
     const dialogRef = this.dialog.open(DialogComponent, {
       width: '400px',
-      data: dialogData,
+      data: data,
     });
 
     dialogRef.afterClosed().subscribe((confirmed) => {

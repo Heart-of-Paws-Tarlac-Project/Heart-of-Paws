@@ -1,13 +1,91 @@
-<div class="inquiries-list">
-  <h2>Inbox</h2>
-  <ul>
-    <li *ngFor="let inquiry of inquiries" (click)="viewInquiry(inquiry._id)">
-      <strong>{{ inquiry.subject }}</strong> - {{ inquiry.senderName }}
-      {{ inquiry.createdAt | date : "longDate" }}
-      {{ inquiry.createdAt | date : "    hh:mm a" }}
-    </li>
-  </ul>
+<!-- Sidebar Toggle Button (Visible on mobile & md, hidden on lg+) -->
+<div class="flex">
+  <button
+    class="md:block lg:hidden p-2 bg-gray-200 dark:bg-gray-700 rounded-lg focus:outline-none absolute top-2 right-2 z-50"
+    (click)="toggleInbox()"
+  >
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      stroke-width="2"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+      class="w-6 h-6 text-gray-700 dark:text-gray-200"
+    >
+      <path d="M3 8l9 6 9-6" />
+      <rect x="2" y="4" width="20" height="16" rx="2" ry="2" />
+    </svg>
+  </button>
+
+  <!-- Inbox Sidebar -->
+
+  <div
+    [ngClass]="{
+      'translate-x-full ': isInboxHidden,
+      'translate-x-0 ': !isInboxHidden
+    }"
+    class="lg:hidden bg-white shadow-lg w-full lg:bg-primary-light lg:shadow-none inset-y-0 border-r fixed right-0 lg:right-auto lg: border-gray-300 p-2 flex-col min-h-screen h-auto transition-transform duration-500 ease-in-out lg:w-80 xl:w-96 2xl:w-[32rem]"
+  >
+    <h2 class="text-2xl flex justify-between text-localeColors-darkteal">
+      Inbox
+      <button class="lg:hidden text-gray-700" (click)="toggleInbox()">✕</button>
+    </h2>
+
+    <div
+      *ngFor="let inquiry of inquiries"
+      (click)="viewInquiry(inquiry._id)"
+      class="cursor-pointer lg:hidden"
+    >
+      <div
+        class="w-full flex flex-col border-b-2 py-3 hover:bg-slate-300 hover:border-l-2 border-l-black px-2 transition duration-300 ease-in-out cursor-pointer active:border-l-0"
+      >
+        <p class="text-sm">{{ inquiry.senderName }}</p>
+        <p class="text-lg font-medium">{{ inquiry.subject }}</p>
+        <div class="flex justify-between w-full">
+          <p class="text-sm">{{ inquiry.createdAt | date : "longDate" }}</p>
+          <p class="text-sm">{{ inquiry.createdAt | date : "hh:mm a" }}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="block lg:hidden w-full xl:w-2/3 p-2">
+    <router-outlet></router-outlet>
+  </div>
 </div>
-<div class="inquiry-details">
-  <router-outlet></router-outlet>
+
+<!-- lg to 2xl -->
+<div class="flex">
+  <div
+    class="hidden lg:block bg-white shadow-lg lg:bg-primary-light lg:shadow-none border-r border-gray-300 p-2 flex-col min-h-screen h-auto lg:w-80 xl:w-96 2xl:w-[32rem]"
+    data-aos="fade-right"
+    data-aos-duration="800"
+  >
+    <h2 class="text-2xl text-localeColors-darkteal font-WinkySans font-bold">
+      Inbox
+    </h2>
+
+    <div
+      *ngFor="let inquiry of inquiries"
+      (click)="viewInquiry(inquiry._id)"
+      class="cursor-pointer"
+    >
+      <div
+        class="w-full flex flex-col border-b-2 py-3 hover:bg-slate-300 hover:border-l-2 border-l-black px-2 transition duration-300 ease-in-out cursor-pointer active:border-l-0"
+      >
+        <p class="text-sm">{{ inquiry.senderName }}</p>
+        <p class="text-lg font-medium">{{ inquiry.subject }}</p>
+        <div class="flex justify-between w-full">
+          <p class="text-sm">{{ inquiry.createdAt | date : "longDate" }}</p>
+          <p class="text-sm">{{ inquiry.createdAt | date : "hh:mm a" }}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Inquiry Details -->
+  <div class="hidden lg:block w-full xl:w-2/3 p-2">
+    <router-outlet></router-outlet>
+  </div>
 </div>

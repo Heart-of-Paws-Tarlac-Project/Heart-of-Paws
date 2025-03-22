@@ -1,63 +1,95 @@
-<div class="container">
-  <div *ngIf="inquiryData">
+<div class="flex flex-col min-h-screen h-auto xl:p-5">
+  <div *ngIf="inquiryData" class="flex flex-col gap-2">
     <!-- inquiries by users -->
-    <p>
-      <strong>Subject:</strong>
+    <p class="text-2xl font-semibold text-localeColors-darkteal">
       {{ inquiryData.subject }}
     </p>
-    <p><strong>From:</strong> {{ inquiryData.senderName }}</p>
-    <p><strong>Message:</strong> {{ inquiryData.inquiry }}</p>
-    <p>Date: {{ inquiryData.createdAt | date : "longDate" }}</p>
-    <p>Time: {{ inquiryData.createdAt | date : "hh:mm a" }}</p>
-    <!--  -->
-    <p>Email: {{ inquiryData.senderEmail }}</p>
-    <ng-template #noResponses>
-      <p>No responses yet.</p>
-    </ng-template>
 
-    <!-- responses by admin -->
-    <ul *ngIf="inquiryData.responses?.length > 0; else noResponses">
-      <li
-        *ngFor="let response of inquiryData.responses"
-        style="
-          margin-top: 15px;
-          margin-bottom: 15px;
-          border: 1px solid #ddd;
-          padding-bottom: 10px;
-        "
-      >
-        <p>Admin: {{ response.message }}</p>
-        <small>{{ response.timestamp | date : "fullDate" }}</small>
-      </li>
-    </ul>
-    <!--  -->
+    <div class="flex flex-col text-sm">
+      <p>
+        <span class="font-medium">From:</span> {{ inquiryData.senderName }} -
+        {{ inquiryData.senderEmail }}
+      </p>
 
-    <form (ngSubmit)="respondToInquiry()" #responseForm="ngForm">
-      <textarea
-        id="message"
-        name="message"
-        [(ngModel)]="message"
-        placeholder="Type your response here..."
-        required
-        #name="ngModel"
-      ></textarea>
+      <p>
+        {{ inquiryData.createdAt | date : "longDate" }},
+        {{ inquiryData.createdAt | date : "hh:mm a" }}
+      </p>
+    </div>
+    <div
+      class="flex flex-col text-sm w-full xl:w-4/5 bg-zinc-200 p-5 rounded-xl mx-auto mb-7"
+    >
+      <p class="w-full">
+        {{ inquiryData.inquiry }}
+      </p>
+    </div>
+
+    <!-- admin responses -->
+    <div class="responses w-full border-t-2">
+      <ng-template #noResponses>
+        <p class="p-5">No responses yet.</p>
+      </ng-template>
 
       <div
-        [hidden]="
-          responseForm.form.controls['message'].valid ||
-          responseForm.form.controls['message'].pristine
-        "
-        class="alert alert-danger"
+        *ngIf="inquiryData.responses?.length > 0; else noResponses"
+        class="xl:p-5"
       >
-        Response is required
-      </div>
+        <div
+          *ngFor="let response of inquiryData.responses"
+          class="flex flex-col text-sm w-full xl:w-4/5 p-5 mx-auto mb-7"
+        >
+          <p class="text-lg">Heart of Paws</p>
+          <div class="flex justify-between border-b border-black">
+            <p class="text-sm">{{ response.timestamp | date : "fullDate" }}</p>
+            <p class="text-sm">{{ response.timestamp | date : "hh:mm a" }}</p>
+          </div>
 
-      <button
-        class="bg-gray-700 p-2 w-full text-white rounded-3xl h-14 mb-5"
-        [disabled]="!responseForm.valid"
+          <div
+            class="flex flex-col text-sm w-full xl:w-4/5 bg-zinc-200 p-5 rounded-lg mt-3"
+          >
+            <p>{{ response.message }}</p>
+          </div>
+        </div>
+      </div>
+      <form
+        (ngSubmit)="respondToInquiry()"
+        #responseForm="ngForm"
+        [attr.key]="inquiryData?._id"
       >
-        Send Response
-      </button>
-    </form>
+        <textarea
+          id="message"
+          name="message"
+          [(ngModel)]="message"
+          placeholder="Type your response here..."
+          required
+          #name="ngModel"
+          class="block p-2.5 w-full xl:w-3/4 text-sm h-56 text-gray-900 bg-transparent border-black border focus:ring-localeColors-lightteal focus:border rounded-lg focus:border-localeColors-lightteal dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 mb-4"
+        ></textarea>
+
+        <div
+          [hidden]="
+            responseForm.form.controls['message'].valid ||
+            responseForm.form.controls['message'].pristine
+          "
+        >
+          <p class="text-localeColors-red -mt-4 mb-4">Response is required</p>
+        </div>
+
+        <div class="flex flex-col lg:flex-row gap-2">
+          <button
+            class="bg-localeColors-red hover:bg-localeColors-lightteal duration-200 ease-in-out p-2 w-44 text-white rounded-3xl h-14 cursor-pointer"
+            [disabled]="!responseForm.valid"
+          >
+            Send Response
+          </button>
+          <button
+            class="bg-localeColors-red hover:bg-localeColors-lightteal duration-200 ease-in-out p-2 w-44 text-white rounded-3xl h-14 mb-5 cursor-pointer"
+            [disabled]="!responseForm.valid"
+          >
+            Delete
+          </button>
+        </div>
+      </form>
+    </div>
   </div>
 </div>

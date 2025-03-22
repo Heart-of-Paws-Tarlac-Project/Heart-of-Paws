@@ -4,17 +4,23 @@
   <!-- Sidebar -->
   <aside
     id="sidebar"
-    class="w-64 min-h-screen bg-white shadow-lg dark:bg-gray-900 dark:border-gray-700 fixed md:relative md:translate-x-0 -translate-x-full transition-transform duration-300 ease-in-out z-50"
+    [ngClass]="{
+      '-translate-x-full': isSidebarHidden,
+      'translate-x-0': !isSidebarHidden
+    }"
+    class="w-64 min-h-screen bg-primary-light border-r-2 border-localeColors-cyan shadow-lg dark:bg-gray-900 dark:border-gray-700 fixed lg:sticky lg:top-0 lg:h-screen lg:translate-x-0 -translate-x-full transition-transform duration-300 ease-in-out z-50"
   >
     <div class="p-4 flex justify-between items-center">
       <a routerLink="/admin" class="flex items-center space-x-3">
-        <span class="text-2xl font-semibold dark:text-white">
+        <span
+          class="text-3xl font-bold font-WinkySans text-localeColors-darkteal"
+        >
           Heart Of Paws Admin
         </span>
       </a>
       <!-- Close Button for Mobile -->
       <button
-        class="md:hidden text-gray-700 dark:text-gray-200"
+        class="lg:hidden text-gray-700 dark:text-gray-200"
         (click)="toggleSidebar()"
       >
         ✕
@@ -24,7 +30,7 @@
       <li>
         <a
           routerLink="/admin"
-          class="block py-2 px-3 text-gray-900 rounded-lg hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
+          class="block py-2 px-3 text-gray-900 rounded-lg hover:bg-localeColors-red hover:text-white duration-100 dark:text-white dark:hover:bg-gray-700"
         >
           All Rescues
         </a>
@@ -32,7 +38,7 @@
       <li>
         <a
           routerLink="/admin/users"
-          class="block py-2 px-3 text-gray-900 rounded-lg hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
+          class="block py-2 px-3 text-gray-900 rounded-lg hover:bg-localeColors-red hover:text-white duration-100 dark:text-white dark:hover:bg-gray-700"
         >
           All Users
         </a>
@@ -40,7 +46,7 @@
       <li>
         <a
           routerLink="/admin/create-rescue"
-          class="block py-2 px-3 text-gray-900 rounded-lg hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
+          class="block py-2 px-3 text-gray-900 rounded-lg hover:bg-localeColors-red hover:text-white duration-100 dark:text-white dark:hover:bg-gray-700"
         >
           Add Rescue
         </a>
@@ -48,7 +54,7 @@
       <li>
         <a
           routerLink="/admin/inquiries"
-          class="block py-2 px-3 text-gray-900 rounded-lg hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
+          class="block py-2 px-3 text-gray-900 rounded-lg hover:bg-localeColors-red hover:text-white duration-100 dark:text-white dark:hover:bg-gray-700"
         >
           Inquiries
         </a>
@@ -57,7 +63,7 @@
         <li *ngIf="isAdminAuthenticated">
           <a
             (click)="logoutAdmin()"
-            class="block py-2 px-3 text-gray-900 rounded-lg hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700 cursor-pointer"
+            class="block py-2 px-3 rounded-lg bg-localeColors-red hover:bg-red-700 text-white duration-200 dark:text-white dark:hover:bg-gray-700 cursor-pointer"
           >
             Logout
           </a>
@@ -68,16 +74,16 @@
 
   <!-- Main Content Wrapper -->
   <div
-    class="flex-1 min-h-screen bg-primary-light dark:bg-gray-800 p-6 justify-center items-center overflow-hidden"
+    class="flex-1 min-h-screen bg-primary-light dark:bg-gray-800 p-2 justify-center items-center overflow-hidden"
   >
     <!-- Sidebar Toggle Button for Mobile -->
     <button
       id="toggleSidebar"
-      class="md:hidden p-2 bg-gray-200 dark:bg-gray-700 rounded-lg focus:outline-none mb-4"
+      class="lg:hidden bg-gray-200 dark:bg-gray-700 rounded-lg focus:outline-none mb-4"
       (click)="toggleSidebar()"
     >
       <svg
-        class="w-6 h-6 text-gray-700 dark:text-gray-200"
+        class="w-8 h-8 p-1 text-gray-700 dark:text-gray-200"
         xmlns="http://www.w3.org/2000/svg"
         fill="none"
         viewBox="0 0 24 24"

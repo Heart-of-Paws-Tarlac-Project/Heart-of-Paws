@@ -1,28 +1,5 @@
-.search-box {
-  display: block;
-  margin: 40px auto 0 auto;
-  padding: 10px 20px;
-  max-width: 600px;
-  width: 95%;
-}
-
-.search-results {
-  max-width: 600px;
-  width: 65%;
-  margin: 20px auto 0 auto;
-  hr {
-    border: none;
-    height: 1px;
-    background-color: lightgray;
-  }
-  p {
-    margin: 10px 0;
-  }
-}
-
-button,
-input,
-select,
-textarea {
-  font-size: 100%;
+input:-webkit-autofill {
+  background-color: white !important;
+  box-shadow: 0 0 0px 1000px white inset !important;
+  -webkit-text-fill-color: black !important;
 }

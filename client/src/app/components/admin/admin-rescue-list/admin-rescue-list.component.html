@@ -15,19 +15,50 @@
   </div>
 
   <!-- Search Bar -->
-  <input
-    type="text"
-    name="search-box"
-    class="search-box"
-    (keyup)="sendData($event)"
-  />
-  <section class="search-results">
-    <p *ngIf="filteredRescues.length < 1 && hasQuery">No rescue found.</p>
-    <ng-template ngFor let-rescue [ngForOf]="filteredRescues" let-i="index">
-    <hr *ngIf="i > 0" />
-    <p (click)="viewRescueDetails(rescue.slug)">{{ rescue.name }}</p>
-    </ng-template>
-  </section>
+  <!-- Search Bar -->
+  <div class="relative mx-auto max-w-[600px] w-[95%] mt-10 mb-10">
+    <!-- Search Input -->
+    <input
+      type="text"
+      name="search-box"
+      class="block w-full p-3 text-sm text-gray-900 bg-white border-black rounded-full shadow-md focus:ring-localeColors-lightteal focus:bg-white focus:border-localeColors-lightteal outline-none transition-all duration-200"
+      placeholder="Search for rescues..."
+      (keyup)="sendData($event)"
+      (focus)="isDropdownOpen = true"
+      (blur)="closeDropdownWithDelay()"
+    />
+    <span class="absolute right-4 top-1/2 transform -translate-y-1/2">
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        class="w-5 h-5 text-gray-400"
+      >
+        <circle cx="11" cy="11" r="8"></circle>
+        <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+      </svg>
+    </span>
+
+    <!-- Search Results Dropdown -->
+    <div
+      *ngIf="isDropdownOpen && filteredRescues.length > 0"
+      class="absolute w-full bg-white border-2 border-localeColors-lightteal shadow-lg rounded-lg mt-2 max-h-64 overflow-y-auto transition-all duration-200"
+    >
+      <ng-template ngFor let-rescue [ngForOf]="filteredRescues" let-i="index">
+        <hr *ngIf="i > 0" class="border-gray-200" />
+        <p
+          class="px-5 py-3 cursor-pointer hover:bg-gray-100 transition duration-200"
+          (click)="viewRescueDetails(rescue.slug)"
+        >
+          {{ rescue.name }}
+        </p>
+      </ng-template>
+    </div>
+  </div>
 
   <!-- Size filter buttons -->
   <div class="filter-controls my-8 flex justify-center gap-2">

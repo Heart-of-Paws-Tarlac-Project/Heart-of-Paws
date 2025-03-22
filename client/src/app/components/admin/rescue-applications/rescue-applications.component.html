@@ -1,6 +1,13 @@
+<h1
+  class="text-5xl 2xl:text-8xl tracking-tight leading-tight text-left text-localeColors-darkteal font-WinkySans font-semibold uppercase"
+  data-aos="fade-right"
+  data-aos-duration="800"
+>
+  Applicants
+</h1>
 <div
   class="h-auto min-h-[70vh] w-full grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 place-content-center place-items-center gap-10 p-10 2xl:px-40 2xl:mt-10"
-  data-aos="fade-up"
+  data-aos="fade-right"
   data-aos-duration="800"
 >
   <div
@@ -13,11 +20,12 @@
     >
       {{ application.name }}
     </h2>
+
     <div class="w-full h-72 bg-white rounded-2xl mt-4 overflow-hidden">
       <img
         [src]="application.user.profileImage"
         alt="{{ application.applicantName }}"
-        class="w-full h-full object-cover rounded-2xl transition-transform duration-300 hover:scale-110"
+        class="w-full h-full object-cover rounded-2xl transition-transform duration-300 hover:scale-110 cursor-pointer"
       />
     </div>
     <p class="text-lg text-center">

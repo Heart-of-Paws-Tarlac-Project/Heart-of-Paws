@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { AdminService } from '../../../services/admin.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
+import { MatDialog } from '@angular/material/dialog';
+import { DialogComponent } from '../../ui/dialog/dialog.component';
 
 @Component({
   selector: 'app-application-detail',
@@ -18,7 +20,8 @@ export class ApplicationDetailComponent implements OnInit {
   constructor(
     private adminService: AdminService,
     private route: ActivatedRoute,
-    private router: Router
+    private router: Router,
+    private dialog: MatDialog
   ) {}
 
   ngOnInit(): void {
@@ -47,39 +50,71 @@ export class ApplicationDetailComponent implements OnInit {
     });
   }
 
-  approveApplication(applicationId: string) {
+  openConfirmationDialog(action: string) {
+    const dialogRef = this.dialog.open(DialogComponent, {
+      width: '400px',
+      data: {
+        modalTitle: `${action} Application`,
+        modalDesc: `Are you sure you want to ${action.toLowerCase()} this application for ${
+          this.userData.applicantName
+        }?`,
+        yes: 'Confirm',
+        no: 'Cancel',
+      },
+    });
+
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result) {
+        action === 'Approve'
+          ? this.approveApplication()
+          : this.rejectApplication();
+      }
+    });
+  }
+
+  approveApplication() {
     this.status = 'approved';
     this.adminService
       .approveApplication(this.applicationId, this.status)
       .subscribe({
-        next: (response) => {
+        next: () => {
           alert(
-            `Rescue ${this.userData.rescue.name} has been approved for adoption to ${this.userData.applicantName}`
+            `Rescue ${this.userData.rescue.name} has been approved for adoption.`
           );
           this.router.navigate(['/admin']);
         },
-        error: (error) => {
-          console.error('Error approving user application.');
-          this.router.navigate(['/admin']);
+        error: () => {
+          console.error('Error approving application.');
         },
       });
   }
 
-  rejectApplication(applicationId: string) {
+  rejectApplication() {
     this.status = 'rejected';
     this.adminService
       .approveApplication(this.applicationId, this.status)
       .subscribe({
-        next: (response) => {
+        next: () => {
           alert(
-            `Rescue ${this.userData.rescue.name} has been rejected for adoption to ${this.userData.applicantName}`
+            `Rescue ${this.userData.rescue.name} has been rejected for adoption.`
           );
           this.router.navigate(['/admin']);
         },
-        error: (error) => {
-          console.error('Error approving user application.');
-          this.router.navigate(['/admin']);
+        error: () => {
+          console.error('Error rejecting application.');
         },
       });
+  }
+
+  isModalOpen: boolean = false;
+  selectedImage: string = '';
+
+  openImage(imageUrl: string): void {
+    this.selectedImage = imageUrl;
+    this.isModalOpen = true;
+  }
+
+  closeImage(): void {
+    this.isModalOpen = false;
   }
 }

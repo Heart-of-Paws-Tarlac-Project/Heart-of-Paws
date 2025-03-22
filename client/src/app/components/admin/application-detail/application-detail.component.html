@@ -1,26 +1,148 @@
-<h1>Application Details for {{ userData.rescue.name }}.</h1>
-<p *ngIf="userData">Applicant Name: {{ userData.applicantName }}</p>
-<p *ngIf="userData.user">User Name: {{ userData.user.name }}</p>
-<img
-  *ngIf="userData.user?.profileImage"
-  [src]="userData.user.profileImage"
-  alt="Profile Image"
-/>
-<p>{{ userData.user.email }}</p>
-<p>{{ userData.email }}</p>
-<p>{{ userData.phoneNumber }}</p>
-<p>{{ userData.address }}</p>
-<h2>Application Details</h2>
-<p>Status: {{ userData.status | titlecase }}</p>
-<p>
-  Scheduled Interview Date: {{ userData.interviewDate | date : "fullDate" }}
-</p>
-<p>Scheduled Interview Time: {{ userData.interviewTime }}</p>
-<p>Appointment Mode: {{ userData.appointmentMode | titlecase }}</p>
-<p>
-  Introduction Message for adoption interest: {{ userData.introductionMessage }}
-</p>
+<div
+  class="w-full min-h-screen flex flex-col lg:flex-row justify-center items-center gap-10"
+  data-aos="fade-right"
+  data-aos-duration="800"
+>
+  <div class="min-h-full w-full flex flex-col justify-center items-center">
+    <p *ngIf="userData" class="w-1/2 text-3xl mb-3 font-bold">
+      <span
+        class="text-sm lg:text-md text-localeColors-darkteal font-Monteserrat"
+        >Applicant Name:</span
+      ><br />
+      {{ userData.applicantName }}
+    </p>
 
-<button (click)="approveApplication(userData._id)">Approve</button>
-<br />
-<button (click)="rejectApplication(userData._id)">Reject</button>
+    <div class="w-96 h-96 mb-3 shadow-lg overflow-hidden rounded-3xl">
+      <img
+        *ngIf="userData.user?.profileImage"
+        [src]="userData.user.profileImage"
+        alt="Profile Image"
+        class="w-full h-full cursor-pointer transition-transform duration-300 hover:scale-110 rounded-3xl"
+        (click)="openImage(userData.user.profileImage)"
+      />
+    </div>
+
+    <div
+      *ngIf="isModalOpen"
+      class="fixed inset-0 bg-black bg-opacity-75 flex justify-center items-center transition ease-in-out duration-500"
+      (click)="closeImage()"
+    >
+      <img
+        [src]="selectedImage"
+        alt="Enlarged Profile Image"
+        class="w-[30rem] h-[30rem] aspect-square p-4 rounded-lg shadow-lg"
+      />
+    </div>
+
+    <div class="bg-zinc-200 p-5 rounded-3xl px-10 shadow-sm mb-5">
+      <p *ngIf="userData.user" class="w-1/2 text-lg">
+        <span
+          class="text-sm lg:text-md text-localeColors-darkteal font-Monteserrat font-medium"
+          >User Name:</span
+        ><br />
+        {{ userData.user.name }}
+      </p>
+
+      <p class="w-1/2 text-lg">
+        <span
+          class="text-sm lg:text-md text-localeColors-darkteal text-center font-Monteserrat font-medium"
+          >User Email:</span
+        ><br />
+        {{ userData.user.email }}
+      </p>
+    </div>
+
+    <div class="flex flex-col md:flex-row justify-between items-center gap-2">
+      <button
+        class="xl:block text-white bg-green-500 hover:bg-localeColors-lightteal active:bg-localeColors-darkteal focus:outline-none font-medium rounded-full text-lg sm:text-sm md:text-base lg:text-lg xl:text-xl px-4 sm:px-6 md:px-8 lg:px-30 xl:px-12 py-2 sm:py-2.5 md:py-3 lg:py-3.5 xl:py-4 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+        (click)="openConfirmationDialog('Approve')"
+      >
+        Approve
+      </button>
+      <br />
+      <button
+        class="xl:block text-white bg-localeColors-red hover:bg-localeColors-lightteal active:bg-localeColors-darkteal focus:outline-none font-medium rounded-full text-lg sm:text-sm md:text-base lg:text-lg xl:text-xl px-4 sm:px-6 md:px-8 lg:px-30 xl:px-12 py-2 sm:py-2.5 md:py-3 lg:py-3.5 xl:py-4 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+        (click)="openConfirmationDialog('Reject')"
+      >
+        Reject
+      </button>
+    </div>
+  </div>
+
+  <div
+    class="h-full w-full flex flex-col justify-start items-start overflow-y-auto"
+  >
+    <p class="w-1/2 text-lg text-left mb-3">
+      <span
+        class="text-sm lg:text-md text-localeColors-darkteal font-Monteserrat font-medium"
+        >Status:</span
+      >
+      {{ userData.status | titlecase }}
+    </p>
+    <h1
+      class="text-5xl 2xl:text-6xl tracking-tight leading-tight text-left text-localeColors-darkteal font-WinkySans font-semibold mb-5"
+    >
+      Application Details for {{ userData.rescue.name }}.
+    </h1>
+
+    <div class="w-full bg-zinc-200 rounded-3xl p-5 mb-2">
+      <h2
+        class="text-xl lg:text-2xl text-localeColors-darkteal font-Monteserrat font-semibold mb-4"
+      >
+        Interview Details
+      </h2>
+
+      <div class="flex-col flex md:flex-row justify-between">
+        <p class="w-full text-lg">
+          <span
+            class="text-sm lg:text-md text-localeColors-darkteal font-Monteserrat font-medium"
+            >Scheduled Interview Date:</span
+          ><br />
+          {{ userData.interviewDate | date : "fullDate" }}
+        </p>
+
+        <p class="w-full text-lg">
+          <span
+            class="text-sm lg:text-md text-localeColors-darkteal font-Monteserrat font-medium"
+            >Scheduled Interview Time:</span
+          ><br />
+          {{ userData.interviewTime }}
+        </p>
+      </div>
+
+      <p class="w-1/2 text-lg">
+        <span
+          class="text-sm lg:text-md text-localeColors-darkteal font-Monteserrat font-medium"
+          >Appointment Mode:</span
+        ><br />
+        {{ userData.appointmentMode | titlecase }}
+      </p>
+    </div>
+
+    <!-- <p>{{ userData.email }}</p> -->
+    <p class="w-1/2 text-lg mb-2">
+      <span
+        class="text-sm lg:text-md text-localeColors-darkteal font-Monteserrat font-medium"
+        >Phone No:</span
+      ><br />
+      {{ userData.phoneNo }}
+    </p>
+
+    <p class="w-1/2 text-lg mb-2">
+      <span
+        class="text-sm lg:text-md text-localeColors-darkteal font-Monteserrat font-medium"
+        >Address:</span
+      ><br />
+      {{ userData.address }}
+    </p>
+
+    <p class="w-full md:w-3/4 text-lg h-auto break-all text-wrap">
+      <span
+        class="text-sm lg:text-md text-localeColors-darkteal font-Monteserrat font-medium"
+        >Introduction Message for adoption interest:</span
+      ><br />
+
+      {{ userData.introductionMessage }}
+    </p>
+  </div>
+</div>

@@ -50,6 +50,10 @@ export class UserListComponent implements OnInit {
       this.hasQuery = true;
       console.log(results);
     });
+
+    query = event.target.value.trim();
+    this.hasQuery = query.length > 0;
+    this.isDropdownOpen = this.hasQuery;
   }
 
   viewUserDetails(userId: string) {
@@ -78,5 +82,13 @@ export class UserListComponent implements OnInit {
         console.error('Error retrieving all users', error);
       },
     });
+  }
+  isDropdownOpen: boolean = false;
+
+  // Close dropdown with delay (for smooth transition)
+  closeDropdownWithDelay() {
+    setTimeout(() => {
+      this.isDropdownOpen = false;
+    }, 200);
   }
 }

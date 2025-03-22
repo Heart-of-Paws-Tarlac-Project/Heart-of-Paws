@@ -30,23 +30,21 @@ export class AdminRescueListComponent implements OnInit {
   }
 
   sendData(event: any) {
-    let query: string = event.target.value;
+    let query: string = event.target.value.trim();
 
-    //will match if query is nothing or is only spaces
-    let matchSpaces: any = query.match(/\s*/);
-    if (matchSpaces[0] === query) {
+    if (!query) {
       this.filteredRescues = [];
       this.hasQuery = false;
+      this.isDropdownOpen = false; // Close dropdown if empty
       return;
     }
 
-    this.rescueService.searchRescues(query.trim()).subscribe((results) => {
+    this.rescueService.searchRescues(query).subscribe((results) => {
       this.filteredRescues = results;
       this.hasQuery = true;
-      console.log(results);
+      this.isDropdownOpen = results.length > 0; // Show dropdown if results exist
     });
   }
-
   get rescues() {
     return this.rescueService.rescues$();
   }
@@ -64,5 +62,14 @@ export class AdminRescueListComponent implements OnInit {
 
   viewRescueDetails(slug: string) {
     this.router.navigate([`/admin/rescue/${slug}`]);
+  }
+
+  isDropdownOpen: boolean = false;
+
+  // Close dropdown with delay (for smooth transition)
+  closeDropdownWithDelay() {
+    setTimeout(() => {
+      this.isDropdownOpen = false;
+    }, 200);
   }
 }

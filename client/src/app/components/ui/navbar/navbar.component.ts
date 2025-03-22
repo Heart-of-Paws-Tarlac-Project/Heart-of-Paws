@@ -8,6 +8,8 @@ import { User } from '../../../interfaces/user';
 import { setThrowInvalidWriteToSignalError } from '@angular/core/primitives/signals';
 import { HostListener } from '@angular/core';
 import { ElementRef } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
+import { DialogComponent } from '../dialog/dialog.component';
 
 @Component({
   selector: 'app-navbar',
@@ -29,7 +31,8 @@ export class NavbarComponent implements OnInit, OnDestroy {
   constructor(
     private authService: AuthService,
     private router: Router,
-    private userService: UserService
+    private userService: UserService,
+    private dialog: MatDialog
   ) {}
 
   isMenuOpen = false;
@@ -74,15 +77,29 @@ export class NavbarComponent implements OnInit, OnDestroy {
   }
 
   logout() {
-    this.authService.logout().subscribe({
-      next: (response) => {
-        this.router.navigate(['/']);
-        console.log('User successfully logged out');
-        this.isDropdownOpen = false;
+    const dialogRef = this.dialog.open(DialogComponent, {
+      width: '350px',
+      data: {
+        modalTitle: 'Confirm Logout',
+        modalDesc: 'Are you sure you want to log out?',
+        yes: 'Logout',
+        no: 'Cancel',
       },
-      error: (error) => {
-        console.error('Error in logging out user', error);
-      },
+    });
+
+    dialogRef.afterClosed().subscribe((confirmed) => {
+      if (confirmed) {
+        this.authService.logout().subscribe({
+          next: () => {
+            console.log('User successfully logged out');
+            this.router.navigate(['/login']);
+            this.isDropdownOpen = false;
+          },
+          error: (error) => {
+            console.error('Error in logging out user', error);
+          },
+        });
+      }
     });
   }
 

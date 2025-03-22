@@ -128,13 +128,13 @@
 
       <label
         for="mode"
-        class="block mb-2 text-sm font-medium text-localeColors-darkteal dark:text-white"
+        class="block mb-2 text-sm font-medium text-localeColors-darkteal"
         >Preferred Mode of Contact</label
       >
       <select
         id="mode"
         formControlName="preferredModeOfContact"
-        class="bg-transparent border-black border-2 text-gray-900 text-sm rounded-lg focus:ring-localeColors-lightteal focus:border-localeColors-lightteal block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 mb-4"
+        class="bg-transparent border-black border-2 text-gray-900 text-sm rounded-lg focus:ring-localeColors-lightteal focus:border-localeColors-lightteal block w-full p-2.5 mb-4"
       >
         <option value="">Choose a mode of appointment</option>
         <option value="online">Online</option>
@@ -155,7 +155,7 @@
       <div class="flex flex-col xl:flex-row xl:gap-10">
         <div class="date w-1/2">
           <label
-            class="block mb-2 text-sm font-medium text-localeColors-darkteal dark:text-white"
+            class="block mb-2 text-sm font-medium text-localeColors-darkteal"
             >Preferred Date</label
           >
           <div class="relative w-full mb-4 bg-transparent">
@@ -180,7 +180,7 @@
         <!-- Time Slot Dropdown -->
         <div class="time w-1/2">
           <label
-            class="block mb-2 text-sm font-medium text-localeColors-darkteal dark:text-white"
+            class="block mb-2 text-sm font-medium text-localeColors-darkteal"
             >Preferred Time</label
           >
           <div class="relative w-full mb-4">
@@ -204,7 +204,7 @@
         id="message"
         rows="4"
         formControlName="introductionMessage"
-        class="block p-2.5 w-full text-sm text-gray-900 bg-transparent border-black border-2 focus:ring-localeColors-lightteal focus:border rounded-lg focus:border-localeColors-lightteal dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 mb-4"
+        class="block p-2.5 w-full text-sm text-gray-900 bg-transparent border-black border-2 focus:ring-localeColors-lightteal focus:border rounded-lg focus:border-localeColors-lightteal bg-gray-700 mb-4"
         placeholder="Share a bit about yourself and why you want to adopt {{
           rescue.name
         }}."
@@ -231,39 +231,9 @@
         </p>
       </div>
 
-      <!-- <label
-    for="preferred-time"
-    class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-    >Preferred Time</label
-  >
-  <select
-    id="preferred-time"
-    formControlName="preferredTime"
-    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 mb-4"
-  >
-    <option value="">Pick time for interview</option>
-    <option value="10:30 AM">10:30 AM</option>
-    <option value="3:00 PM">3:00 PM</option>
-  </select>
-
-  <label
-    for="preferred-time"
-    class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-    >Preferred Time</label
-  >
-  <select
-    id="preferred-time"
-    formControlName="preferredTime"
-    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 mb-4"
-  >
-    <option value="">Pick time for interview</option>
-    <option value="10:30 AM">10:30 AM</option>
-    <option value="3:00 PM">3:00 PM</option>
-  </select> -->
-
       <button
         type="submit"
-        class="text-white w-full bg-localeColors-red hover:bg-localeColors-lightteal focus:outline-none font-medium rounded-full text-xs sm:text-sm md:text-base lg:text-base xl:text-xl px-4 sm:px-6 md:px-8 lg:px-30 xl:px-12 py-2 sm:py-2.5 md:py-3 lg:py-3.5 xl:py-4 text-center dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+        class="text-white w-full bg-localeColors-red hover:bg-localeColors-lightteal focus:outline-none font-medium rounded-full text-xs sm:text-sm md:text-base lg:text-base xl:text-xl px-4 sm:px-6 md:px-8 lg:px-30 xl:px-12 py-2 sm:py-2.5 md:py-3 lg:py-3.5 xl:py-4 text-center"
       >
         Apply for {{ rescue.name }}
       </button>

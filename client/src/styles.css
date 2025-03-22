@@ -8,7 +8,6 @@
 @tailwind utilities;
 
 p {
-  @apply dark:text-white;
   @apply font-Monteserrat;
 }
 
@@ -18,5 +17,4 @@ body {
 }
 body {
   margin: 0;
-  font-family: Roboto, "Helvetica Neue", sans-serif;
 }

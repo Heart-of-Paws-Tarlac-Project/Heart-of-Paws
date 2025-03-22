@@ -48,7 +48,15 @@ exports.getAllUsers = asyncHandler(async (req, res) => {
 //get user profile
 exports.getUserProfile = asyncHandler(async (req, res) => {
   const userId = req.params.id;
-  console.log(userId);
+  console.log(`user id: ${userId}`);
+
+  const status = req.query.status; //if client specifies a query/filter for application status
+  console.log(`status: ${status}`);
+  let query = {};
+
+  if (status) {
+    query.status = status;
+  }
 
   const user = await User.findById(userId).select("-password");
   if (!user) {
@@ -56,7 +64,7 @@ exports.getUserProfile = asyncHandler(async (req, res) => {
   }
 
   // Get all applications for user
-  const userApplications = await Application.find({ user: userId })
+  const userApplications = await Application.find({ user: userId, ...query })
     .populate("rescue", "name slug featureImage")
     .exec();
 

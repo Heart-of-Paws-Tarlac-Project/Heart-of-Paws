@@ -123,14 +123,22 @@ export class UserProfileComponent implements OnInit {
     }
   }
 
-  filterRescuesByStatus(statusFilter: string) {
-    this.activeFilter = statusFilter;
+  filterApplicationsByStatus(status: string, userId: string) {
+    this.activeFilter = status;
 
-    if (statusFilter === 'all') {
-      this.rescueService.getRescues();
-      return;
+    if (status === 'all') {
+      this.getUserProfile(userId);
     }
 
-    this.rescueService.getRescuesBySize(statusFilter);
+    console.log(`fuck you: ${status}`);
+    this.userService.getApplicationsByStatus(status, userId).subscribe({
+      next: (response) => {
+        console.log('filtered');
+        this.userApplications = response.applications || [];
+      },
+      error: (error) => {
+        console.error('Error in retrieving user apps');
+      },
+    });
   }
 }

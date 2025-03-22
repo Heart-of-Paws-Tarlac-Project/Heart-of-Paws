@@ -22,4 +22,7 @@ export class UserService {
     return this.apiService.delete(`/applications/${applicationId}`);
   }
 
+  getApplicationsByStatus(status: string, userId: string) {
+    return this.apiService.get(`/users/${userId}?status=${status}`);
+  }
 }

@@ -75,47 +75,47 @@
   data-aos="fade-up"
   data-aos-duration="800"
 >
-  <button
+<button
     class="px-6 py-2 rounded-full transition-all hover:bg-localeColors-darkteal font-Monteserrat font-regular"
     [ngClass]="
       activeFilter === 'all'
         ? 'bg-localeColors-darkteal text-white'
-        : 'bg-localeColors-red text-white '
+        : 'bg-localeColors-red text-white'
     "
-    (click)="filterRescuesByStatus('all')"
+    (click)="filterApplicationsByStatus('all', userProfile._id)"
   >
     All
   </button>
   <button
     class="px-6 py-2 rounded-full transition-all hover:bg-localeColors-darkteal font-Monteserrat font-regular"
     [ngClass]="
-      activeFilter === 'small'
+      activeFilter === 'pending'
         ? 'bg-localeColors-darkteal text-white'
         : 'bg-localeColors-red text-white'
     "
-    (click)="filterRescuesByStatus('small')"
+    (click)="filterApplicationsByStatus('pending', userProfile._id)"
   >
     Pending
   </button>
   <button
     class="px-6 py-2 rounded-full transition-all hover:bg-localeColors-darkteal font-Monteserrat font-regular"
     [ngClass]="
-      activeFilter === 'medium'
+      activeFilter === 'rejected'
         ? 'bg-localeColors-darkteal text-white'
         : 'bg-localeColors-red text-white'
     "
-    (click)="filterRescuesByStatus('medium')"
+    (click)="filterApplicationsByStatus('rejected', userProfile._id)"
   >
     Rejected
   </button>
   <button
     class="px-6 py-2 rounded-full transition-all hover:bg-localeColors-darkteal font-Monteserrat font-regular"
     [ngClass]="
-      activeFilter === 'large'
+      activeFilter === 'approved'
         ? 'bg-localeColors-darkteal text-white'
         : 'bg-localeColors-red text-white'
     "
-    (click)="filterRescuesByStatus('large')"
+    (click)="filterApplicationsByStatus('approved', userProfile._id)"
   >
     Approved
   </button>

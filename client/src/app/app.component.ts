@@ -10,6 +10,7 @@ import { Subscription } from 'rxjs';
 import { AdminNavbarComponent } from './components/admin/ui/admin-navbar/admin-navbar.component';
 import Lenis from '@studio-freight/lenis';
 import { HostListener } from '@angular/core';
+import { ChangeDetectorRef } from '@angular/core';
 
 @Component({
   selector: 'app-root',
@@ -22,7 +23,7 @@ export class AppComponent implements AfterViewInit {
   private lenis!: Lenis;
   isAdminRoute: boolean = false;
 
-  constructor(private router: Router) {
+  constructor(private router: Router, private cdr: ChangeDetectorRef) {
     this.router.events.subscribe((event) => {
       if (event instanceof NavigationEnd) {
         // Reset scroll smoothly when navigating to a new page
@@ -53,8 +54,15 @@ export class AppComponent implements AfterViewInit {
       this.lenis.raf(time);
       requestAnimationFrame(raf);
     };
-
     requestAnimationFrame(raf);
+
+    const observer = new MutationObserver(() => {
+      this.lenis.resize();
+    });
+
+    observer.observe(document.body, { childList: true, subtree: true });
+
+    this.cdr.detectChanges();
   }
 
   showFooter(): boolean {
@@ -75,9 +83,9 @@ export class AppComponent implements AfterViewInit {
     const currentScroll = window.scrollY || document.documentElement.scrollTop;
 
     if (currentScroll > 200) {
-      this.isScrolled = true; // Show button when scrolling down
+      this.isScrolled = true;
     } else {
-      this.isScrolled = false; // Hide button when at the top
+      this.isScrolled = false;
     }
   }
 

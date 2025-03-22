@@ -1,16 +1,66 @@
-<div class="user-detail-container">
+<div
+  class="user-detail-container"
+  data-aos="fade-right"
+  data-aos-duration="1000"
+>
   <div *ngIf="userData">
-    <div class="user-info">
-      <h2>User Information</h2>
-      <div class="user-profile">
-        <img [src]="userData.user.profileImage" alt="Profile image" />
-        <div>
-          <h3>{{ userData.user.name }}</h3>
-          <p>Email: {{ userData.user.email }}</p>
-          <p>Role: {{ userData.user.role }}</p>
-          <p>Verified: {{ userData.user.isVerified ? "Yes" : "No" }}</p>
-          <p>Member since: {{ userData.user.createdAt | date }}</p>
+    <div
+      class="h-auto xl:min-h-[80vh] user-info flex-col lg:flex-row flex justify-center items-center p-5 gap-5"
+    >
+      <div class="w-full flex flex-col justify-center items-center">
+        <h2
+          class="text-4xl 2xl:text-5xl tracking-tight leading-tight text-left text-localeColors-darkteal font-WinkySans font-semibold mb-5"
+        >
+          User Information
+        </h2>
+        <div class="user-profile mb-3 w-80 h-80">
+          <img
+            [src]="userData.user.profileImage"
+            alt="Profile image"
+            class="rounded-3xl w-full h-full"
+          />
         </div>
+      </div>
+      <div class="w-full flex flex-col gap-2 md:gap-5 mb-5">
+        <p class="w-full text-2xl font-bold">
+          <span
+            class="text-sm lg:text-md text-localeColors-darkteal font-Monteserrat font-medium"
+            >User Name:</span
+          ><br />
+          {{ userData.user.name }}
+        </p>
+
+        <p class="w-full text-lg">
+          <span
+            class="text-sm lg:text-md text-localeColors-darkteal font-Monteserrat font-medium"
+            >Email:</span
+          ><br />
+          {{ userData.user.email }}
+        </p>
+
+        <p class="w-full text-lg">
+          <span
+            class="text-sm lg:text-md text-localeColors-darkteal font-Monteserrat font-medium"
+            >Role:</span
+          ><br />
+          {{ userData.user.role }}
+        </p>
+
+        <p class="w-full text-lg">
+          <span
+            class="text-sm lg:text-md text-localeColors-darkteal font-Monteserrat font-medium"
+            >Verified:</span
+          ><br />
+          {{ userData.user.isVerified ? "Yes" : "No" }}
+        </p>
+
+        <p class="w-full text-lg">
+          <span
+            class="text-sm lg:text-md text-localeColors-darkteal font-Monteserrat font-medium"
+            >Member since:</span
+          ><br />
+          {{ userData.user.createdAt | date : "fullDate" }}
+        </p>
       </div>
     </div>
 
@@ -32,7 +82,7 @@
             <img
               [src]="application.rescue.featureImage"
               alt="{{ application.rescue.name }}"
-              class="w-full h-full object-cover rounded-2xl transition-transform duration-300 hover:scale-110"
+              class="w-full h-full object-cover rounded-2xl transition-transform duration-300 hover:scale-110 cursor-pointer"
             />
           </div>
           <p class="text-lg text-center">
@@ -49,7 +99,9 @@
             ><br />
             {{ application.createdAt | date : "fullDate" }}
           </p>
-          <div class="flex justify-between p-3 px-5 mb-4 rounded-3xl">
+          <div
+            class="flex flex-col xl:flex-row justify-between p-3 px-5 mb-4 rounded-3xl"
+          >
             <p class="text-lg">
               <span
                 class="text-sm text-localeColors-darkteal font-medium font-Monteserrat"
@@ -74,7 +126,7 @@
             </p>
           </div>
           <div
-            class="flex justify-between p-3 px-5 border-t-2 border-localeColors-darkteal mb-4"
+            class="flex flex-col xl:flex-row justify-between p-3 px-5 border-t-2 border-localeColors-darkteal mb-4"
           >
             <p class="text-lg">
               <span

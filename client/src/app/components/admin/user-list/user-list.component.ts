@@ -32,6 +32,10 @@ export class UserListComponent implements OnInit {
     AOS.init();
   }
 
+  viewUserDetails(userId: string) {
+    this.router.navigate(['/admin/users/user', userId]);
+  }
+
   @ViewChild('fileInput', { static: false }) fileInput!: ElementRef;
 
   loadUsers() {

@@ -33,13 +33,34 @@ exports.getUserWithApplications = asyncHandler(async (req, res) => {
   res.status(200).send({ user, applications });
 });
 
+//get all users along with their application counts
 exports.getAllUsers = asyncHandler(async (req, res) => {
-  const users = await User.find({ role: "user" }).select(
-    "-password -verificationToken -role -updatedAt -verificationTokenExpires -isVerified"
-  );
+  const users = await User.aggregate([
+    {
+      $match: { role: "user" },
+    }, //match only documents matching the role of user
+    {
+      $lookup: {
+        from: "applications", //collection to join with
+        localField: "_id", //field from user document (input document)
+        foreignField: "user", //field from the documents applications
+        as: "applications", //specifies the name of the new array field to add to the input documents
+      },
+    },
+    {
+      $project: {
+        _id: 1,
+        name: 1, //fields for the keeping
+        email: 1,
+        profileImage: 1,
+        createdAt: 1,
+        applicationsCount: { $size: "$applications" }, //Counts and returns the total number of items in an array
+      },
+    },
+  ]);
 
   if (!users) {
-    throw new CustomError("No users found", 404);
+    throw new CustomError("No users found!", 404);
   }
 
   res.status(200).json(users);

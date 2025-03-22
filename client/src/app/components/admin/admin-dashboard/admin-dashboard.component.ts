@@ -10,6 +10,8 @@ import { CommonModule } from '@angular/common';
 import { AuthService } from '../../../services/auth.service';
 import { Subscription } from 'rxjs';
 import { AdminAuthService } from '../../../services/admin-auth.service';
+import { MatDialog } from '@angular/material/dialog';
+import { DialogComponent } from '../../ui/dialog/dialog.component';
 
 @Component({
   selector: 'app-admin-dashboard',
@@ -26,7 +28,8 @@ export class AdminDashboardComponent {
   constructor(
     private adminAuthService: AdminAuthService,
     private router: Router,
-    private authService: AuthService
+    private authService: AuthService,
+    private dialog: MatDialog
   ) {
     this.router.events.subscribe((event) => {
       if (event instanceof NavigationEnd) {
@@ -45,14 +48,28 @@ export class AdminDashboardComponent {
   }
 
   logoutAdmin() {
-    this.adminAuthService.logoutAdmin().subscribe({
-      next: (response) => {
-        console.log('Admin has been successfully logged out');
-        this.router.navigate(['/']);
+    const dialogRef = this.dialog.open(DialogComponent, {
+      width: '350px',
+      data: {
+        modalTitle: 'Confirm Logout',
+        modalDesc: 'Are you sure you want to log out?',
+        yes: 'Logout',
+        no: 'Cancel',
       },
-      error: (error) => {
-        console.error('Error logging out admin');
-      },
+    });
+
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result) {
+        this.adminAuthService.logoutAdmin().subscribe({
+          next: () => {
+            console.log('Admin logged out');
+            this.router.navigate(['/']);
+          },
+          error: () => {
+            console.error('Error logging out');
+          },
+        });
+      }
     });
   }
 

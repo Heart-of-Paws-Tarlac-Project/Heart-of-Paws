@@ -17,15 +17,13 @@
         [placeholder]="rescue.name"
       ></app-form-input>
 
-      <label
-        for="sex"
-        class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+      <label for="sex" class="block mb-2 text-sm font-medium text-gray-900"
         >Sex</label
       >
       <select
         formControlName="sex"
         id="sex"
-        class="mb-4 bg-transparent border-2 border-black text-gray-900 text-sm rounded-lg focus:border-localeColors-lightteal block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+        class="mb-4 bg-transparent border-2 border-black text-gray-900 text-sm rounded-lg focus:border-localeColors-lightteal block w-full p-2.5"
       >
         <option value="Male">Male</option>
         <option value="Female">Female</option>
@@ -40,14 +38,14 @@
 
       <label
         for="description"
-        class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+        class="block mb-2 text-sm font-medium text-gray-900"
         >Description</label
       >
       <textarea
         id="description"
         rows="4"
         formControlName="description"
-        class="mb-4 block p-2.5 w-full text-sm text-gray-900 bg-transparent rounded-lg border-2 border-black focus:border-localeColors-lightteal dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+        class="mb-4 block p-2.5 w-full text-sm text-gray-900 bg-transparent rounded-lg border-2 border-black focus:border-localeColors-lightteal"
         [placeholder]="rescue.description"
       ></textarea>
 
@@ -55,7 +53,7 @@
         <div class="mb-4 w-full">
           <label
             for="featureImage"
-            class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+            class="block mb-2 text-sm font-medium text-gray-900"
             >Feature Image</label
           >
           <input
@@ -63,14 +61,14 @@
             type="file"
             (change)="handleFeatureImageUpload($event)"
             accept="image/*"
-            class="block w-full text-sm text-gray-900 border-2 border-black bg-transparent rounded-lg focus:border-localeColors-lightteal cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
+            class="block w-full text-sm text-gray-900 border-2 border-black bg-transparent rounded-lg focus:border-localeColors-lightteal cursor-pointer bg-gray-50"
           />
         </div>
 
         <div class="mb-4 w-full">
           <label
             for="galleryImages"
-            class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+            class="block mb-2 text-sm font-medium text-gray-900"
             >Gallery Images</label
           >
           <input
@@ -79,14 +77,14 @@
             (change)="handleGalleryImagesUpload($event)"
             accept="image/*"
             multiple
-            class="mb-4 block w-full text-sm text-gray-900 border-2 border-black bg-transparent rounded-lg focus:border-localeColors-lightteal cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
+            class="mb-4 block w-full text-sm text-gray-900 border-2 border-black bg-transparent rounded-lg focus:border-localeColors-lightteal cursor-pointer bg-gray-50"
           />
         </div>
       </div>
       <button
         type="submit"
         (click)="confirmUpdate(rescue._id)"
-        class="text-white w-full bg-localeColors-red hover:bg-localeColors-lightteal focus:outline-none font-medium rounded-full text-xs sm:text-sm md:text-base lg:text-base xl:text-xl px-4 sm:px-6 md:px-8 lg:px-30 xl:px-12 py-2 sm:py-2.5 md:py-3 lg:py-3.5 xl:py-4 text-center dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+        class="text-white w-full bg-localeColors-red hover:bg-localeColors-lightteal focus:outline-none font-medium rounded-full text-xs sm:text-sm md:text-base lg:text-base xl:text-xl px-4 sm:px-6 md:px-8 lg:px-30 xl:px-12 py-2 sm:py-2.5 md:py-3 lg:py-3.5 xl:py-4 text-center"
       >
         Create {{ rescue.name }}
       </button>

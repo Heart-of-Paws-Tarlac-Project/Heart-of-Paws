@@ -47,4 +47,9 @@ export class AdminService {
       message,
     });
   }
+
+  
+  deleteInquiry(inquiryId: string) {
+    return this.apiService.delete(`/inquiries/${inquiryId}`);
+  }
 }

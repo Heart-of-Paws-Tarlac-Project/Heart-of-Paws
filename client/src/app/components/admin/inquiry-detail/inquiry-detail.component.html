@@ -83,8 +83,8 @@
             Send Response
           </button>
           <button
+            (click)="confirmDeletion($event, inquiryData._id)"
             class="bg-localeColors-red hover:bg-localeColors-lightteal duration-200 ease-in-out p-2 w-44 text-white rounded-3xl h-14 mb-5 cursor-pointer"
-            [disabled]="!responseForm.valid"
           >
             Delete
           </button>

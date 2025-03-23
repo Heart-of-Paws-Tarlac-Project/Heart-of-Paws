@@ -56,6 +56,7 @@ export class AuthService {
         if (response || response.message === 'User logged in successfully') {
           if (response.role === 'admin') {
             this.adminAuthService.isAdminAuthenticatedSubject.next(true);
+            return;
           }
           console.log(`response id: ${response.id}`);
           localStorage.setItem('userName', response.name);

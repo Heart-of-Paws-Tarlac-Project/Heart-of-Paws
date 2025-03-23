@@ -29,22 +29,43 @@ exports.searchRescues = asyncHandler(async (req, res) => {
 });
 
 exports.getAllRescues = asyncHandler(async (req, res) => {
-  const { size } = req.query;
+  const { size, availability } = req.query;
 
-  //assign an object for query parameters
   let query = {};
 
   if (size) {
     query.size = size;
   }
 
-  const rescues = await Rescue.find({ availability: "available", ...query });
+  if (availability) {
+    query.availability = availability;
+  }
+
+  const rescues = await Rescue.find({ ...query });
 
   if (!rescues) {
     throw new CustomNotFoundError("No rescues found.");
   }
 
   res.status(200).json(rescues);
+});
+
+exports.filterRescuesByAvailability = asyncHandler(async (req, res) => {
+  const { availability } = req.query;
+
+  let query = {};
+
+  if (query) {
+    query.availability = availability;
+  }
+
+  const filteredRescues = await Rescue.find({ ...query });
+
+  if (!filteredRescues) {
+    throw new CustomNotFoundError("No filtered rescues found.", 404);
+  }
+
+  res.status(200).json(filteredRescues);
 });
 
 exports.getRescue = asyncHandler(async (req, res) => {

@@ -5,11 +5,15 @@ const isAuthenticated = require("../middlewares/isAuthenticated");
 const isAdmin = require("../middlewares/isAdmin");
 
 //public routes
+//route to fetch all rescues
 router.get("/", rescuesController.getAllRescues);
 //fetch single rescue
 router.get("/:slug", rescuesController.getRescue);
+//fetch rescue by filter
+
 //fetch rescues by size
 router.post("/searchRescues", rescuesController.searchRescues);
+
 
 //admin routes
 //create rescue

@@ -79,6 +79,14 @@ export class RescueService {
       });
   }
 
+  getRescuesByAvailability(availFilter: string) {
+    this.apiService
+      .get(`${this.url}/?availability=${availFilter}`)
+      .subscribe((rescues) => {
+        this.rescues$.set(rescues);
+      });
+  }
+
   loadAvailableDates() {
     return this.apiService.get(`/applications/available-dates`);
   }

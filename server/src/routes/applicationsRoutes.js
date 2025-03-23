@@ -25,7 +25,10 @@ router.get(
   applicationsController.getAvailableDates
 );
 
+router.post("/searchApplications", applicationsController.searchApplications);
 
+//get all applications
+router.get("/", applicationsController.getAllApplications);
 //admin routes
 // get all applications for rescue
 router.get("/:slug", isAdmin, applicationsController.getApplicationsForRescue);

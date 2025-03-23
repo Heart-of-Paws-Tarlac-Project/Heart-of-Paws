@@ -6,6 +6,40 @@ const moment = require("moment");
 
 const VALID_TIME_SLOTS = ["11:00 AM - 1:00 PM", "3:00 PM - 5:00 PM"];
 
+exports.getAllApplications = asyncHandler(async (req, res) => {
+  const { status } = req.query;
+  console.log(req.query);
+
+  let query = {};
+
+  if (status) {
+    query.status = status;
+  }
+
+  const allApplications = await Application.find({ ...query })
+    .sort({ createdAt: -1 })
+    .populate("rescue", "name")
+    .populate("user", "name profileImage");
+
+  if (!allApplications) {
+    throw new CustomError("No applications found", 404);
+  }
+
+  res.status(200).json(allApplications);
+});
+
+exports.searchApplications = asyncHandler(async (req, res) => {
+  let payload = req.body.payload;
+
+  let search = await Application.find({
+    applicantName: { $regex: new RegExp("^" + payload + ".*", "i") },
+  }).exec();
+
+  search = search.slice(0, 10); //limit the results to 10
+
+  res.status(200).send({ payload: search });
+});
+
 //get applications for rescue
 exports.getApplicationsForRescue = asyncHandler(async (req, res) => {
   const rescueSlug = req.params.slug;

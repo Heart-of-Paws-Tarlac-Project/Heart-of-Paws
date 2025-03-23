@@ -65,12 +65,6 @@ export class ApplicationFormComponent implements OnInit {
         this.loadAvailableDates();
       }
     });
-
-    // Set the value of the name form control to the logged-in user's name from local storage
-    const userName = localStorage.getItem('userName');
-    if (userName) {
-      this.applicationForm.controls['name'].setValue(userName);
-    }
   }
 
   get rescue() {
@@ -97,7 +91,6 @@ export class ApplicationFormComponent implements OnInit {
     introductionMessage: new FormControl('', [
       Validators.required,
       Validators.minLength(10),
-      Validators.maxLength(200),
     ]),
     sex: new FormControl('', [Validators.required]),
     age: new FormControl('', [Validators.required, Validators.min(12)]),

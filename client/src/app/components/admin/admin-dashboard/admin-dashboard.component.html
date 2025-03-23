@@ -36,6 +36,16 @@
       </li>
       <li>
         <a
+          routerLink="/admin/applications"
+          routerLinkActive="active"
+          [routerLinkActiveOptions]="{ exact: true }"
+          class="block py-2 px-3 text-gray-900 rounded-lg hover:bg-localeColors-lightteal hover:text-white duration-100"
+        >
+          All Applications
+        </a>
+      </li>
+      <li>
+        <a
           routerLink="/admin/users"
           routerLinkActive="active"
           class="block py-2 px-3 text-gray-900 rounded-lg hover:bg-localeColors-lightteal hover:text-white duration-100"

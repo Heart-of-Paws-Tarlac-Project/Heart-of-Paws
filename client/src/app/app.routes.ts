@@ -22,6 +22,7 @@ import { UserListComponent } from './components/admin/user-list/user-list.compon
 import { UserDetailComponent } from './components/admin/user-detail/user-detail.component';
 import { InquiriesListComponent } from './components/admin/inquiries-list/inquiries-list.component';
 import { InquiryDetailComponent } from './components/admin/inquiry-detail/inquiry-detail.component';
+import { ApplicationsListComponent } from './admin/components/applications-list/applications-list.component';
 
 export const routes: Routes = [
   {
@@ -63,6 +64,10 @@ export const routes: Routes = [
       {
         path: 'users/user/:id',
         component: UserDetailComponent,
+      },
+      {
+        path: 'applications',
+        component: ApplicationsListComponent,
       },
       {
         path: 'rescue/:slug',

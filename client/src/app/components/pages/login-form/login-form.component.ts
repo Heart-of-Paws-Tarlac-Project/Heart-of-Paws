@@ -51,7 +51,7 @@ export class LoginFormComponent implements OnInit {
       this.welcomeMessage = 'Admin Login';
       return;
     }
-    this.welcomeMessage = 'Welcome Back';
+    // this.welcomeMessage = '';
 
     const verificationMessage = localStorage.getItem('verifMessage');
 

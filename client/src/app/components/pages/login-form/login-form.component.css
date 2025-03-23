@@ -10,7 +10,24 @@ app-form-input input {
   margin: 10px !important;
   box-shadow: none !important;
 }
-
-.imgBg {
-  background-image: url(../../../../../public/images/helpPage/cuteDog.jpg);
+.bgImg {
+  @apply bg-primary-light;
 }
+@media (min-width: 768px) {
+}
+@media (min-width: 1024px) {
+}
+@media (min-width: 1280px) {
+  .bgImg {
+    background-image: url(../../../../../public/images/hopAssets/loginDog.jpg);
+    background-size: cover;
+    background-attachment: fixed;
+  }
+}
+
+/* @media (min-width: 1536px) {
+ 
+  .my-element {
+    background-color: pink;
+  }
+} */

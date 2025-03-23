@@ -27,8 +27,22 @@ module.exports = {
         WinkySans: ["winky Sans", "sans-serif"],
         Monteserrat: ["Montserrat", "sans-serif"],
       },
+      animation: {
+        fadeIn: "fadeIn 0.3s ease-in-out forwards",
+        fadeOut: "fadeOut 0.3s ease-in-out forwards",
+      },
+      keyframes: {
+        fadeIn: {
+          "0%": { opacity: 0, transform: "scale(0.95)" },
+          "100%": { opacity: 1, transform: "scale(1)" },
+        },
+        fadeOut: {
+          "0%": { opacity: 1, transform: "scale(1)" },
+          "100%": { opacity: 0, transform: "scale(0.95)" },
+        },
+      },
     },
-  },
 
-  plugins: [require("flowbite/plugin")],
+    plugins: [require("flowbite/plugin")],
+  },
 };

@@ -1,5 +1,5 @@
 <!-- landing page -->
-<div class="w-full h-full flex flex-col md:flex-row xl:h-[70vh] md:pt-10">
+<div class="w-full h-full flex flex-col md:flex-row xl:h-[85vh]">
   <div
     class="h-full w-full md:w-1/2 flex flex-col items-center 2xl:items-end justify-center xl:w-3/6 p-3"
   >
@@ -26,19 +26,30 @@
       data-aos="fade-up"
       data-aos-delay="300"
       data-aos-duration="800"
+      routerLink="/how-to-help"
       class="text-white 2xl:mr-64 bg-localeColors-red hover:bg-localeColors-lightteal active:bg-localeColors-darkteal focus:outline-none font-medium rounded-full mt-5 text-xs sm:text-sm md:text-base lg:text-base xl:text-xl px-4 sm:px-6 md:px-8 lg:px-30 xl:px-12 py-2 sm:py-2.5 md:py-3 lg:py-3.5 xl:py-4 text-center"
     >
       Donate Now
     </button>
   </div>
-  <div
-    class="w-full md:w-1/2 flex justify-center items-center xl:w-3/6 xl:h-full"
-  >
+  <div class="w-full md:w-1/2 flex justify-center items-center">
     <div
-      class="container rounded-2xl bg-blue-400 w-72 aspect-square h-72 xl:mt-20 lg:w-80 lg:h-80 xl:h-[80%] xl:w-auto mt-5"
+      class="container relative rounded-2xl w-72 aspect-square h-72 xl:mt-20 lg:w-80 lg:h-80 xl:h-[60%] xl:w-auto mt-5 shadow-lg overflow-hidden"
       data-aos="fade-left"
       data-aos-duration="1000"
-    ></div>
+    >
+      <img
+        *ngFor="let image of images; let i = index"
+        [src]="image"
+        [attr.loading]="i === currentIndex ? 'eager' : 'lazy'"
+        alt="Slideshow Image"
+        class="absolute top-0 left-0 w-full h-full object-cover rounded-2xl transition-opacity duration-1000"
+        [ngClass]="{
+          'opacity-0': i !== currentIndex,
+          'opacity-100': i === currentIndex
+        }"
+      />
+    </div>
   </div>
 </div>
 <!-- landing page end -->
@@ -48,14 +59,42 @@
   class="w-full flex flex-col lg:flex-row h-auto xl:h-[100vh] justify-center items-center pt-20 xl:p-20"
 >
   <div
-    class="h-full w-full xl:w-3/5 grid grid-cols-2 xl:grid-cols-2 gap-2 place-items-center aspect-square p-10 xl:p-20"
+    class="w-full h-full xl:w-3/5 grid grid-cols-2 xl:grid-cols-2 gap-2 place-items-center aspect-square p-10 xl:p-20"
     data-aos="fade-right"
     data-aos-duration="1000"
   >
-    <div class="w-full h-full rounded-2xl bg-red-900"></div>
-    <div class="w-full h-full rounded-2xl bg-red-900"></div>
-    <div class="w-full h-full rounded-2xl bg-red-900"></div>
-    <div class="w-full h-full rounded-2xl bg-red-900"></div>
+    <div class="w-full aspect-square rounded-2xl bg-red-900 shadow-lg">
+      <img
+        src="./images/homePage/dog1.jpg"
+        alt="featured dog 1"
+        loading="lazy"
+        class="w-full h-full object-cover rounded-2xl"
+      />
+    </div>
+    <div class="w-full aspect-square rounded-2xl bg-red-900 shadow-lg">
+      <img
+        src="./images/homePage/dog2.jpg"
+        alt="featured dog 2"
+        loading="lazy"
+        class="w-full h-full object-cover rounded-2xl"
+      />
+    </div>
+    <div class="w-full aspect-square rounded-2xl bg-red-900 shadow-lg">
+      <img
+        src="./images/homePage/dog3.jpg"
+        alt="featured dog 3"
+        loading="lazy"
+        class="w-full h-full object-cover rounded-2xl"
+      />
+    </div>
+    <div class="w-full aspect-square rounded-2xl bg-red-900 shadow-lg">
+      <img
+        src="./images/homePage/dog4.jpg"
+        alt="featured dog 4"
+        loading="lazy"
+        class="w-full h-full object-cover rounded-2xl"
+      />
+    </div>
   </div>
 
   <!-- Static Text Section (Right Side) -->
@@ -103,7 +142,11 @@
 >
   SUCCESS STORIES
 </h1>
-<div class="w-full flex justify-end p-7">
+<div
+  class="w-full flex justify-end p-7"
+  data-aos="fade-left"
+  data-aos-duration="1000"
+>
   <p class="w-full md:w-3/5 text-right text-sm xl:text-base">
     every rescue has a story of hope and transformation. From abandoned strays
     to neglected pets, our team works tirelessly to give them a second chance at

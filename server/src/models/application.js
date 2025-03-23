@@ -25,6 +25,26 @@ const applicationSchema = new Schema(
       type: String,
       required: true,
     },
+    sex: {
+      type: String,
+      required: true,
+    },
+    age: {
+      type: Number,
+      required: true,
+    },
+    civilStatus: {
+      type: String,
+      enum: ["single", "married", "divorced", "widowed"],
+      required: true,
+      trim: true,
+    },
+    occupation: {
+      type: String,
+      default: "Unemployed",
+      trim: true,
+      maxlength: 100,
+    },
     appointmentMode: {
       type: String,
       required: true,

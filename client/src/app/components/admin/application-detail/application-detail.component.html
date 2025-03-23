@@ -144,5 +144,41 @@
 
       {{ userData.introductionMessage }}
     </p>
+
+    <p class="w-full md:w-3/4 text-lg h-auto break-all text-wrap">
+      <span
+        class="text-sm lg:text-md text-localeColors-darkteal font-Monteserrat font-medium"
+        >Sex:</span
+      ><br />
+
+      {{ userData.sex | titlecase }}
+    </p>
+
+    <p class="w-full md:w-3/4 text-lg h-auto break-all text-wrap">
+      <span
+        class="text-sm lg:text-md text-localeColors-darkteal font-Monteserrat font-medium"
+        >Age:</span
+      ><br />
+
+      {{ userData.age }} years old
+    </p>
+
+    <p class="w-full md:w-3/4 text-lg h-auto break-all text-wrap">
+      <span
+        class="text-sm lg:text-md text-localeColors-darkteal font-Monteserrat font-medium"
+        >Civil Status:</span
+      ><br />
+
+      {{ userData.civilStatus | titlecase }}
+    </p>
+
+    <p class="w-full md:w-3/4 text-lg h-auto break-all text-wrap">
+      <span
+        class="text-sm lg:text-md text-localeColors-darkteal font-Monteserrat font-medium"
+        >Occupation:</span
+      ><br />
+
+      {{ userData.occupation }}
+    </p>
   </div>
 </div>

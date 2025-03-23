@@ -13,4 +13,12 @@ router.get("/", isAdmin, inquiriesController.getAllInquiries);
 //get inquiry
 router.get("/inquiry/:inquiryId", isAdmin, inquiriesController.getInquiry);
 
+//route to delete inquiry
+router.delete(
+  "/:inquiryId",
+  isAdmin,
+  inquiriesController.deleteInquiry
+);
+
+
 module.exports = router;

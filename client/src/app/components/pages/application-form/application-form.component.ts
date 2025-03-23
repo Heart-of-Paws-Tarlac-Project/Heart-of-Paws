@@ -99,6 +99,10 @@ export class ApplicationFormComponent implements OnInit {
       Validators.minLength(10),
       Validators.maxLength(200),
     ]),
+    sex: new FormControl('', [Validators.required]),
+    age: new FormControl('', [Validators.required, Validators.min(12)]),
+    civilStatus: new FormControl('', [Validators.required]),
+    occupation: new FormControl('', Validators.pattern(/^[A-Za-z\s]+$/)),
     preferredDate: new FormControl('', [Validators.required]),
     preferredTime: new FormControl('', [Validators.required]),
   });
@@ -182,6 +186,22 @@ export class ApplicationFormComponent implements OnInit {
     return this.applicationForm.controls['introductionMessage'];
   }
 
+  get sex() {
+    return this.applicationForm.controls['sex'];
+  }
+
+  get age() {
+    return this.applicationForm.controls['age'];
+  }
+
+  get civilStatus() {
+    return this.applicationForm.controls['civilStatus'];
+  }
+
+  get occupation() {
+    return this.applicationForm.controls['occupation'];
+  }
+
   onSubmit() {
     if (this.applicationForm.invalid) {
       this.applicationForm.markAllAsTouched();
@@ -221,6 +241,10 @@ export class ApplicationFormComponent implements OnInit {
           interviewDate: formattedDate, // Use the properly formatted date
           interviewTime: this.applicationForm.controls['preferredTime'].value,
           slug: this.rescue.slug,
+          sex: this.sex.value as string,
+          age: Number(this.age.value),
+          civilStatus: this.civilStatus.value as string,
+          occupation: this.occupation.value as string,
         };
 
         this.rescueService.inquireAboutRescue(application).subscribe({

@@ -11,5 +11,6 @@ app-form-input input {
   box-shadow: none !important;
 }
 
-::ng-deep app-button {
+.imgBg {
+  background-image: url(../../../../../public/images/helpPage/cuteDog.jpg);
 }

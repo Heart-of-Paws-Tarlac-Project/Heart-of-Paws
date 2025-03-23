@@ -131,8 +131,9 @@ exports.respondToInquiry = asyncHandler(async (req, res) => {
     to: inquiry.senderEmail, // Using the sender's email from the inquiry
     subject: `Re: ${inquiry.subject}`,
     html: `
-      <div style="font-family: Arial, sans-serif; max-width: 600px; margin: auto; padding: 20px; border: 1px solid #ddd; border-radius: 8px;">
-        <h2 style="color: #4CAF50; text-align: center;">Heart of Paws - ${inquiry.subject}</h2>
+      <div style="font-family: Arial, sans-serif; max-width: 600px; margin: auto; padding: 20px; border: 1px solid #ddd; border-radius: 8px; ">
+        <h2 style="color: #1c959d; text-align: center; margin-bottom: 10px;">Heart of Paws -  ${inquiry.subject}</h2>
+       
         <div style="background: #f9f9f9; padding: 15px; border-radius: 5px; margin-bottom: 15px;">
           <p style="margin: 0;"><strong style="color: #333;">Inquiry:</strong> ${inquiry.inquiry}</p>
         </div>

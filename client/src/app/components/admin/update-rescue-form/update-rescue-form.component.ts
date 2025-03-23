@@ -47,6 +47,8 @@ import 'aos/dist/aos.css';
   styleUrl: './update-rescue-form.component.css',
 })
 export class UpdateRescueFormComponent implements OnInit {
+  loading = false;
+
   updateForm = new FormGroup({
     name: new FormControl('', [
       Validators.minLength(3),
@@ -239,16 +241,19 @@ export class UpdateRescueFormComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe((result) => {
       if (result) {
+        this.loading = true; // Set loading to true before the request starts
         this.rescueService
           .updateRescueData(rescueId, this.createFormData())
           .subscribe({
             next: (response) => {
               alert('Rescue updated successfully.');
               this.router.navigate(['admin/rescue/', response.slug]);
+              this.loading = false; // Reset loading after success
             },
             error: (err) => {
               alert('An error occurred while updating the rescue.');
               this.router.navigate(['/admin']);
+              this.loading = false; // Reset loading after error
             },
           });
       }

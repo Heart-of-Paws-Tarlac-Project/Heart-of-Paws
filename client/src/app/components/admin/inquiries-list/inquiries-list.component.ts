@@ -66,5 +66,5 @@ export class InquiriesListComponent implements OnInit {
     this.isInboxHidden = !this.isInboxHidden;
   }
 
-  
+  isMobileView: boolean = window.innerWidth < 1024;
 }

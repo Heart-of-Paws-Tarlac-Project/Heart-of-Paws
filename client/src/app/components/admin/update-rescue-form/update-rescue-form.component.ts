@@ -148,9 +148,16 @@ export class UpdateRescueFormComponent implements OnInit {
       });
     }
   }
-  
 
   onSubmit(rescueId: string) {
+    // Check if the vetStatus is empty and prevent overwriting it with an empty array
+    if (
+      !this.updateForm.controls['vetStatus'].value ||
+      this.updateForm.controls['vetStatus'].value.length === 0
+    ) {
+      this.updateForm.controls['vetStatus'].setValue([this.rescue.vetStatus]); // Add a default value if none selected
+    }
+
     console.log('Form Values:', this.updateForm.value); // Log the form values here
   }
 
@@ -158,54 +165,58 @@ export class UpdateRescueFormComponent implements OnInit {
     const input = event.target as HTMLInputElement;
     const value = input.value;
 
+    // Get the current vetStatus array value from the form control
     const vetStatusArray = this.updateForm.get('vetStatus')?.value || [];
+
+    // If the checkbox is checked, add the value to the array
     if (input.checked) {
-      vetStatusArray.push(value); // Add the value to the array if checked
+      if (!vetStatusArray.includes(value)) {
+        vetStatusArray.push(value);
+      }
     } else {
+      // If unchecked, remove the value from the array
       const index = vetStatusArray.indexOf(value);
       if (index > -1) {
-        vetStatusArray.splice(index, 1); // Remove the value from the array if unchecked
+        vetStatusArray.splice(index, 1);
       }
     }
 
+    // Update the form control value with the updated vetStatus array
     this.updateForm.patchValue({ vetStatus: vetStatusArray });
   }
 
   createFormData(): FormData {
     const formData = new FormData();
-  
-    // Loop through each form control and append only those that are non-empty
+
     Object.entries(this.updateForm.value).forEach(([key, value]) => {
       if (value !== null && value !== undefined && value !== '') {
         if (key === 'featuredImage' && value instanceof File) {
-          // Keep as featureImage to match server expectation
           formData.append('featuredImage', value, value.name);
         } else if (key === 'galleryImages' && Array.isArray(value)) {
-          // Append each file in galleryImages as File objects
-          (value as unknown as File[]).forEach((file: File) => {
-            if (file instanceof File) {
-              formData.append('galleryImages', file, file.name); // Append each file
-            }
+          (value as File[]).forEach((file: File) => {
+            formData.append('galleryImages', file, file.name);
           });
-        } else if (key === 'vetStatus' && Array.isArray(value)) {
-          // For vetStatus, join array into a comma-separated string
+        } else if (
+          key === 'vetStatus' &&
+          Array.isArray(value) &&
+          value.length > 0
+        ) {
           formData.append('vetStatus', value.join(', '));
         } else {
-          formData.append(key, String(value)); // Append other form values
+          formData.append(key, String(value));
         }
       }
     });
-  
-    // Handle the age separately, combining value and unit
+
+    // Handle the age separately
     const ageValue = this.updateForm.controls['ageValue'].value;
     const ageUnit = this.updateForm.controls['ageUnit'].value;
     if (ageValue && ageUnit) {
       formData.append('age', `${ageValue} ${ageUnit} old`);
     }
-  
+
     return formData;
   }
-  
 
   markFormGroupTouched(formGroup: FormGroup) {
     Object.values(formGroup.controls).forEach((control) => {

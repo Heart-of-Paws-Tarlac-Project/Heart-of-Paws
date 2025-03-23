@@ -176,50 +176,94 @@
         </p>
       </div>
 
+      <!-- status -->
+
       <label class="block mb-2 text-sm font-medium text-localeColors-darkteal">
         Vet Status
       </label>
 
-      <div class="flex gap-4 mb-4">
-        <label class="inline-flex items-center" [class.opacity-50]="isMale">
+      <div class="flex flex-wrap gap-4 mb-4">
+        <label class="inline-flex items-center">
           <input
-            type="radio"
-            formControlName="vetStatus"
-            value="Spayed"
+            type="checkbox"
+            [value]="'Sterilized'"
+            (change)="onCheckboxChange($event)"
+            [checked]="vetStatus.value?.includes('Sterilized')"
             class="w-4 h-4 text-localeColors-lightteal bg-gray-100 border-black focus:ring-localeColors-lightteal"
           />
-          <span class="ml-2 text-gray-900">Spayed(female)</span>
-        </label>
-
-        <label class="inline-flex items-center" [class.opacity-50]="isFemale">
-          <input
-            type="radio"
-            formControlName="vetStatus"
-            value="Neutered"
-            class="w-4 h-4 text-localeColors-lightteal bg-gray-100 border-black focus:ring-localeColors-lightteal"
-          />
-          <span class="ml-2 text-gray-900">Neutered(male)</span>
+          <span class="ml-2 text-gray-900">Sterilized (Spayed/Neutered)</span>
         </label>
 
         <label class="inline-flex items-center">
           <input
-            type="radio"
-            formControlName="vetStatus"
-            value="None"
+            type="checkbox"
+            [value]="'Vet Checked'"
+            (change)="onCheckboxChange($event)"
+            [checked]="vetStatus.value?.includes('Vet Checked')"
             class="w-4 h-4 text-localeColors-lightteal bg-gray-100 border-black focus:ring-localeColors-lightteal"
           />
-          <span class="ml-2 text-gray-900">None</span>
+          <span class="ml-2 text-gray-900"
+            >Vet Checked (Routine Health Check)</span
+          >
         </label>
+
+        <label class="inline-flex items-center">
+          <input
+            type="checkbox"
+            [value]="'Dewormed'"
+            (change)="onCheckboxChange($event)"
+            [checked]="vetStatus.value?.includes('Dewormed')"
+            class="w-4 h-4 text-localeColors-lightteal bg-gray-100 border-black focus:ring-localeColors-lightteal"
+          />
+          <span class="ml-2 text-gray-900">Dewormed</span>
+        </label>
+
+        <label class="inline-flex items-center">
+          <input
+            type="checkbox"
+            [value]="'Rabies Vaccinated'"
+            (change)="onCheckboxChange($event)"
+            [checked]="vetStatus.value?.includes('Rabies Vaccinated')"
+            class="w-4 h-4 text-localeColors-lightteal bg-gray-100 border-black focus:ring-localeColors-lightteal"
+          />
+          <span class="ml-2 text-gray-900">Rabies Vaccinated</span>
+        </label>
+
+        <label class="inline-flex items-center">
+          <input
+            type="checkbox"
+            [value]="'Distemper Vaccinated'"
+            (change)="onCheckboxChange($event)"
+            [checked]="vetStatus.value?.includes('Distemper Vaccinated')"
+            class="w-4 h-4 text-localeColors-lightteal bg-gray-100 border-black focus:ring-localeColors-lightteal"
+          />
+          <span class="ml-2 text-gray-900">Distemper Vaccinated</span>
+        </label>
+
+        <label class="inline-flex items-center">
+          <input
+            type="checkbox"
+            [value]="'Parvo Vaccinated'"
+            (change)="onCheckboxChange($event)"
+            [checked]="vetStatus.value?.includes('Parvo Vaccinated')"
+            class="w-4 h-4 text-localeColors-lightteal bg-gray-100 border-black focus:ring-localeColors-lightteal"
+          />
+          <span class="ml-2 text-gray-900">Parvo Vaccinated</span>
+        </label>
+
+        <!-- Additional checkboxes for other statuses... -->
 
         <div *ngIf="vetStatus.invalid && vetStatus.touched">
           <p
-            *ngIf="createForm.controls['vetStatus'].errors?.['required']"
+            *ngIf="vetStatus.errors?.['required']"
             class="text-red-500 text-sm mt-1"
           >
             Vet Status is required.
           </p>
         </div>
       </div>
+
+      <!-- status -->
 
       <label class="block mb-2 text-sm font-medium text-localeColors-darkteal">
         Description

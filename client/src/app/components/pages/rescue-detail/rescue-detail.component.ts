@@ -19,6 +19,7 @@ import { DialogComponent } from '../../ui/dialog/dialog.component';
 export class RescueDetailComponent implements OnInit, AfterViewInit {
   @Input() userType: 'admin' | 'user' = 'user';
   buttonPrimaryText: string = '';
+  vetStatus: string[] = [];
 
   constructor(
     private rescueService: RescueService,

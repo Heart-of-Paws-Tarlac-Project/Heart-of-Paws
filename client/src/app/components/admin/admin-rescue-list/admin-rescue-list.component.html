@@ -69,7 +69,7 @@
           ? 'bg-localeColors-darkteal text-white'
           : 'bg-localeColors-red text-white'
       "
-      (click)="filterRescuesBySize('all')"
+      (click)="filterRescuesByAvailability('all')"
     >
       All
     </button>
@@ -80,9 +80,9 @@
           ? 'bg-localeColors-darkteal text-white'
           : 'bg-localeColors-red text-white'
       "
-      (click)="filterRescuesBySize('small')"
+      (click)="filterRescuesByAvailability('available')"
     >
-      Small
+      Unadopted
     </button>
     <button
       class="px-6 py-2 rounded-full transition-all"
@@ -91,20 +91,9 @@
           ? 'bg-localeColors-darkteal text-white'
           : 'bg-localeColors-red text-white'
       "
-      (click)="filterRescuesBySize('medium')"
+      (click)="filterRescuesByAvailability('adopted')"
     >
-      Medium
-    </button>
-    <button
-      class="px-6 py-2 rounded-full transition-all"
-      [ngClass]="
-        activeFilter === 'large'
-          ? 'bg-localeColors-darkteal text-white'
-          : 'bg-localeColors-red text-white'
-      "
-      (click)="filterRescuesBySize('large')"
-    >
-      Large
+      Adopted
     </button>
   </div>
 

@@ -102,7 +102,7 @@ export class ApplicationDetailComponent implements OnInit {
       .subscribe({
         next: () => {
           alert(
-            `Rescue ${this.userData.rescue.name} has been rejected for adoption.`
+            `${this.userData.applicantName}'s application has been rejected.`
           );
           this.router.navigate(['/admin']);
         },

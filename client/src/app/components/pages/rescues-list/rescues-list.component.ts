@@ -25,7 +25,9 @@ export class RescuesListComponent implements OnInit {
     AOS.init();
   }
   get rescues() {
-    return this.rescueService.rescues$();
+    return this.rescueService
+      .rescues$()
+      .filter((rescue) => rescue.availability !== 'adopted');
   }
 
   filterRescuesBySize(sizeFilter: string) {

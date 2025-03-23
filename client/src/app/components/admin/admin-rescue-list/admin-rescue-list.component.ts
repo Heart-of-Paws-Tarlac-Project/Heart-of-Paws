@@ -5,6 +5,7 @@ import 'aos/dist/aos.css';
 import { RescueService } from '../../../services/rescue.service';
 import { RescueCardComponent } from '../../ui/rescue-card/rescue-card.component';
 import { Router } from '@angular/router';
+import { AdminService } from '../../../services/admin.service';
 
 @Component({
   selector: 'app-admin-rescue-list',
@@ -19,7 +20,11 @@ export class AdminRescueListComponent implements OnInit {
   filteredRescues: any[] = [];
   activeFilter: string = 'all';
 
-  constructor(private rescueService: RescueService, private router: Router) {}
+  constructor(
+    private rescueService: RescueService,
+    private router: Router,
+    private adminService: AdminService
+  ) {}
 
   ngOnInit(): void {
     this.rescueService.getRescues();
@@ -45,19 +50,20 @@ export class AdminRescueListComponent implements OnInit {
       this.isDropdownOpen = results.length > 0; // Show dropdown if results exist
     });
   }
+
   get rescues() {
     return this.rescueService.rescues$();
   }
 
-  filterRescuesBySize(sizeFilter: string) {
-    this.activeFilter = sizeFilter;
+  filterRescuesByAvailability(availFilter: string) {
+    this.activeFilter = availFilter;
 
-    if (sizeFilter === 'all') {
+    if (availFilter === 'all') {
       this.rescueService.getRescues();
       return;
     }
 
-    this.rescueService.getRescuesBySize(sizeFilter);
+    this.rescueService.getRescuesByAvailability(availFilter);
   }
 
   viewRescueDetails(slug: string) {

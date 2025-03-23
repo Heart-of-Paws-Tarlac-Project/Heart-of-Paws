@@ -32,7 +32,7 @@ const rescueSchema = new Schema({
     enum: ["small", "medium", "large"],
   },
   vetStatus: {
-    type: String,
+    type: [String],
     required: true,
   },
   description: {

@@ -48,7 +48,10 @@ export class AdminService {
     });
   }
 
-  
+  getAllRescues() {
+    return this.apiService.get('/rescues/allRescues');
+  }
+
   deleteInquiry(inquiryId: string) {
     return this.apiService.delete(`/inquiries/${inquiryId}`);
   }

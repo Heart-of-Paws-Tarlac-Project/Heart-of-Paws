@@ -49,12 +49,7 @@ export class CreateRescueFormComponent implements AfterViewInit {
       Validators.required
     ),
     size: new FormControl({ value: '', disabled: false }, Validators.required),
-    vetStatus: new FormControl({ value: '', disabled: false }, [
-      Validators.minLength(3),
-      Validators.pattern(/^[A-Za-z\s]+$/),
-      Validators.maxLength(10),
-      Validators.required,
-    ]),
+    vetStatus: new FormControl<string[]>([], [Validators.required]),
     description: new FormControl({ value: '', disabled: false }, [
       Validators.minLength(10),
       Validators.pattern(/^[A-Za-z\s]+$/),
@@ -85,10 +80,6 @@ export class CreateRescueFormComponent implements AfterViewInit {
   onSexChange(selectedSex: string) {
     this.isMale = selectedSex === 'male';
     this.isFemale = selectedSex === 'female';
-
-    this.createForm.patchValue({
-      vetStatus: '',
-    });
   }
 
   get name() {
@@ -155,7 +146,7 @@ export class CreateRescueFormComponent implements AfterViewInit {
         if (key === 'featuredImage' && value instanceof File) {
           newRescue.append('featuredImage', value, value.name);
         } else if (key === 'galleryImages' && Array.isArray(value)) {
-          value.forEach((file: File) => {
+          (value as File[]).forEach((file: File) => {
             if (file instanceof File) {
               newRescue.append('galleryImages', file, file.name);
             }
@@ -173,6 +164,26 @@ export class CreateRescueFormComponent implements AfterViewInit {
     }
 
     return newRescue;
+  }
+
+  onCheckboxChange(event: Event): void {
+    const input = event.target as HTMLInputElement;
+    const value = input.value;
+
+    let updatedVetStatus = this.vetStatus.value
+      ? [...this.vetStatus.value]
+      : [];
+
+    if (input.checked) {
+      // Add value to the vetStatus array if the checkbox is checked
+      updatedVetStatus.push(value);
+    } else {
+      // Remove value from the vetStatus array if the checkbox is unchecked
+      updatedVetStatus = updatedVetStatus.filter((item) => item !== value);
+    }
+
+    // Update the form control with the new array
+    this.vetStatus.setValue(updatedVetStatus);
   }
 
   confirmSubmission(event: Event) {

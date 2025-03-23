@@ -10,7 +10,7 @@ import 'aos/dist/aos.css';
   standalone: true,
   imports: [CommonModule],
   templateUrl: './user-detail.component.html',
-  styleUrl: './user-detail.component.css',
+  styleUrls: ['./user-detail.component.css'],
 })
 export class UserDetailComponent implements OnInit {
   userId: string = '';
@@ -37,40 +37,21 @@ export class UserDetailComponent implements OnInit {
     AOS.init();
   }
 
-
   loadUserDetail() {
-    const cachedUser = localStorage.getItem(`user_${this.userId}`);
-
-    if (cachedUser) {
-      console.log('Loading user from localStorage:', cachedUser);
-      this.userData = JSON.parse(cachedUser);
-    }
-
-    // Fetch from API only if no cached data exists
-    if (!cachedUser) {
-      this.adminService.getUser(this.userId).subscribe({
-        next: (response) => {
-          if (response) {
-            console.log(`Fetched user from API:`, response);
-            this.userData = response;
-            localStorage.setItem(
-              `user_${this.userId}`,
-              JSON.stringify(response)
-            );
-          }
-        },
-        error: (error) => {
-          console.error('Error retrieving user data', error);
-        },
-      });
-    }
+    this.adminService.getUser(this.userId).subscribe({
+      next: (response) => {
+        if (response) {
+          console.log(`Fetched user from API:`, response);
+          this.userData = response;
+        }
+      },
+      error: (error) => {
+        console.error('Error retrieving user data', error);
+      },
+    });
   }
 
   viewApplicationDetails(applicationId: string) {
     this.router.navigate(['/admin/rescue/applications', applicationId]);
   }
 }
-function ViewChild(arg0: string, arg1: { static: boolean; }): (target: UserDetailComponent, propertyKey: "fileInput") => void {
-  throw new Error('Function not implemented.');
-}
-

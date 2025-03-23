@@ -161,10 +161,19 @@ exports.updateProfileImage = asyncHandler(async (req, res) => {
   const uploadToCloudinary = () => {
     return new Promise((resolve, reject) => {
       cloudinary.uploader
-        .upload_stream({ folder: "profileImages" }, (error, result) => {
-          if (error) reject(error);
-          else resolve(result.secure_url);
-        })
+        .upload_stream(
+          {
+            folder: "profileImages",
+            transformation: [
+              { width: 800, height: 600, crop: "limit" },
+              { fetch_format: "webp", quality: "auto" },
+            ],
+          },
+          (error, result) => {
+            if (error) reject(error);
+            else resolve(result.secure_url);
+          }
+        )
         .end(req.file.buffer);
     });
   };

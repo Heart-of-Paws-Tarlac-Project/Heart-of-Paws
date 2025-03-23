@@ -3,13 +3,6 @@
   data-aos="fade-right"
   data-aos-duration="1000"
 >
-  <div
-    *ngIf="applications.length === 0"
-    class="col-span-full text-center text-xl font-semibold text-localeColors-darkteal opacity-50 w-full h-full my-auto p-5 py-auto"
-  >
-    <p class="uppercase text-lg lg:text-2xl">No applications found.</p>
-  </div>
-
   <!-- Search Bar Container -->
   <div class="relative mx-auto max-w-[600px] w-[95%] mt-10 mb-10">
     <!-- Search Input -->
@@ -121,6 +114,13 @@
         <th class="md:w-1/5 p-4 text-left">View User Details</th>
       </tr>
     </thead>
+
+    <div
+      *ngIf="applications.length === 0"
+      class="col-span-full text-center text-xl font-semibold text-localeColors-darkteal opacity-50 w-full h-full my-auto p-5 py-auto"
+    >
+      <p class="uppercase text-lg lg:text-2xl">No applications found.</p>
+    </div>
 
     <tbody>
       <tr *ngFor="let application of applications" class="border-b">

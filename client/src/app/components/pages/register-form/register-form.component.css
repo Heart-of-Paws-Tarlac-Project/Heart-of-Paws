@@ -10,6 +10,14 @@ app-form-input input {
   margin: 10px !important;
   box-shadow: none !important;
 }
+.bgImg {
+  @apply bg-primary-light;
+}
 
-::ng-deep app-button {
+@media (min-width: 1280px) {
+  .bgImg {
+    background-image: url(../../../../../public/images/hopAssets/loginDog.jpg);
+    background-size: cover;
+    background-attachment: fixed;
+  }
 }

@@ -112,14 +112,26 @@
   <div
     class="rescues-gallery w-full max-w-screen-2xl mx-auto flex justify-center items-center flex-col py-10"
   >
-    <div
-      class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 gap-10 md:gap-14 w-full justify-center"
-    >
-      <app-rescue-card
-        *ngFor="let rescue of rescues"
-        [rescue]="rescue"
-        userType="admin"
-      ></app-rescue-card>
+    <div *ngIf="rescues.length > 0; else noRescues">
+      <div
+        class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 gap-10 md:gap-14 w-full justify-center place-items-center"
+      >
+        <app-rescue-card
+          *ngFor="let rescue of rescues"
+          [rescue]="rescue"
+          userType="admin"
+        ></app-rescue-card>
+      </div>
     </div>
+
+    <ng-template #noRescues>
+      <div
+        class="col-span-full text-center text-xl font-semibold text-localeColors-darkteal opacity-50 w-full h-full my-auto p-5 py-auto"
+      >
+        <p class="uppercase text-lg lg:text-2xl">
+          No rescued dogs available at the moment.
+        </p>
+      </div>
+    </ng-template>
   </div>
 </div>

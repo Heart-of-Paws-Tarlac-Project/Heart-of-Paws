@@ -103,25 +103,25 @@
       <div *ngIf="name.invalid && name.touched">
         <p
           *ngIf="name.errors?.['required']"
-          class="text-red-500 mb-4 font-Monteserrat font-light text-sm"
+          class="text-red-500 mb-4 font-Monteserrat font-light text-sm -mt-4"
         >
           Full Name is required.
         </p>
         <p
           *ngIf="name.errors?.['minlength']"
-          class="text-red-500 mb-4 font-Monteserrat font-light text-sm"
+          class="text-red-500 mb-4 font-Monteserrat font-light text-sm -mt-4"
         >
           Must be at least 6 characters.
         </p>
         <p
           *ngIf="name.errors?.['maxlength']"
-          class="text-red-500 mb-4 font-Monteserrat font-light text-sm"
+          class="text-red-500 mb-4 font-Monteserrat font-light text-sm -mt-4"
         >
           Must be less than 50 characters.
         </p>
         <p
           *ngIf="name.errors?.['pattern']"
-          class="text-red-500 mb-4 font-Monteserrat font-light text-sm"
+          class="text-red-500 mb-4 font-Monteserrat font-light text-sm -mt-4"
         >
           Only letters and spaces allowed.
         </p>
@@ -142,13 +142,13 @@
       <div *ngIf="email.invalid && email.touched">
         <p
           *ngIf="email.errors?.['required']"
-          class="text-red-500 mb-4 font-Monteserrat font-light text-sm"
+          class="text-red-500 mb-4 font-Monteserrat font-light text-sm -mt-4"
         >
           Email is required.
         </p>
         <p
           *ngIf="email.errors?.['email']"
-          class="text-red-500 mb-4 font-Monteserrat font-light text-sm"
+          class="text-red-500 mb-4 font-Monteserrat font-light text-sm -mt-4"
         >
           Enter a valid email.
         </p>
@@ -168,13 +168,13 @@
       <div *ngIf="phoneNo.invalid && phoneNo.touched">
         <p
           *ngIf="phoneNo.errors?.['required']"
-          class="text-red-500 mb-4 font-Monteserrat font-light text-sm"
+          class="text-red-500 mb-4 font-Monteserrat font-light text-sm -mt-4"
         >
           Phone Number is required.
         </p>
         <p
           *ngIf="phoneNo.errors?.['pattern']"
-          class="text-red-500 mb-4 font-Monteserrat font-light text-sm"
+          class="text-red-500 mb-4 font-Monteserrat font-light text-sm -mt-4"
         >
           Must be a valid 11-digit phone number.
         </p>
@@ -195,19 +195,19 @@
       <div *ngIf="subject.invalid && subject.touched">
         <p
           *ngIf="subject.errors?.['required']"
-          class="text-red-500 mb-4 font-Monteserrat font-light text-sm"
+          class="text-red-500 mb-4 font-Monteserrat font-light text-sm -mt-4"
         >
           Subject is required.
         </p>
         <p
           *ngIf="subject.errors?.['minlength']"
-          class="text-red-500 mb-4 font-Monteserrat font-light text-sm"
+          class="text-red-500 mb-4 font-Monteserrat font-light text-sm -mt-4"
         >
           Must be at least 6 characters long.
         </p>
         <p
           *ngIf="subject.errors?.['maxlength']"
-          class="text-red-500 mb-4 font-Monteserrat font-light text-sm"
+          class="text-red-500 mb-4 font-Monteserrat font-light text-sm -mt-4"
         >
           Must not exceed 50 characters.
         </p>
@@ -233,13 +233,13 @@
         </p>
         <p
           *ngIf="inquiry.errors?.['minlength']"
-          class="text-red-500 mb-4 font-Monteserrat font-light text-sm"
+          class="text-red-500 mb-4 font-Monteserrat font-light text-sm -mt-4"
         >
           Must be at least 10 characters.
         </p>
         <p
           *ngIf="inquiry.errors?.['maxlength']"
-          class="text-red-500 mb-4 font-Monteserrat font-light text-sm"
+          class="text-red-500 mb-4 font-Monteserrat font-light text-sm -mt-4"
         >
           Must be less than 500 characters.
         </p>

@@ -30,6 +30,7 @@ import 'aos/dist/aos.css';
 export class CreateRescueFormComponent implements AfterViewInit {
   isMale: boolean = false;
   isFemale: boolean = false;
+  isLoading = false; // Loading state
 
   createForm = new FormGroup({
     name: new FormControl({ value: '', disabled: false }, [
@@ -207,16 +208,17 @@ export class CreateRescueFormComponent implements AfterViewInit {
     });
   }
 
-  submitForm() {
+  private submitForm() {
+    this.isLoading = true; // Start loading
+
     this.rescueService.addRescue(this.createFormData()).subscribe({
       next: () => {
-        alert('Rescue successfully created');
+        this.isLoading = false; // Stop loading
         this.router.navigate(['/admin']);
       },
       error: (error) => {
-        console.error('Error in creating rescue: ', error);
-        alert('Rescue could not be created right now. Please try again.');
-        this.router.navigate(['/admin']);
+        console.error('Error creating rescue:', error);
+        this.isLoading = false; // Stop loading even if there's an error
       },
     });
   }

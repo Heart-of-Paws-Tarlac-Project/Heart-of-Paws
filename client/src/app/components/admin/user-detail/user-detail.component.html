@@ -64,94 +64,111 @@
       </div>
     </div>
 
-    <div class="applications">
+    <div class="w-full h-auto min-h-[70vh]">
       <h2
-        class="text-3xl uppercase text-localeColors-darkteal font-semibold font-Monteserrat mb-6 text-center"
+        class="text-5xl uppercase text-localeColors-darkteal font-semibold mb-6 text-center font-WinkySans"
       >
         Made Applications
       </h2>
       <div
-        class="h-auto w-full grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 place-content-center place-items-center gap-10 p-10"
+        *ngIf="
+          userData.applications && userData.applications.length > 0;
+          else noApplications
+        "
       >
         <div
-          class="card w-full h-auto shadow-2xl rounded-2xl p-4"
-          *ngFor="let application of userData.applications"
-          (click)="viewApplicationDetails(application._id)"
+          class="h-auto w-full grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 place-content-center place-items-center gap-10 p-10"
         >
-          <div class="w-full h-72 bg-white rounded-2xl mt-4 overflow-hidden">
-            <img
-              [src]="application.rescue.featureImage"
-              alt="{{ application.rescue.name }}"
-              class="w-full h-full object-cover rounded-2xl transition-transform duration-300 hover:scale-110 cursor-pointer"
-            />
-          </div>
-          <p class="text-lg text-center">
-            <span
-              class="text-sm text-localeColors-darkteal font-medium font-Monteserrat"
-              >Application For Rescue: </span
-            ><br />
-            {{ application.rescue.name | titlecase }}
-          </p>
-          <p class="text-lg text-center">
-            <span
-              class="text-sm text-localeColors-darkteal font-medium font-Monteserrat"
-              >Date Made: </span
-            ><br />
-            {{ application.createdAt | date : "fullDate" }}
-          </p>
           <div
-            class="flex flex-col xl:flex-row justify-between p-3 px-5 mb-4 rounded-3xl"
+            class="card w-full h-auto shadow-2xl rounded-2xl p-4"
+            *ngFor="let application of userData.applications"
+            (click)="viewApplicationDetails(application._id)"
           >
-            <p class="text-lg">
+            <div class="w-full h-72 bg-white rounded-2xl mt-4 overflow-hidden">
+              <img
+                [src]="application.rescue.featureImage"
+                alt="{{ application.rescue.name }}"
+                class="w-full h-full object-cover rounded-2xl transition-transform duration-300 hover:scale-110 cursor-pointer"
+              />
+            </div>
+            <p class="text-lg text-center">
               <span
                 class="text-sm text-localeColors-darkteal font-medium font-Monteserrat"
-                >Application Status</span
+                >Application For Rescue: </span
               ><br />
-              <span
-                class="w-3 h-3 rounded-full inline-block mr-2"
-                [ngClass]="{
-                  'bg-green-500': application.status === 'approved',
-                  'bg-yellow-500': application.status === 'pending',
-                  'bg-red-500': application.status === 'rejected'
-                }"
-              ></span>
-              {{ application.status | titlecase }}
+              {{ application.rescue.name | titlecase }}
             </p>
-            <p class="text-lg">
+            <p class="text-lg text-center">
               <span
                 class="text-sm text-localeColors-darkteal font-medium font-Monteserrat"
-                >Appointment mode</span
+                >Date Made: </span
               ><br />
-              {{ application.appointmentMode | titlecase }} Interview
+              {{ application.createdAt | date : "fullDate" }}
             </p>
+            <div
+              class="flex flex-col xl:flex-row justify-between p-3 px-5 mb-4 rounded-3xl"
+            >
+              <p class="text-lg">
+                <span
+                  class="text-sm text-localeColors-darkteal font-medium font-Monteserrat"
+                  >Application Status</span
+                ><br />
+                <span
+                  class="w-3 h-3 rounded-full inline-block mr-2"
+                  [ngClass]="{
+                    'bg-green-500': application.status === 'approved',
+                    'bg-yellow-500': application.status === 'pending',
+                    'bg-red-500': application.status === 'rejected'
+                  }"
+                ></span>
+                {{ application.status | titlecase }}
+              </p>
+              <p class="text-lg">
+                <span
+                  class="text-sm text-localeColors-darkteal font-medium font-Monteserrat"
+                  >Appointment mode</span
+                ><br />
+                {{ application.appointmentMode | titlecase }} Interview
+              </p>
+            </div>
+            <div
+              class="flex flex-col xl:flex-row justify-between p-3 px-5 border-t-2 border-localeColors-darkteal mb-4"
+            >
+              <p class="text-lg">
+                <span
+                  class="text-sm text-localeColors-darkteal font-medium font-Monteserrat"
+                  >Date</span
+                ><br />
+                {{ application.interviewDate | date }}
+              </p>
+              <p class="text-lg">
+                <span
+                  class="text-sm text-localeColors-darkteal font-medium font-Monteserrat"
+                  >Time</span
+                ><br />
+                {{ application.interviewTime }}
+              </p>
+            </div>
+            <div
+              class="p-3 px-5 border-t-2 border-localeColors-darkteal mb-4"
+            ></div>
           </div>
-          <div
-            class="flex flex-col xl:flex-row justify-between p-3 px-5 border-t-2 border-localeColors-darkteal mb-4"
-          >
-            <p class="text-lg">
-              <span
-                class="text-sm text-localeColors-darkteal font-medium font-Monteserrat"
-                >Date</span
-              ><br />
-              {{ application.interviewDate | date }}
-            </p>
-            <p class="text-lg">
-              <span
-                class="text-sm text-localeColors-darkteal font-medium font-Monteserrat"
-                >Time</span
-              ><br />
-              {{ application.interviewTime }}
-            </p>
-          </div>
-          <div
-            class="p-3 px-5 border-t-2 border-localeColors-darkteal mb-4"
-          ></div>
         </div>
       </div>
-    </div>
-  </div>
 
-  <div *ngIf="!userData" class="flex justify-center items-center h-64">
-    <p class="text-xl text-gray-500">User data not available</p>
+      <ng-template #noApplications>
+        <div
+          class="col-span-full text-center text-xl font-semibold text-localeColors-darkteal opacity-50 w-full h-full p-5"
+        >
+          <p class="uppercase text-lg lg:text-2xl">
+            {{ userData.user.name }} has no adoption application.
+          </p>
+        </div>
+      </ng-template>
+    </div>
+
+    <div *ngIf="!userData" class="flex justify-center items-center h-64">
+      <p class="text-xl text-gray-500">User data not available</p>
+    </div>
   </div>
 </div>

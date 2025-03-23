@@ -127,6 +127,15 @@
   data-aos-duration="800"
 >
   <div
+    *ngIf="userApplications.length === 0"
+    class="col-span-full text-center text-xl font-semibold text-localeColors-darkteal opacity-50 w-full h-full my-auto"
+  >
+    <p class="uppercase text-lg lg:text-2xl">
+      No adoption applications submitted yet.
+    </p>
+  </div>
+
+  <div
     class="card w-full h-auto shadow-2xl rounded-2xl p-4"
     *ngFor="let application of userApplications"
   >
@@ -143,15 +152,6 @@
       />
     </div>
 
-    <!-- <p class="text-lg ml-5 mb-3 mt-3">
-      <span
-        class="text-sm text-localeColors-darkteal font-medium font-Monteserrat"
-        >Queue</span
-      ><br />
-      {{ application.queuePosition }} out of
-      {{ application.totalApplicants }} applicants for
-      {{ application.rescue.name }}.
-    </p> -->
     <div class="flex justify-between p-3 px-5 mb-4 rounded-3xl">
       <p class="text-lg">
         <span

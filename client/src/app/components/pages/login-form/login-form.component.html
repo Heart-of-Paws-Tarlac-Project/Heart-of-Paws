@@ -16,7 +16,7 @@
       {{ welcomeMessage }}
     </h1>
 
-    <p *ngIf="errorMessage" class="text-red-500 text-center">
+    <p *ngIf="errorMessage" class="text-red-500 text-center text-sm">
       {{ errorMessage }}
     </p>
 
@@ -37,7 +37,7 @@
       <div *ngIf="email.invalid && email.touched" class="mb-5">
         <p
           *ngIf="email.errors?.['required']"
-          class="text-red-500"
+          class="text-red-500 text-sm mb-4 -mt-4"
           data-aos="fade"
           data-aos-duration="800"
         >
@@ -45,7 +45,7 @@
         </p>
         <p
           *ngIf="email.errors?.['email']"
-          class="text-red-500"
+          class="text-red-500 text-sm mb-4 -mt-4"
           data-aos="fade"
           data-aos-duration="800"
         >
@@ -65,7 +65,7 @@
       <div *ngIf="password.invalid && password.touched" class="mb-5">
         <p
           *ngIf="password.errors?.['required']"
-          class="text-red-500"
+          class="text-red-500 text-sm mb-4 -mt-4"
           data-aos="fade"
           data-aos-duration="800"
         >

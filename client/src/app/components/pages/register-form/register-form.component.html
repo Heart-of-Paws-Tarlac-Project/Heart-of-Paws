@@ -16,7 +16,7 @@
       Register
     </h1>
 
-    <p *ngIf="errorMessage" class="text-red-500 text-center">
+    <p *ngIf="errorMessage" class="text-red-500 text-center text-sm mb-4 -mt-4">
       {{ errorMessage }}
     </p>
 
@@ -35,16 +35,28 @@
         ></app-form-input>
       </div>
       <div *ngIf="name.invalid && name.touched" class="mb-5">
-        <p *ngIf="name.errors?.['required']" class="text-red-500">
+        <p
+          *ngIf="name.errors?.['required']"
+          class="text-red-500 text-sm mb-4 -mt-4"
+        >
           Full Name is required.
         </p>
-        <p *ngIf="name.errors?.['minlength']" class="text-red-500">
+        <p
+          *ngIf="name.errors?.['minlength']"
+          class="text-red-500 text-sm mb-4 -mt-4"
+        >
           Username must be 6 and 20 characters.
         </p>
-        <p *ngIf="name.errors?.['maxlength']" class="text-red-500">
+        <p
+          *ngIf="name.errors?.['maxlength']"
+          class="text-red-500 text-sm mb-4 -mt-4"
+        >
           Username must be 6 and 20 characters.
         </p>
-        <p *ngIf="name.errors?.['pattern']" class="text-red-500">
+        <p
+          *ngIf="name.errors?.['pattern']"
+          class="text-red-500 text-sm mb-4 -mt-4"
+        >
           Only letters and spaces allowed.
         </p>
       </div>
@@ -59,10 +71,16 @@
       </div>
 
       <div *ngIf="email.invalid && email.touched" class="mb-5">
-        <p *ngIf="email.errors?.['required']" class="text-red-500">
+        <p
+          *ngIf="email.errors?.['required']"
+          class="text-red-500 text-sm mb-4 -mt-4"
+        >
           Email is required.
         </p>
-        <p *ngIf="email.errors?.['email']" class="text-red-500">
+        <p
+          *ngIf="email.errors?.['email']"
+          class="text-red-500 text-sm mb-4 -mt-4"
+        >
           Enter a valid email.
         </p>
       </div>
@@ -78,13 +96,22 @@
       </div>
 
       <div *ngIf="password.invalid && password.touched" class="mb-5">
-        <p *ngIf="password.errors?.['required']" class="text-red-500">
+        <p
+          *ngIf="password.errors?.['required']"
+          class="text-red-500 text-sm mb-4 -mt-4"
+        >
           Password is required.
         </p>
-        <p *ngIf="password.errors?.['minlength']" class="text-red-500">
+        <p
+          *ngIf="password.errors?.['minlength']"
+          class="text-red-500 text-sm mb-4 -mt-4"
+        >
           Must be at least 6 characters.
         </p>
-        <p *ngIf="password.errors?.['pattern']" class="text-red-500">
+        <p
+          *ngIf="password.errors?.['pattern']"
+          class="text-red-500 text-sm mb-4 -mt-4"
+        >
           Must contain at least one letter and one number.
         </p>
       </div>
@@ -100,7 +127,10 @@
       </div>
 
       <div *ngIf="confirmPassword.touched" class="mb-5">
-        <p *ngIf="confirmPassword.errors?.['required']" class="text-red-500">
+        <p
+          *ngIf="confirmPassword.errors?.['required']"
+          class="text-red-500 text-sm mb-4 -mt-4"
+        >
           Confirm Password is required.
         </p>
         <p

@@ -51,7 +51,7 @@
     </div>
   </div>
 
-  <div class="block lg:hidden w-full xl:w-2/3 p-2">
+  <div *ngIf="isMobileView" class="w-full xl:w-2/3 p-2">
     <router-outlet></router-outlet>
   </div>
 </div>
@@ -85,7 +85,7 @@
     </div>
   </div>
   <!-- Inquiry Details -->
-  <div class="block lg:block w-full xl:w-2/3 p-2">
+  <div *ngIf="!isMobileView" class="w-full xl:w-2/3 p-2">
     <router-outlet></router-outlet>
   </div>
 </div>

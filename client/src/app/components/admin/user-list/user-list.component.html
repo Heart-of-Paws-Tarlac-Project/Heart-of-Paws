@@ -3,6 +3,13 @@
   data-aos="fade-right"
   data-aos-duration="1000"
 >
+  <div
+    *ngIf="users.length === 0"
+    class="col-span-full text-center text-xl font-semibold text-localeColors-darkteal opacity-50 w-full h-full my-auto p-5 py-auto"
+  >
+    <p class="uppercase text-lg lg:text-2xl">No users found.</p>
+  </div>
+
   <!-- Search Bar Container -->
   <div class="relative mx-auto max-w-[600px] w-[95%] mt-10 mb-10">
     <!-- Search Input -->

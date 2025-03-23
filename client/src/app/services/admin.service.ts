@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { ApiService } from './api.service';
+import { map } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -54,5 +55,19 @@ export class AdminService {
 
   deleteInquiry(inquiryId: string) {
     return this.apiService.delete(`/inquiries/${inquiryId}`);
+  }
+
+  getAllApplications() {
+    return this.apiService.get('/applications/');
+  }
+
+  searchApplications(query: string) {
+    return this.apiService
+      .post('/applications/searchApplications', { payload: query })
+      .pipe(map((data) => data.payload));
+  }
+
+  filterApplications(statusFilter: string) {
+    return this.apiService.get(`/applications/?status=${statusFilter}`);
   }
 }

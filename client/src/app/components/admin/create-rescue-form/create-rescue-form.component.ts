@@ -53,7 +53,6 @@ export class CreateRescueFormComponent implements AfterViewInit {
     description: new FormControl({ value: '', disabled: false }, [
       Validators.minLength(10),
       Validators.pattern(/^[A-Za-z\s]+$/),
-      Validators.maxLength(50),
       Validators.required,
     ]),
     featuredImage: new FormControl<File | null>(null, Validators.required),

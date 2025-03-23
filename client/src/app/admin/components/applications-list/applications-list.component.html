@@ -1,0 +1,191 @@
+<div
+  class="users-list h-auto min-h-[70vh] w-full gap-10"
+  data-aos="fade-right"
+  data-aos-duration="1000"
+>
+  <div
+    *ngIf="applications.length === 0"
+    class="col-span-full text-center text-xl font-semibold text-localeColors-darkteal opacity-50 w-full h-full my-auto p-5 py-auto"
+  >
+    <p class="uppercase text-lg lg:text-2xl">No applications found.</p>
+  </div>
+
+  <!-- Search Bar Container -->
+  <div class="relative mx-auto max-w-[600px] w-[95%] mt-10 mb-10">
+    <!-- Search Input -->
+    <input
+      type="text"
+      name="search-box"
+      class="block w-full p-3 text-sm text-gray-900 bg-white border-black rounded-full shadow-md focus:ring-localeColors-lightteal focus:bg-white focus:border-localeColors-lightteal outline-none transition-all duration-200"
+      placeholder="Search for applications..."
+      (keyup)="sendData($event)"
+      (focus)="isDropdownOpen = true"
+      (blur)="closeDropdownWithDelay()"
+    />
+    <span class="absolute right-4 top-1/2 transform -translate-y-1/2">
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        class="w-5 h-5 text-gray-400"
+      >
+        <circle cx="11" cy="11" r="8"></circle>
+        <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+      </svg>
+    </span>
+
+    <!-- Search Results Dropdown -->
+    <div
+      *ngIf="isDropdownOpen && filteredApplications.length > 0"
+      class="absolute w-full bg-white border-2 border-localeColors-lightteal shadow-lg rounded-lg mt-2 overflow-hidden max-h-64 overflow-y-auto transition-all duration-200"
+    >
+      <ng-template
+        ngFor
+        let-application
+        [ngForOf]="filteredApplications"
+        let-i="index"
+      >
+        <hr *ngIf="i > 0" class="border-gray-200" />
+        <p
+          class="px-5 py-3 cursor-pointer hover:bg-gray-100 transition duration-200"
+          (click)="viewApplicationDetails(application._id)"
+        >
+          {{ application.applicantName }}
+        </p>
+      </ng-template>
+    </div>
+  </div>
+
+  <div class="filter-controls my-8 flex justify-center gap-2">
+    <button
+      class="px-6 py-2 rounded-full transition-all"
+      [ngClass]="
+        activeFilter === 'all'
+          ? 'bg-localeColors-darkteal text-white'
+          : 'bg-localeColors-red text-white'
+      "
+      (click)="filterApplicationsByStatus('all')"
+    >
+      All
+    </button>
+    <button
+      class="px-6 py-2 rounded-full transition-all"
+      [ngClass]="
+        activeFilter === 'pending'
+          ? 'bg-localeColors-darkteal text-white'
+          : 'bg-localeColors-red text-white'
+      "
+      (click)="filterApplicationsByStatus('pending')"
+    >
+      Pending
+    </button>
+    <button
+      class="px-6 py-2 rounded-full transition-all"
+      [ngClass]="
+        activeFilter === 'approved'
+          ? 'bg-localeColors-darkteal text-white'
+          : 'bg-localeColors-red text-white'
+      "
+      (click)="filterApplicationsByStatus('approved')"
+    >
+      Approved
+    </button>
+    <button
+      class="px-6 py-2 rounded-full transition-all"
+      [ngClass]="
+        activeFilter === 'rejected'
+          ? 'bg-localeColors-darkteal text-white'
+          : 'bg-localeColors-red text-white'
+      "
+      (click)="filterApplicationsByStatus('rejected')"
+    >
+      Rejected
+    </button>
+  </div>
+
+  <table
+    class="hidden xl:table table-auto md:table-fixed w-full border-collapse"
+  >
+    <thead>
+      <tr class="border-b">
+        <th class="md:w-1/5 p-4 text-left">PROFILE PHOTO</th>
+        <th class="md:w-2/5 p-4 text-left">Username</th>
+        <th class="md:w-2/4 p-4 text-left">Applicant Name</th>
+        <th class="md:w-1/5 p-4 text-left">Status</th>
+        <th class="md:w-1/5 p-4 text-left">Rescue</th>
+        <th class="md:w-1/5 p-4 text-left">Application Date</th>
+        <th class="md:w-1/5 p-4 text-left">View User Details</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <tr *ngFor="let application of applications" class="border-b">
+        <td class="p-4 w-2/5">
+          <img
+            [src]="application.user.profileImage"
+            alt="{{ application.user.name }}"
+            class="w-20 h-20 object-cover rounded-2xl transition-transform duration-300 hover:scale-110"
+          />
+        </td>
+        <td class="p-4 w-1/4">
+          {{ application.user.name }}
+        </td>
+        <td class="p-4 text-lg w-1/4">
+          {{ application.applicantName }}
+        </td>
+        <td class="p-4 w-1/4">
+          {{ application.status | titlecase }}
+        </td>
+        <td class="p-4 w-1/4">
+          {{ application.rescue.name }}
+        </td>
+        <td class="p-4 text-lg w-1/4">
+          {{ application.createdAt | date : "shortDate" }}
+        </td>
+        <td class="p-4 text-lg w-1/4 text-center">
+          <button
+            class="mx-auto xl:block text-white bg-localeColors-red hover:bg-localeColors-lightteal active:bg-localeColors-darkteal focus:outline-none font-medium rounded-full text-sm md:text-base lg:text-lg px-4 py-2"
+            (click)="viewApplicationDetails(application._id)"
+          >
+            View Application
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <!-- Mobile-friendly Cards for sm screens -->
+  <div
+    *ngFor="let application of applications"
+    class="xl:hidden flex flex-col bg-white rounded-lg shadow-md p-4 mb-4"
+  >
+    <div class="flex items-center gap-4">
+      <img
+        [src]="application.user.profileImage"
+        alt="{{ application.user.name }}"
+        class="w-16 h-16 object-cover rounded-full"
+      />
+      <div>
+        <h2 class="text-lg font-semibold">{{ application.user.name }}</h2>
+        <p class="text-sm text-gray-500">{{ application.user.name }}</p>
+      </div>
+    </div>
+    <div class="mt-4">
+      <p><strong>Rescue:</strong> {{ application.user.name }}</p>
+      <p>
+        <strong>Created at:</strong>
+        {{ application.createdAt | date : "shortdate" }}
+      </p>
+    </div>
+    <button
+      class="mt-4 w-full text-white bg-localeColors-red hover:bg-localeColors-lightteal active:bg-localeColors-darkteal font-medium rounded-md text-sm py-2"
+      (click)="viewApplicationDetails(application._id)"
+    >
+      View Application Details
+    </button>
+  </div>
+</div>

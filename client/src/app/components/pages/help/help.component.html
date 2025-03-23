@@ -1,27 +1,77 @@
 <div
-  class="w-full flex flex-col md:flex-row xl:h-screen gap-2 2xl:gap-4 items-center justify-center xl:p-20"
+  class="w-full flex flex-col md:flex-row xl:h-screen gap-2 2xl:gap-4 items-center justify-center xl:p-20 mb-14"
 >
   <div
     class="h-full w-full flex md:flex-col gap-2 items-center justify-center md:w-auto lg:w-72 xl:w-96 xl:h-full xl:gap-5"
   >
     <div
-      class="h-44 w-44 flex flex-col items-center justify-center md:w-40 md:h-40 lg:w-60 lg:h-60 xl:w-full xl:h-3/6 shadow-md rounded-2xl"
+      class="hidden h-44 w-44 lg:flex flex-col items-center justify-center md:w-40 md:h-40 lg:w-60 lg:h-60 xl:w-full xl:h-3/6 shadow-md rounded-2xl"
       data-aos="fade-up"
       data-aos-duration="800"
     >
       <img
         src="./images/helpPage/hopCommunity.jpg"
         alt="landing page image"
+        loading="lazy"
         class="w-full h-full object-cover rounded-2xl brightness-75"
       />
     </div>
+
     <div
-      class="h-44 w-44 flex flex-col items-center justify-center md:w-40 md:h-40 lg:w-60 lg:h-60 xl:w-full xl:h-3/6 bg-slate-200 rounded-2xl"
+      class="h-72 w-72 flex flex-col items-center justify-center md:w-80 md:h-80 lg:w-60 lg:h-60 xl:w-full xl:h-3/6 bg-localeColors-cyan rounded-2xl p-5 xl:p-14 gap-4"
       data-aos="fade-up"
       data-aos-delay="200"
       data-aos-duration="800"
     >
-      <p>gcashh</p>
+      <h2
+        class="text-2xl xl:text-3xl text-center font-WinkySans font-semibold text-white"
+      >
+        Your kindness can make a difference!
+      </h2>
+      <p class="text-center text-xs xl:text-sm text-white font-medium">
+        For financial support, you can donate here via GCash to help provide
+        food, shelter, and medical care for rescued dogs.
+      </p>
+      <p class="text-center text-sm text-white">
+        GCash Number:
+        <button
+          class="relative w-fit after:inline-block after:content-[''] after:absolute after:left-0 after:bottom-0 after:h-[2px] after:bg-localeColors-red after:w-0 hover:after:w-full after:transition-all after:duration-300 after:origin-left font-normal hover:text-localeColors-red"
+          (click)="openModal()"
+        >
+          <span class="font-semibold">09XX XXX XXXX</span>
+        </button>
+      </p>
+    </div>
+  </div>
+
+  <div
+    *ngIf="isModalOpen"
+    class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-40"
+    (click)="closeModal()"
+  >
+    <div
+      class="bg-primary-light p-6 rounded-3xl shadow-lg w-96 h-96 text-center transform transition-transform duration-300 opacity-0 animate-fadeIn"
+      (click)="$event.stopPropagation()"
+    >
+      <h2
+        class="text-2xl font-semibold mb-3 font-WinkySans text-localeColors-darkteal"
+      >
+        Scan to Donate
+      </h2>
+      <div class="aspect-square w-60 bg-red-300 rounded-2xl mx-auto">
+        <img
+          src="./images/helpPage/hopCommunity.jpg"
+          loading="lazy"
+          alt="GCash QR Code"
+          class="w-full h-full rounded-2xl object-cover"
+        />
+      </div>
+      <button
+        class="mt-4 px-7 py-2 w-32 bg-localeColors-red text-white rounded-full hover:bg-localeColors-lightteal antialiased transition-all duration-300"
+        (click)="closeModal()"
+      >
+        Close
+      </button>
     </div>
   </div>
 
@@ -32,14 +82,21 @@
     data-aos-duration="800"
   >
     <div
-      class="absolute inset-0 flex flex-col items-center justify-center text-white z-10"
+      class="absolute inset-0 flex flex-col items-center justify-center text-white z-10 xl:p-20 xl:gap-5"
     >
-      <h1 class="text-2xl font-bold">title</h1>
-      <p>Cute Dog</p>
+      <h1 class="text-3xl xl:text-7xl font-bold font-WinkySans text-center">
+        Paws for a Cause
+      </h1>
+      <p class="text-center text-sm xl:text-sm px-5">
+        Your donation gives dogs in need a second chance at a happy, loving
+        home. Give Today, Change a Dog’s Tomorrow Your donation makes a
+        life-changing difference for homeless and vulnerable dogs.
+      </p>
     </div>
     <img
       src="./images/helpPage/cuteDog.jpg"
-      alt="landing page image"
+      alt="how to help big image"
+      loading="lazy"
       class="w-full h-full object-cover rounded-2xl brightness-75"
     />
   </div>
@@ -47,18 +104,17 @@
 
 <div
   class="w-full flex flex-col xl:h-[50vh] gap-5 items-center pt-10 xl:items-start justify-center 2xl:p-52"
+  data-aos="fade-up"
+  data-aos-duration="800"
+  data-aos-delay="100"
 >
   <h1
     class="px-5 text-5xl text-center xl:text-7xl 2xl:text-9xl xl:ml-72 2xl:ml-0 text-localeColors-darkteal font-WinkySans font-semibold"
-    data-aos="fade-right"
-    data-aos-duration="800"
   >
     GIVE THEM A CHANCE
   </h1>
   <p
-    class="p-5 md:p-0 md:px-20 text-base text-center lg:px-40 xl:text-lg xl:ml-52 2xl:w-full xl:text-left font-Monteserrat"
-    data-aos="fade-up"
-    data-aos-duration="800"
+    class="p-5 md:p-0 md:px-20 text-base text-justify lg:px-40 xl:text-lg xl:ml-52 2xl:w-full xl:text-left font-Monteserrat"
   >
     Every life deserves a second chance—an opportunity to heal, grow, and be
     surrounded by love. Even the smallest act of kindness can change a life and
@@ -70,45 +126,39 @@
   <div class="w-full flex justify-center xl:justify-start xl:mt-2">
     <button
       type="button"
-      data-aos="fade-up"
-      data-aos-duration="800"
-      data-aos-delay="100"
-      class="text-white bg-localeColors-red hover:bg-localeColors-lightteal font-medium rounded-full text-xs sm:text-sm md:text-base lg:text-base xl:ml-96 xl:text-xl px-4 sm:px-6 md:px-8 lg:px-10 xl:px-12 py-2 sm:py-2.5 md:py-3 lg:py-3.5 xl:py-4 text-center font-Monteserrat"
+      routerLink="/rescues"
+      class="mb-10 text-white bg-localeColors-red hover:bg-localeColors-lightteal font-medium rounded-full text-xs sm:text-sm md:text-base lg:text-base xl:ml-96 xl:text-xl px-4 sm:px-6 md:px-8 lg:px-10 xl:px-12 py-2 sm:py-2.5 md:py-3 lg:py-3.5 xl:py-4 text-center duration-200 active:bg-localeColors-darkteal"
     >
-      Make a Difference
+      Be the Change
     </button>
   </div>
 </div>
 
 <div
   class="w-full pb-20 flex flex-col lg:flex-row gap-10 md:gap-0 lg:gap-14 h-auto items-center justify-center"
+  data-aos="fade-up"
+  data-aos-duration="1000"
 >
   <div
     class="h-80 w-80 flex flex-col items-center justify-center lg:mt-20 lg:w-72 lg:h-72 xl:w-[20rem] xl:h-[20rem] 2xl:w-[32rem] 2xl:h-[32rem] shadow-lg gap-5 rounded-2xl"
-    data-aos="fade-up"
-    data-aos-duration="800"
   >
     <img
       src="./images/helpPage/openDoor.jpg"
-      alt="landing page image"
+      alt="Open Hearts Open Doors"
+      loading="lazy"
       class="w-full h-full object-cover rounded-2xl"
     />
   </div>
   <div
-    class="h-80 flex flex-col items-center lg:items-start justify-center lg:w-96 lg:h-80 lg:mt-20 xl:w-[40rem] xl:h-[40rem] gap-5"
+    class="h-80 flex flex-col items-center lg:items-start justify-center lg:w-96 lg:h-80 lg:mt-20 xl:w-[40rem] xl:h-[40rem] md:gap-5"
   >
     <h1
       class="text-5xl text-center md:text-left xl:text-7xl xl:ml-10 text-localeColors-darkteal font-WinkySans font-semibold"
-      data-aos="fade-up"
-      data-aos-duration="800"
     >
       Open Hearts <br />Open Doors
     </h1>
     <p
-      class="text-base p-5 text-center md:p-0 md:px-20 lg:px-0 xl:text-lg lg:ml-4 xl:ml-32 xl:w-2/3 lg:text-left"
-      data-aos="fade-up"
-      data-aos-duration="800"
-      data-aos-delay="200"
+      class="text-base p-5 tetx-justify md:p-0 md:px-20 lg:px-0 xl:text-lg lg:ml-4 xl:ml-14 xl:w-2/3 lg:text-left"
     >
       At the heart of every rescue, every act of kindness, and every second
       chance is an open heart willing to make a difference. When we extend our

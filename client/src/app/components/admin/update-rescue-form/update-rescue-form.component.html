@@ -17,29 +17,89 @@
         [placeholder]="rescue.name"
       ></app-form-input>
 
-      <label for="sex" class="block mb-2 text-sm font-medium text-gray-900"
-        >Sex</label
-      >
-      <select
-        formControlName="sex"
-        id="sex"
-        class="mb-4 bg-transparent border-2 border-black text-gray-900 text-sm rounded-lg focus:border-localeColors-lightteal block w-full p-2.5"
-      >
-        <option value="Male">Male</option>
-        <option value="Female">Female</option>
-      </select>
-
-      <app-form-input
-        label="Age"
-        type="text"
-        controlName="age"
-        [placeholder]="rescue.age"
-      ></app-form-input>
-
-      <!-- status -->
       <label class="block mb-2 text-sm font-medium text-localeColors-darkteal">
-        Vet Status
+        Sex
       </label>
+
+      <div class="flex gap-4 mb-4">
+        <label class="inline-flex items-center">
+          <input
+            type="radio"
+            formControlName="sex"
+            value="male"
+            class="w-4 h-4 text-localeColors-lightteal bg-gray-100 border-black focus:ring-localeColors-lightteal"
+          />
+          <span class="ml-2 text-gray-900">Male</span>
+        </label>
+
+        <label class="inline-flex items-center">
+          <input
+            type="radio"
+            formControlName="sex"
+            value="female"
+            class="w-4 h-4 text-localeColors-lightteal bg-gray-100 border-black focus:ring-localeColors-lightteal"
+          />
+          <span class="ml-2 text-gray-900">Female</span>
+        </label>
+      </div>
+
+      <div *ngIf="sex.invalid && sex.touched">
+        <p
+          *ngIf="sex.errors?.['required']"
+          class="text-red-500 text-sm -mt-4 mb-4"
+        >
+          Rescue's sex is required.
+        </p>
+      </div>
+
+      <label class="block mb-2 text-sm font-medium text-localeColors-darkteal">
+        Age
+      </label>
+
+      <div class="flex gap-4 mb-4">
+        <input
+          type="number"
+          min="1"
+          formControlName="ageValue"
+          placeholder="Enter age"
+          class="border w-full bg-transparent border-black p-2 rounded-3xl focus:border-2 focus:outline-none focus:border-localeColors-lightteal focus:shadow-md"
+        />
+
+        <select
+          formControlName="ageUnit"
+          class="border w-full bg-transparent border-black p-2 rounded-3xl focus:border-2 focus:outline-none focus:border-localeColors-lightteal focus:shadow-md"
+        >
+          <option value="years">Years</option>
+          <option value="months">Months</option>
+          <option value="days">Days</option>
+        </select>
+      </div>
+
+      <div
+        *ngIf="
+          updateForm.controls['ageValue'].invalid &&
+          updateForm.controls['ageValue'].touched
+        "
+      >
+        <p
+          *ngIf="updateForm.controls['ageValue'].errors?.['required']"
+          class="text-red-500 text-sm -mt-4 mb-4"
+        >
+          Age is required.
+        </p>
+        <p
+          *ngIf="updateForm.controls['ageValue'].errors?.['min']"
+          class="text-red-500 text-sm -mt-4 mb-4"
+        >
+          Must be at least 1.
+        </p>
+        <p
+          *ngIf="updateForm.controls['ageValue'].errors?.['pattern']"
+          class="text-red-500 text-sm -mt-4 mb-4"
+        >
+          Only numbers are allowed.
+        </p>
+      </div>
 
       <div class="flex flex-wrap gap-4 mb-4">
         <label class="inline-flex items-center">
@@ -120,7 +180,7 @@
         id="description"
         rows="4"
         formControlName="description"
-        class="mb-4 block p-2.5 w-full text-sm text-gray-900 bg-transparent rounded-lg border-2 border-black focus:border-localeColors-lightteal"
+        class="block p-2.5 w-full text-sm text-gray-900 bg-transparent border-black border focus:border-2 focus:outline-none focus:border-localeColors-lightteal focus:shadow-md rounded-2xl mb-4"
         [placeholder]="rescue.description"
       ></textarea>
 
@@ -136,7 +196,7 @@
             type="file"
             (change)="handleFeatureImageUpload($event)"
             accept="image/*"
-            class="block w-full text-sm text-gray-900 border-2 border-black bg-transparent rounded-lg focus:border-localeColors-lightteal cursor-pointer bg-gray-50"
+            class="mb-4 block w-full text-sm text-gray-900 border border-black bg-transparent rounded-full focus:border-localeColors-lightteal cursor-pointer bg-gray-50 p-3"
           />
         </div>
 
@@ -152,7 +212,7 @@
             (change)="handleGalleryImagesUpload($event)"
             accept="image/*"
             multiple
-            class="mb-4 block w-full text-sm text-gray-900 border-2 border-black bg-transparent rounded-lg focus:border-localeColors-lightteal cursor-pointer bg-gray-50"
+            class="mb-4 block w-full text-sm text-gray-900 border border-black bg-transparent rounded-full focus:border-localeColors-lightteal cursor-pointer bg-gray-50 p-3"
           />
         </div>
       </div>

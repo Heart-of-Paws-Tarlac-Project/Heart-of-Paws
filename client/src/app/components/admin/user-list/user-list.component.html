@@ -63,7 +63,7 @@
         <th class="md:w-1/5 p-4 text-left">PROFILE PHOTO</th>
         <th class="md:w-2/5 p-4 text-left">Username</th>
         <th class="md:w-2/4 p-4 text-left">Email</th>
-        <th class="md:w-1/5 p-4 text-left">Applications</th>
+        <th class="md:w-1/4 p-4 text-left">Applications</th>
         <th class="md:w-1/5 p-4 text-left">Date Joined</th>
         <th class="md:w-1/5 p-4 text-left">View User Details</th>
       </tr>
@@ -122,7 +122,7 @@
       <p><strong>Date Joined:</strong> {{ user.dateJoined }}</p>
     </div>
     <button
-      class="mt-4 w-full text-white bg-localeColors-red hover:bg-localeColors-lightteal active:bg-localeColors-darkteal font-medium rounded-md text-sm py-2"
+      class="mt-4 w-full text-white bg-localeColors-red hover:bg-localeColors-lightteal active:bg-localeColors-darkteal font-normal rounded-md text-sm py-2"
       (click)="viewUserDetails(user._id)"
     >
       View User Details

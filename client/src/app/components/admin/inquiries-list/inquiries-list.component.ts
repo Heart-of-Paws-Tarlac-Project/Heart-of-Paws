@@ -65,4 +65,6 @@ export class InquiriesListComponent implements OnInit {
   toggleInbox() {
     this.isInboxHidden = !this.isInboxHidden;
   }
+
+  
 }

@@ -4,6 +4,8 @@ import { AdminService } from '../../../services/admin.service';
 import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { DialogComponent } from '../../ui/dialog/dialog.component';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-inquiry-detail',
@@ -21,7 +23,8 @@ export class InquiryDetailComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private adminService: AdminService,
-    private router: Router
+    private router: Router,
+    private dialog: MatDialog
   ) {}
 
   ngOnInit(): void {
@@ -69,6 +72,41 @@ export class InquiryDetailComponent implements OnInit {
       },
       error: (error) => {
         console.error('Error in submitting respond: ', error);
+      },
+    });
+  }
+
+  confirmDeletion(event: Event, inquiryId: string) {
+    const dialogRef = this.dialog.open(DialogComponent, {
+      width: '400px',
+      data: {
+        modalTitle: 'Confirm Submission',
+        modalDesc: 'Are you sure you want to create this rescue?',
+        yes: 'Confirm',
+        no: 'Cancel',
+      },
+    });
+
+    dialogRef.afterClosed().subscribe((result: any) => {
+      if (result) {
+        this.deleteInquiry(inquiryId);
+      }
+    });
+  }
+
+  deleteInquiry(inquiryId: string) {
+    this.adminService.deleteInquiry(inquiryId).subscribe({
+      next: (response) => {
+        alert('Deleted inquiry');
+        console.log('Deleted inquiry');
+        this.router.navigate(['/admin/inquiries']).then(() => {
+          // Reload the entire page
+          window.location.reload();
+        });
+      },
+      error: (error) => {
+        alert('Oops! Something went wrong. Please try again');
+        console.error('Error in deleting inquiry:', error);
       },
     });
   }

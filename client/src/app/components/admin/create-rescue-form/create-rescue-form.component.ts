@@ -56,15 +56,11 @@ export class CreateRescueFormComponent implements AfterViewInit {
       Validators.maxLength(50),
       Validators.required,
     ]),
-    featuredImage: new FormControl<File | null>(
-      { value: null, disabled: false },
-      Validators.required
+    featuredImage: new FormControl<File | null>(null, Validators.required),
+    galleryImages: new FormControl<File[]>(
+      [],
+      [Validators.required, Validators.minLength(4), Validators.maxLength(4)]
     ),
-    galleryImages: new FormControl<File[]>({ value: [], disabled: false }, [
-      Validators.required,
-      Validators.minLength(4),
-      Validators.maxLength(4),
-    ]),
   });
 
   ngAfterViewInit(): void {
@@ -113,9 +109,8 @@ export class CreateRescueFormComponent implements AfterViewInit {
   handleFeatureImageUpload(event: Event) {
     const input = event.target as HTMLInputElement;
     if (input.files && input.files.length > 0) {
-      const file = input.files[0];
       this.createForm.patchValue({
-        featuredImage: file,
+        featuredImage: input.files[0],
       });
     }
   }
@@ -139,7 +134,7 @@ export class CreateRescueFormComponent implements AfterViewInit {
     });
   }
 
-  createFormData(form: { [key: string]: any }) {
+  createFormData() {
     const newRescue = new FormData();
     Object.entries(this.createForm.value).forEach(([key, value]) => {
       if (value !== null && value !== undefined && value !== '') {
@@ -151,6 +146,11 @@ export class CreateRescueFormComponent implements AfterViewInit {
               newRescue.append('galleryImages', file, file.name);
             }
           });
+        } else if (key === 'vetStatus') {
+          
+          if (Array.isArray(value)) {
+            newRescue.append('vetStatus', value.join(', ')); 
+          }
         } else {
           newRescue.append(key, String(value));
         }
@@ -212,18 +212,16 @@ export class CreateRescueFormComponent implements AfterViewInit {
   }
 
   submitForm() {
-    this.rescueService
-      .addRescue(this.createFormData(this.createForm.value))
-      .subscribe({
-        next: () => {
-          alert('Rescue successfully created');
-          this.router.navigate(['/admin']);
-        },
-        error: (error) => {
-          console.error('Error in creating rescue: ', error);
-          alert('Rescue could not be created right now. Please try again.');
-          this.router.navigate(['/admin']);
-        },
-      });
+    this.rescueService.addRescue(this.createFormData()).subscribe({
+      next: () => {
+        alert('Rescue successfully created');
+        this.router.navigate(['/admin']);
+      },
+      error: (error) => {
+        console.error('Error in creating rescue: ', error);
+        alert('Rescue could not be created right now. Please try again.');
+        this.router.navigate(['/admin']);
+      },
+    });
   }
 }

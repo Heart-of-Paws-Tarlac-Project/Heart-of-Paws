@@ -245,7 +245,30 @@ exports.deleteRescue = asyncHandler(async (req, res) => {
     throw new CustomError("Rescue to delete not found", 404);
   }
 
-  //delete associated applications
+  if (rescue.featureImage) {
+    const publicId = rescue.featureImage.split("/").pop().split(".")[0];
+    await cloudinary.uploader.destroy(publicId, (error, result) => {
+      if (error) {
+        console.error(`Error deleting feature image: ${error}`);
+      } else {
+        console.log(`Feature image deleted: ${result}`);
+      }
+    });
+  }
+
+  if (rescue.galleryImages && rescue.galleryImages.length > 0) {
+    for (let imageUrl of rescue.galleryImages) {
+      const publicId = imageUrl.split("/").pop().split(".")[0];
+      await cloudinary.uploader.destroy(publicId, (error, result) => {
+        if (error) {
+          console.error(`Error deleting gallery image: ${error}`);
+        } else {
+          console.log(`Gallery image deleted: ${result}`);
+        }
+      });
+    }
+  }
+
   await Application.deleteMany({ rescue: rescueId });
 
   res.status(204).send();

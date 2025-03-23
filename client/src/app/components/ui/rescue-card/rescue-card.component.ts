@@ -30,8 +30,8 @@ export class RescueCardComponent implements OnInit {
     if (this.userType === 'admin') {
       this.rescueService.getRescueNoOfApplications(this.rescue.slug).subscribe({
         next: (response) => {
-          console.log(`response: ${response.applicationCount}`);
-          this.applicationCount = response.applicationCount;
+          console.log(`response: ${response.applicationsCount}`);
+          this.applicationCount = response.applicationsCount;
         },
         error: (error) => {
           console.error('Error in retrieving application count: ', error);

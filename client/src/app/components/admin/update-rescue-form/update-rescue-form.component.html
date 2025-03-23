@@ -3,7 +3,7 @@
   data-aos="fade-right"
   data-aos-duration="800"
 >
-  <div class="w-full 2xl:w-1/2 h-auto">
+  <div class="w-full lg:w-3/4 xl:w-1/2 h-auto">
     <h1
       class="text-5xl 2xl:text-7xl tracking-tight leading-tight text-left text-localeColors-darkteal font-WinkySans font-semibold mb-5"
     >
@@ -219,9 +219,11 @@
       <button
         type="submit"
         (click)="confirmUpdate(rescue._id)"
+        [disabled]="loading"
         class="text-white w-full bg-localeColors-red hover:bg-localeColors-lightteal focus:outline-none font-medium rounded-full text-xs sm:text-sm md:text-base lg:text-base xl:text-xl px-4 sm:px-6 md:px-8 lg:px-30 xl:px-12 py-2 sm:py-2.5 md:py-3 lg:py-3.5 xl:py-4 text-center"
       >
-        Update {{ rescue.name }}
+        <span *ngIf="!loading">Update {{ rescue.name }}</span>
+        <span *ngIf="loading"><p class="animate-pulse">Loading...</p></span>
       </button>
     </form>
     <!-- This is the closing tag of the form -->

@@ -54,7 +54,15 @@ export class UpdateRescueFormComponent implements OnInit {
       Validators.maxLength(10),
     ]),
     sex: new FormControl(''),
-    age: new FormControl(''),
+    ageValue: new FormControl({ value: '', disabled: false }, [
+      Validators.required,
+      Validators.min(1),
+      Validators.pattern(/^[0-9]+$/),
+    ]),
+    ageUnit: new FormControl(
+      { value: '', disabled: false },
+      Validators.required
+    ),
     availability: new FormControl(''),
     size: new FormControl(''),
     vetStatus: new FormControl<string[]>([], [Validators.required]),
@@ -100,8 +108,8 @@ export class UpdateRescueFormComponent implements OnInit {
     return this.updateForm.controls['description'];
   }
 
-  get age() {
-    return this.updateForm.controls['age'];
+  get ageValue() {
+    return this.updateForm.controls['ageValue'];
   }
 
   get sex() {
@@ -183,6 +191,12 @@ export class UpdateRescueFormComponent implements OnInit {
         } else {
           formData.append(key, String(value));
         }
+      }
+
+      const ageValue = this.updateForm.controls['ageValue'].value;
+      const ageUnit = this.updateForm.controls['ageUnit'].value;
+      if (ageValue && ageUnit) {
+        formData.append('age', `${ageValue} ${ageUnit} old`);
       }
     });
     return formData;

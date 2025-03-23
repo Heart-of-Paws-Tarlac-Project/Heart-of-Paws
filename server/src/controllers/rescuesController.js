@@ -180,6 +180,8 @@ exports.updateRescue = asyncHandler(async (req, res) => {
   const rescueId = req.params.rescueId;
   const updates = req.body;
 
+  console.log(req.files.galleryImages);
+
   // Process name for slug if provided
   if (updates.name) {
     updates.slug = slugify(updates.name, { lower: true, strict: true });
@@ -208,9 +210,9 @@ exports.updateRescue = asyncHandler(async (req, res) => {
     };
 
     // Handle feature image upload if provided
-    if (req.files.featureImage && req.files.featureImage.length > 0) {
+    if (req.files.featuredImage && req.files.featuredImage.length > 0) {
       const featureImageUrl = await uploadToCloudinary(
-        req.files.featureImage[0]
+        req.files.featuredImage[0]
       );
       if (featureImageUrl) {
         updates.featureImage = featureImageUrl;
@@ -221,6 +223,7 @@ exports.updateRescue = asyncHandler(async (req, res) => {
 
     // Handle gallery images upload if provided
     if (req.files.galleryImages && req.files.galleryImages.length > 0) {
+      console.log("fuck you!");
       const uploadPromises = req.files.galleryImages.map((file) =>
         uploadToCloudinary(file)
       );

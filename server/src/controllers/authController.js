@@ -152,10 +152,4 @@ exports.verifyEmail = asyncHandler(async (req, res) => {
       user.name
     )}&email=${encodeURIComponent(user.email)}`
   );
-
-  res.redirect(
-    `${process.env.FRONTEND_URL}/verified.html?name=${encodeURIComponent(
-      user.name
-    )}&email=${encodeURIComponent(user.email)}`
-  );
 });

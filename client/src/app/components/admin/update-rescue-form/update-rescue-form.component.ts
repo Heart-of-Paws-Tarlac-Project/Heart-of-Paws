@@ -142,13 +142,13 @@ export class UpdateRescueFormComponent implements OnInit {
   handleGalleryImagesUpload(event: Event) {
     const input = event.target as HTMLInputElement;
     if (input.files && input.files.length > 0) {
-      const files = Array.from(input.files);
-      // Update the form control with the selected files
+      const files = Array.from(input.files); // Get the actual File objects
       this.updateForm.patchValue({
-        galleryImages: files,
+        galleryImages: files, // Store the File objects instead of file names
       });
     }
   }
+  
 
   onSubmit(rescueId: string) {
     console.log('Form Values:', this.updateForm.value); // Log the form values here
@@ -173,34 +173,39 @@ export class UpdateRescueFormComponent implements OnInit {
 
   createFormData(): FormData {
     const formData = new FormData();
+  
+    // Loop through each form control and append only those that are non-empty
     Object.entries(this.updateForm.value).forEach(([key, value]) => {
       if (value !== null && value !== undefined && value !== '') {
         if (key === 'featuredImage' && value instanceof File) {
-          // Keep as featureImage
-          formData.append('featuredImage', value, value.name); // Keep as featureImage to match server expectation
+          // Keep as featureImage to match server expectation
+          formData.append('featuredImage', value, value.name);
         } else if (key === 'galleryImages' && Array.isArray(value)) {
-          (value as File[]).forEach((file: File) => {
+          // Append each file in galleryImages as File objects
+          (value as unknown as File[]).forEach((file: File) => {
             if (file instanceof File) {
-              formData.append('galleryImages', file, file.name);
+              formData.append('galleryImages', file, file.name); // Append each file
             }
           });
-        } else if (key === 'vetStatus') {
-          if (Array.isArray(value)) {
-            formData.append('vetStatus', value.join(', '));
-          }
+        } else if (key === 'vetStatus' && Array.isArray(value)) {
+          // For vetStatus, join array into a comma-separated string
+          formData.append('vetStatus', value.join(', '));
         } else {
-          formData.append(key, String(value));
+          formData.append(key, String(value)); // Append other form values
         }
       }
-
-      const ageValue = this.updateForm.controls['ageValue'].value;
-      const ageUnit = this.updateForm.controls['ageUnit'].value;
-      if (ageValue && ageUnit) {
-        formData.append('age', `${ageValue} ${ageUnit} old`);
-      }
     });
+  
+    // Handle the age separately, combining value and unit
+    const ageValue = this.updateForm.controls['ageValue'].value;
+    const ageUnit = this.updateForm.controls['ageUnit'].value;
+    if (ageValue && ageUnit) {
+      formData.append('age', `${ageValue} ${ageUnit} old`);
+    }
+  
     return formData;
   }
+  
 
   markFormGroupTouched(formGroup: FormGroup) {
     Object.values(formGroup.controls).forEach((control) => {

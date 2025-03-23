@@ -36,6 +36,81 @@
         [placeholder]="rescue.age"
       ></app-form-input>
 
+      <!-- status -->
+      <label class="block mb-2 text-sm font-medium text-localeColors-darkteal">
+        Vet Status
+      </label>
+
+      <div class="flex flex-wrap gap-4 mb-4">
+        <label class="inline-flex items-center">
+          <input
+            type="checkbox"
+            [value]="'Sterilized'"
+            (change)="onCheckboxChange($event)"
+            [checked]="vetStatus.value?.includes('Sterilized')"
+            class="w-4 h-4 text-localeColors-lightteal bg-gray-100 border-black focus:ring-localeColors-lightteal"
+          />
+          <span class="ml-2 text-gray-900">Sterilized (Spayed/Neutered)</span>
+        </label>
+
+        <label class="inline-flex items-center">
+          <input
+            type="checkbox"
+            [value]="'Vet Checked'"
+            (change)="onCheckboxChange($event)"
+            [checked]="vetStatus.value?.includes('Vet Checked')"
+            class="w-4 h-4 text-localeColors-lightteal bg-gray-100 border-black focus:ring-localeColors-lightteal"
+          />
+          <span class="ml-2 text-gray-900"
+            >Vet Checked (Routine Health Check)</span
+          >
+        </label>
+
+        <label class="inline-flex items-center">
+          <input
+            type="checkbox"
+            [value]="'Dewormed'"
+            (change)="onCheckboxChange($event)"
+            [checked]="vetStatus.value?.includes('Dewormed')"
+            class="w-4 h-4 text-localeColors-lightteal bg-gray-100 border-black focus:ring-localeColors-lightteal"
+          />
+          <span class="ml-2 text-gray-900">Dewormed</span>
+        </label>
+
+        <label class="inline-flex items-center">
+          <input
+            type="checkbox"
+            [value]="'Rabies Vaccinated'"
+            (change)="onCheckboxChange($event)"
+            [checked]="vetStatus.value?.includes('Rabies Vaccinated')"
+            class="w-4 h-4 text-localeColors-lightteal bg-gray-100 border-black focus:ring-localeColors-lightteal"
+          />
+          <span class="ml-2 text-gray-900">Rabies Vaccinated</span>
+        </label>
+
+        <label class="inline-flex items-center">
+          <input
+            type="checkbox"
+            [value]="'Distemper Vaccinated'"
+            (change)="onCheckboxChange($event)"
+            [checked]="vetStatus.value?.includes('Distemper Vaccinated')"
+            class="w-4 h-4 text-localeColors-lightteal bg-gray-100 border-black focus:ring-localeColors-lightteal"
+          />
+          <span class="ml-2 text-gray-900">Distemper Vaccinated</span>
+        </label>
+
+        <label class="inline-flex items-center">
+          <input
+            type="checkbox"
+            [value]="'Parvo Vaccinated'"
+            (change)="onCheckboxChange($event)"
+            [checked]="vetStatus.value?.includes('Parvo Vaccinated')"
+            class="w-4 h-4 text-localeColors-lightteal bg-gray-100 border-black focus:ring-localeColors-lightteal"
+          />
+          <span class="ml-2 text-gray-900">Parvo Vaccinated</span>
+        </label>
+      </div>
+
       <label
         for="description"
         class="block mb-2 text-sm font-medium text-gray-900"
@@ -86,8 +161,9 @@
         (click)="confirmUpdate(rescue._id)"
         class="text-white w-full bg-localeColors-red hover:bg-localeColors-lightteal focus:outline-none font-medium rounded-full text-xs sm:text-sm md:text-base lg:text-base xl:text-xl px-4 sm:px-6 md:px-8 lg:px-30 xl:px-12 py-2 sm:py-2.5 md:py-3 lg:py-3.5 xl:py-4 text-center"
       >
-        Create {{ rescue.name }}
+        Update {{ rescue.name }}
       </button>
     </form>
+    <!-- This is the closing tag of the form -->
   </div>
 </div>

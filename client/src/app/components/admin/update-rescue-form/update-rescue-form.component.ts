@@ -23,6 +23,8 @@ import { RescueService } from '../../../services/rescue.service';
 import { AdminService } from '../../../services/admin.service';
 import { MatDialog } from '@angular/material/dialog';
 import { DialogComponent } from '../../ui/dialog/dialog.component';
+import AOS from 'aos';
+import 'aos/dist/aos.css';
 
 @Component({
   selector: 'app-update-rescue-form',
@@ -55,13 +57,13 @@ export class UpdateRescueFormComponent implements OnInit {
     age: new FormControl(''),
     availability: new FormControl(''),
     size: new FormControl(''),
-    vetStatus: new FormControl(''),
+    vetStatus: new FormControl<string[]>([], [Validators.required]),
     description: new FormControl('', [
       Validators.minLength(10),
       Validators.pattern(/^[A-Za-z\s]+$/),
       Validators.maxLength(50),
     ]),
-    featureImage: new FormControl<File | null>(null),
+    featuredImage: new FormControl<File | null>(null), // Keep as featureImage to match server expectation
     galleryImages: new FormControl<File[]>([]),
   });
 
@@ -72,6 +74,10 @@ export class UpdateRescueFormComponent implements OnInit {
     private router: Router,
     private dialog: MatDialog
   ) {}
+
+  ngAfterViewInit(): void {
+    AOS.init();
+  }
 
   ngOnInit(): void {
     this.activatedRoute.paramMap.subscribe((params) => {
@@ -102,12 +108,25 @@ export class UpdateRescueFormComponent implements OnInit {
     return this.updateForm.controls['sex'];
   }
 
+  get vetStatus() {
+    return this.updateForm.controls['vetStatus'];
+  }
+
+  get featureImage() {
+    return this.updateForm.controls['featuredImage']; // Keep as featureImage
+  }
+
+  get galleryImages() {
+    return this.updateForm.controls['galleryImages'];
+  }
+
   handleFeatureImageUpload(event: Event) {
     const input = event.target as HTMLInputElement;
     if (input.files && input.files.length > 0) {
       const file = input.files[0];
+      // Update the form control with the selected file
       this.updateForm.patchValue({
-        featureImage: file,
+        featuredImage: file, // Keep as featureImage
       });
     }
   }
@@ -116,6 +135,7 @@ export class UpdateRescueFormComponent implements OnInit {
     const input = event.target as HTMLInputElement;
     if (input.files && input.files.length > 0) {
       const files = Array.from(input.files);
+      // Update the form control with the selected files
       this.updateForm.patchValue({
         galleryImages: files,
       });
@@ -126,18 +146,40 @@ export class UpdateRescueFormComponent implements OnInit {
     console.log('Form Values:', this.updateForm.value); // Log the form values here
   }
 
-  private createFormData(): FormData {
+  onCheckboxChange(event: Event) {
+    const input = event.target as HTMLInputElement;
+    const value = input.value;
+
+    const vetStatusArray = this.updateForm.get('vetStatus')?.value || [];
+    if (input.checked) {
+      vetStatusArray.push(value); // Add the value to the array if checked
+    } else {
+      const index = vetStatusArray.indexOf(value);
+      if (index > -1) {
+        vetStatusArray.splice(index, 1); // Remove the value from the array if unchecked
+      }
+    }
+
+    this.updateForm.patchValue({ vetStatus: vetStatusArray });
+  }
+
+  createFormData(): FormData {
     const formData = new FormData();
     Object.entries(this.updateForm.value).forEach(([key, value]) => {
       if (value !== null && value !== undefined && value !== '') {
-        if (key === 'featureImage' && value instanceof File) {
-          formData.append('featureImage', value, value.name);
+        if (key === 'featuredImage' && value instanceof File) {
+          // Keep as featureImage
+          formData.append('featuredImage', value, value.name); // Keep as featureImage to match server expectation
         } else if (key === 'galleryImages' && Array.isArray(value)) {
-          value.forEach((file: File) => {
+          (value as File[]).forEach((file: File) => {
             if (file instanceof File) {
               formData.append('galleryImages', file, file.name);
             }
           });
+        } else if (key === 'vetStatus') {
+          if (Array.isArray(value)) {
+            formData.append('vetStatus', value.join(', '));
+          }
         } else {
           formData.append(key, String(value));
         }

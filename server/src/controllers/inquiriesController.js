@@ -45,3 +45,16 @@ exports.getInquiry = asyncHandler(async (req, res) => {
 
   res.status(200).json(inquiry);
 });
+
+exports.deleteInquiry = asyncHandler(async (req, res) => {
+  const inquiryId = req.params.inquiryId.trim();
+  console.log(inquiryId);
+
+  const result = await Inquiry.findById(inquiryId);
+
+  if (!result) {
+    throw new CustomError("Failed to delete inquiry", 404);
+  }
+
+  res.status(200).send("Inquiry deleted successfully");
+});

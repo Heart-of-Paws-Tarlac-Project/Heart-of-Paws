@@ -126,6 +126,164 @@
         </p>
       </div>
 
+      <!-- sex -->
+
+      <label class="block mb-2 text-sm font-medium text-localeColors-darkteal">
+        Sex
+      </label>
+
+      <div class="flex gap-4 mb-4">
+        <label class="inline-flex items-center">
+          <input
+            type="radio"
+            formControlName="sex"
+            value="male"
+            class="w-4 h-4 text-localeColors-lightteal bg-gray-100 border-black focus:ring-localeColors-lightteal"
+          />
+          <span class="ml-2 text-gray-900">Male</span>
+        </label>
+
+        <label class="inline-flex items-center">
+          <input
+            type="radio"
+            formControlName="sex"
+            value="female"
+            class="w-4 h-4 text-localeColors-lightteal bg-gray-100 border-black focus:ring-localeColors-lightteal"
+          />
+          <span class="ml-2 text-gray-900">Female</span>
+        </label>
+      </div>
+
+      <div *ngIf="sex.invalid && sex.touched">
+        <p
+          *ngIf="sex.errors?.['required']"
+          class="text-red-500 text-sm -mt-4 mb-4"
+        >
+          Applicant's sex is required.
+        </p>
+      </div>
+
+      <!-- sex -->
+
+      <!-- age -->
+
+      <label class="block mb-2 text-sm font-medium text-localeColors-darkteal">
+        Age
+      </label>
+
+      <div class="flex gap-4 mb-4">
+        <input
+          type="number"
+          min="12"
+          formControlName="age"
+          placeholder="Applicant age"
+          class="w-full p-3 bg-transparent border-2 border-black text-gray-900 text-sm rounded-full focus:border-localeColors-lightteal"
+        />
+      </div>
+
+      <div
+        *ngIf="
+          applicationForm.controls['age'].invalid &&
+          applicationForm.controls['age'].touched
+        "
+      >
+        <p
+          *ngIf="applicationForm.controls['age'].errors?.['required']"
+          class="text-red-500 text-sm -mt-4 mb-4"
+        >
+          Age is required.
+        </p>
+        <p
+          *ngIf="applicationForm.controls['age'].errors?.['min']"
+          class="text-red-500 text-sm -mt-4 mb-4"
+        >
+          Must be at least 12 years old.
+        </p>
+      </div>
+
+      <!-- age -->
+
+      <!-- civil status -->
+
+      <label class="block mb-2 text-sm font-medium text-localeColors-darkteal">
+        Civil Status
+      </label>
+
+      <div class="flex gap-4 mb-4">
+        <label class="inline-flex items-center">
+          <input
+            type="radio"
+            formControlName="civilStatus"
+            value="single"
+            class="w-4 h-4 text-localeColors-lightteal bg-gray-100 border-black focus:ring-localeColors-lightteal"
+          />
+          <span class="ml-2 text-gray-900">Single</span>
+        </label>
+
+        <label class="inline-flex items-center">
+          <input
+            type="radio"
+            formControlName="civilStatus"
+            value="married"
+            class="w-4 h-4 text-localeColors-lightteal bg-gray-100 border-black focus:ring-localeColors-lightteal"
+          />
+          <span class="ml-2 text-gray-900">Married</span>
+        </label>
+
+        <label class="inline-flex items-center">
+          <input
+            type="radio"
+            formControlName="civilStatus"
+            value="divorced"
+            class="w-4 h-4 text-localeColors-lightteal bg-gray-100 border-black focus:ring-localeColors-lightteal"
+          />
+          <span class="ml-2 text-gray-900">Divorced</span>
+        </label>
+
+        <label class="inline-flex items-center">
+          <input
+            type="radio"
+            formControlName="civilStatus"
+            value="widowed"
+            class="w-4 h-4 text-localeColors-lightteal bg-gray-100 border-black focus:ring-localeColors-lightteal"
+          />
+          <span class="ml-2 text-gray-900">Widowed</span>
+        </label>
+
+        <div *ngIf="civilStatus.invalid && civilStatus.touched">
+          <p
+            *ngIf="civilStatus.errors?.['required']"
+            class="text-red-500 text-sm -mt-4 mb-4"
+          >
+            Civil Status is required.
+          </p>
+        </div>
+      </div>
+
+      <!-- civil status -->
+
+      <!-- occupation -->
+
+      <app-form-input
+        label="Occupation"
+        type="text"
+        id="occupation"
+        controlName="occupation"
+        placeholder="Unemployed"
+        class="mb-4"
+      ></app-form-input>
+
+      <div *ngIf="occupation.invalid && occupation.touched">
+        <p
+          *ngIf="occupation.errors?.['pattern']"
+          class="text-red-500 text-sm mb-4 -mt-4"
+        >
+          Only letters and spaces allowed.
+        </p>
+      </div>
+
+      <!-- occupation -->
+
       <label
         for="mode"
         class="block mb-2 text-sm font-medium text-localeColors-darkteal"

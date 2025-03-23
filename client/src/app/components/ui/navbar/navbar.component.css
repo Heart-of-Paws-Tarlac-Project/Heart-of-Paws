@@ -5,3 +5,7 @@
 .active {
   @apply text-localeColors-red font-medium;
 }
+
+.absolute {
+  z-index: 9999;
+}

@@ -147,7 +147,15 @@ exports.verifyEmail = asyncHandler(async (req, res) => {
 
   await user.save();
 
-  res
-    .status(200)
-    .send({ message: `Email verified successfully ${user.email}. ` });
+  res.redirect(
+    `${process.env.FRONTEND_URL}/verified.html?name=${encodeURIComponent(
+      user.name
+    )}&email=${encodeURIComponent(user.email)}`
+  );
+
+  res.redirect(
+    `${process.env.FRONTEND_URL}/verified.html?name=${encodeURIComponent(
+      user.name
+    )}&email=${encodeURIComponent(user.email)}`
+  );
 });

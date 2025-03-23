@@ -29,7 +29,7 @@
       >
         {{ rescue.name }}
       </h1>
-      <!-- <img [src]="rescue.featureImage" alt="{{ rescue.name }}" /> -->
+
       <p
         class="2xl:text-2xl uppercase flex gap-4 w-3/5 space-x-24 font-Monteserrat"
       >
@@ -67,16 +67,15 @@
         <span class="text-sm lg:text-md text-localeColors-darkteal">AGE:</span>
         <br />{{ rescue.age }}
       </p>
-      <p class="2xl:text-2xl uppercase">
+      <p class="2xl:text-2xl">
         <span
-          class="text-sm lg:text-md text-localeColors-darkteal font-Monteserrat font-semibold"
+          class="text-sm lg:text-md text-localeColors-darkteal font-Monteserrat uppercase font-semibold"
           >DESCRIPTION:</span
         >
         <br />
-        <span
-          class="p-4 rounded-2xl 2xl:text-base uppercase break-all text-wrap"
-          >{{ rescue.description }}</span
-        >
+        <span class="p-4 rounded-2xl 2xl:text-base break-all text-wrap">{{
+          rescue.description | titlecase
+        }}</span>
       </p>
       <button
         [routerLink]="

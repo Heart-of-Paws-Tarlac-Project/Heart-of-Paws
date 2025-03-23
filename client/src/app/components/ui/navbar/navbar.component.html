@@ -1,6 +1,4 @@
-<nav
-  class="border-gray-200 bg-transparent z-50 transition-colors duration-300 pb-3"
->
+<nav class="border-gray-200 bg-transparent transition-colors duration-300 pb-3">
   <div
     class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto pt-5 px-3 xl:px-5"
   >
@@ -195,7 +193,7 @@
         </li>
 
         <!-- Avatar Dropdown (Mobile) -->
-        <li *ngIf="isAuthenticated" class="relative">
+        <li *ngIf="isAuthenticated" class="relative z-50">
           <button
             (click)="toggleDropdown()"
             class="flex items-center w-full text-left focus:outline-none px-3 py-2"
@@ -211,7 +209,7 @@
           <!-- Dropdown Menu -->
           <div
             *ngIf="isDropdownOpen"
-            class="mt-2 w-full bg-white border rounded-lg shadow-lg"
+            class="mt-2 w-full bg-white border rounded-lg shadow-lg absolute"
           >
             <ul class="py-2 text-sm text-gray-700">
               <li>

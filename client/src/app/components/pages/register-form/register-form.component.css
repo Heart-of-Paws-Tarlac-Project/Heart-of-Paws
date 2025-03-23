@@ -16,7 +16,7 @@ app-form-input input {
 
 @media (min-width: 1280px) {
   .bgImg {
-    background-image: url(../../../../../public/images/hopAssets/loginDog.jpg);
+    background-image: url(../../../../../public/images/hopAssets/loginDog1.jpg);
     background-size: cover;
     background-attachment: fixed;
   }

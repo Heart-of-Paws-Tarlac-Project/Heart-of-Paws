@@ -1,7 +1,7 @@
 import { Component, OnInit, Input, AfterViewInit } from '@angular/core';
 import { RescueService } from '../../../services/rescue.service';
 import { ActivatedRoute, Router } from '@angular/router';
-import { CommonModule } from '@angular/common';
+import { CommonModule, TitleCasePipe } from '@angular/common';
 import AOS from 'aos';
 import 'aos/dist/aos.css';
 import { RouterModule } from '@angular/router';
@@ -12,7 +12,13 @@ import { DialogComponent } from '../../ui/dialog/dialog.component';
 @Component({
   selector: 'app-rescue-detail',
   standalone: true,
-  imports: [CommonModule, RouterModule, MatDialogModule, MatDialogModule],
+  imports: [
+    CommonModule,
+    RouterModule,
+    MatDialogModule,
+    MatDialogModule,
+    TitleCasePipe,
+  ],
   templateUrl: './rescue-detail.component.html',
   styleUrl: './rescue-detail.component.css',
 })

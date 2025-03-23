@@ -18,3 +18,16 @@ body {
 body {
   margin: 0;
 }
+
+/* Works on WebKit-based browsers (Chrome, Edge, Safari) */
+::-webkit-scrollbar {
+  width: 8px; /* Width of the scrollbar */
+}
+
+::-webkit-scrollbar-track {
+  @apply bg-primary-light; /* Track color */
+}
+
+::-webkit-scrollbar-thumb {
+  @apply bg-localeColors-darkteal hover:bg-localeColors-red duration-300 ease-in-out transition rounded-xl;
+}

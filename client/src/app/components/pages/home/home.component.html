@@ -34,7 +34,7 @@
   </div>
   <div class="w-full md:w-1/2 flex justify-center items-center">
     <div
-      class="container relative rounded-2xl w-72 aspect-square h-72 xl:mt-20 lg:w-80 lg:h-80 xl:h-[60%] xl:w-auto mt-5 shadow-lg overflow-hidden"
+      class="container relative rounded-2xl w-72 aspect-square h-72 xl:mt-20 lg:w-80 lg:h-80 xl:h-[65%] xl:w-auto mt-5 shadow-lg overflow-hidden"
       data-aos="fade-left"
       data-aos-duration="1000"
     >
@@ -56,53 +56,53 @@
 
 <!-- featured pets section -->
 <div
-  class="w-full flex flex-col lg:flex-row h-auto xl:h-[100vh] justify-center items-center pt-20 xl:p-20"
+  class="w-full lg:p-5 flex flex-col lg:flex-row h-auto xl:h-[100vh] justify-center items-center pt-20 xl:p-20"
 >
   <div
     class="w-full h-full xl:w-3/5 grid grid-cols-2 xl:grid-cols-2 gap-2 place-items-center aspect-square p-10 xl:p-20"
     data-aos="fade-right"
     data-aos-duration="1000"
   >
-    <div class="w-full aspect-square rounded-2xl bg-red-900 shadow-lg">
+    <div class="w-full aspect-square rounded-2xl shadow-lg">
       <img
         src="./images/homePage/dog1.jpg"
         alt="featured dog 1"
         loading="lazy"
-        class="w-full h-full object-cover rounded-2xl"
+        class="w-full h-full object-cover rounded-2xl hover:grayscale duration-300 ease-in-out"
       />
     </div>
-    <div class="w-full aspect-square rounded-2xl bg-red-900 shadow-lg">
+    <div class="w-full aspect-square rounded-2xl shadow-lg">
       <img
         src="./images/homePage/dog2.jpg"
         alt="featured dog 2"
         loading="lazy"
-        class="w-full h-full object-cover rounded-2xl"
+        class="w-full h-full object-cover rounded-2xl hover:grayscale duration-300 ease-in-out"
       />
     </div>
-    <div class="w-full aspect-square rounded-2xl bg-red-900 shadow-lg">
+    <div class="w-full aspect-square rounded-2xl shadow-lg">
       <img
         src="./images/homePage/dog3.jpg"
         alt="featured dog 3"
         loading="lazy"
-        class="w-full h-full object-cover rounded-2xl"
+        class="w-full h-full object-cover rounded-2xl hover:grayscale duration-300 ease-in-out"
       />
     </div>
-    <div class="w-full aspect-square rounded-2xl bg-red-900 shadow-lg">
+    <div class="w-full aspect-square rounded-2xl shadow-lg">
       <img
         src="./images/homePage/dog4.jpg"
         alt="featured dog 4"
         loading="lazy"
-        class="w-full h-full object-cover rounded-2xl"
+        class="w-full h-full object-cover rounded-2xl hover:grayscale duration-300 ease-in-out"
       />
     </div>
   </div>
 
   <!-- Static Text Section (Right Side) -->
   <div
-    class="h-auto flex flex-col pl-5 w-full items-start justify-center 2xl:w-2/5 xl:h-full order-1 lg:order-2 gap-5"
+    class="h-auto flex flex-col pl-5 lg:pl-0 w-full items-start justify-center 2xl:w-2/5 xl:h-full order-1 gap-5"
   >
     <h1
-      class="text-5xl md:text-7xl xl:text-8xl lg:ml-11 leading-1 text-center lg:text-left text-localeColors-darkteal font-semibold font-WinkySans"
+      class="text-6xl md:text-7xl xl:text-8xl lg:ml-11 leading-1 text-center lg:text-left text-localeColors-darkteal font-semibold font-WinkySans"
       data-aos="fade-up"
       data-aos-duration="1000"
     >
@@ -116,7 +116,7 @@
     >
       Every rescue is a story of hope, love, and a second chance. These dogs
       have overcome hardships and are now looking for their forever homes. Your
-      kindness can change their lives—whether through adoption, fostering, or
+      kindness can change their lives whether through adoption, fostering, or
       support.
     </p>
     <button
@@ -125,9 +125,10 @@
       data-aos="fade-up"
       data-aos-delay="200"
       data-aos-duration="800"
+      routerLink="/rescues"
       class="xl:block md:ml-0 lg:ml-10 text-white bg-localeColors-red hover:bg-localeColors-lightteal active:bg-localeColors-darkteal focus:outline-none font-medium rounded-full text-xs sm:text-sm md:text-base lg:text-lg xl:text-xl px-4 sm:px-6 md:px-8 lg:px-30 xl:px-12 py-2 sm:py-2.5 md:py-3 lg:py-3.5 xl:py-4 text-center"
     >
-      View Dogs
+      View Recued Dogs
     </button>
   </div>
 </div>
@@ -136,11 +137,11 @@
 
 <!-- Carousel Section -->
 <h1
-  class="text-7xl lg:text-8xl xl:text-[9.5rem] mt-24 xl:mt-44 ml-3 xl:ml-10 text-localeColors-darkteal font-semibold font-WinkySans"
+  class="text-6xl lg:text-8xl xl:text-9xl mt-24 xl:mt-44 ml-3 xl:ml-10 text-localeColors-darkteal font-semibold font-WinkySans uppercase"
   data-aos="fade-right"
   data-aos-duration="800"
 >
-  SUCCESS STORIES
+  Paws of Gratitude
 </h1>
 <div
   class="w-full flex justify-end p-7"
@@ -148,11 +149,12 @@
   data-aos-duration="1000"
 >
   <p class="w-full md:w-3/5 text-right text-sm xl:text-base">
-    every rescue has a story of hope and transformation. From abandoned strays
-    to neglected pets, our team works tirelessly to give them a second chance at
-    life. Many have found loving families, like Max, who once roamed the streets
-    but now enjoys a warm home. Every adoption is a reminder that compassion
-    changes lives—one paw at a time.
+    Thank you for your generosity! Every donation, big or small, makes a
+    significant impact on the lives of our rescued animals. Your support
+    provides food, shelter, medical care, and love to those who need it most.
+    Because of your kindness, many abandoned and neglected pets are given a
+    second chance at happiness. Together, we are changing lives—one paw at a
+    time.
   </p>
 </div>
 <div
@@ -167,28 +169,25 @@
     data-carousel="static"
   >
     <!-- Carousel wrapper -->
-    <div class="relative h-full overflow-hidden rounded-lg">
+    <div class="relative h-full overflow-hidden rounded-lg shadow-md">
       <!-- Items -->
-      <div
-        class="hidden duration-700 ease-in-out bg-red-400"
-        data-carousel-item="active"
-      >
+      <div class="hidden duration-700 ease-in-out" data-carousel-item="active">
         <img
-          src="/docs/images/carousel/carousel-1.svg"
+          src="./images/homePage/success1.jpg"
           class="absolute block w-full h-full object-cover top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2"
           alt="Slide 1"
         />
       </div>
       <div class="hidden duration-700 ease-in-out" data-carousel-item>
         <img
-          src="/docs/images/carousel/carousel-2.svg"
+          src="./images/homePage/success2.jpg"
           class="absolute block w-full h-full object-cover top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2"
           alt="Slide 2"
         />
       </div>
       <div class="hidden duration-700 ease-in-out" data-carousel-item>
         <img
-          src="/docs/images/carousel/carousel-3.svg"
+          src="./images/homePage/success3.jpg"
           class="absolute block w-full h-full object-cover top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2"
           alt="Slide 3"
         />

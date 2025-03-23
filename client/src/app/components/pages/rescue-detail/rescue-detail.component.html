@@ -3,24 +3,25 @@
     class="w-full flex flex-col md:flex-row xl:h-auto gap-2 items-center justify-center p-2"
   >
     <div
-      class="h-auto w-4/5 flex lg:flex-col gap-2 items-center justify-center xl:w-3/5 xl:h-full xl:gap-5 2xl:p-20"
+      class="h-auto w-4/5 flex lg:flex-col gap-2 items-center justify-center md:w-1/2 2xl:w-3/5 xl:h-full xl:gap-5 2xl:p-20"
     >
       <div
-        class="image-container w-full lg:w-80 xl:w-3/5 2xl:w-[50rem] 2xl:h-full grid grid-cols-2 gap-3 place-items-center"
+        class="image-container w-full lg:w-80 xl:w-4/5 2xl:w-[50rem] 2xl:h-full grid grid-cols-2 gap-3 place-items-center"
         data-aos="fade-right"
         data-aos-duration="800"
         data-aos-delay="200"
       >
         <img
           *ngFor="let image of rescue.galleryImages"
-          class="rounded-2xl aspect-square object-cover"
+          class="rounded-2xl aspect-square object-cover hover:grayscale duration-300 ease-in-out"
           [src]="image"
+          loading="lazy"
           alt="{{ rescue.name }}"
         />
       </div>
     </div>
     <div
-      class="h-full p-10 w-full flex flex-col gap-2 items-start justify-start lg:w-2/4 xl:w-2/5 xl:h-full xl:gap-10 sticky-info"
+      class="h-full p-10 w-full flex flex-col gap-2 items-start justify-start md:w-1/2 2xl:w-2/5 xl:h-full xl:gap-10 sticky-info"
       data-aos="fade-up"
       data-aos-duration="1000"
     >
@@ -73,7 +74,8 @@
           >DESCRIPTION:</span
         >
         <br />
-        <span class="p-4 rounded-2xl 2xl:text-base break-all text-wrap">{{
+        <!-- break-all text-wrap -->
+        <span class="rounded-2xl 2xl:text-base break-words">{{
           rescue.description | titlecase
         }}</span>
       </p>

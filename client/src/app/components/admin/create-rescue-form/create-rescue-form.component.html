@@ -92,12 +92,12 @@
           min="1"
           formControlName="ageValue"
           placeholder="Enter age"
-          class="w-full p-3 bg-transparent border-2 border-black text-gray-900 text-sm rounded-full focus:border-localeColors-lightteal"
+          class="border w-full bg-transparent border-black p-2 rounded-3xl focus:border-2 focus:outline-none focus:border-localeColors-lightteal focus:shadow-md"
         />
 
         <select
           formControlName="ageUnit"
-          class="w-full p-3 bg-transparent border-2 border-black text-gray-900 text-sm rounded-full focus:border-localeColors-lightteal"
+          class="border w-full bg-transparent border-black p-2 rounded-3xl focus:border-2 focus:outline-none focus:border-localeColors-lightteal focus:shadow-md"
         >
           <option value="years">Years</option>
           <option value="months">Months</option>
@@ -273,7 +273,7 @@
         id="description"
         rows="4"
         formControlName="description"
-        class="block p-2.5 w-full text-sm text-gray-900 bg-transparent border-black border-2 focus:ring-localeColors-lightteal focus:border rounded-lg focus:border-localeColors-lightteal mb-4"
+        class="block p-2.5 w-full text-sm text-gray-900 bg-transparent border-black border focus:border-2 focus:outline-none focus:border-localeColors-lightteal focus:shadow-md rounded-2xl mb-4"
       ></textarea>
 
       <div *ngIf="description.invalid && description.touched">
@@ -299,7 +299,7 @@
             >Upload Rescue Featured Image</label
           >
           <input
-            class="mb-4 block w-full text-sm text-gray-900 border-black bg-transparent border-2 rounded-lg cursor-pointer bg-gray-50 0"
+            class="mb-4 block w-full text-sm text-gray-900 border border-black bg-transparent rounded-full focus:border-localeColors-lightteal cursor-pointer bg-gray-50 p-3"
             id="file_input"
             type="file"
             (change)="handleFeatureImageUpload($event)"
@@ -320,7 +320,7 @@
             >Upload gallery images (4)</label
           >
           <input
-            class="mb-4 block w-full text-sm text-gray-900 border-black bg-transparent border-2 rounded-lg cursor-pointer bg-gray-50"
+            class="mb-4 block w-full text-sm text-gray-900 border border-black bg-transparent rounded-full focus:border-localeColors-lightteal cursor-pointer bg-gray-50 p-3"
             id="multiple_files"
             type="file"
             (change)="handleGalleryImagesUpload($event)"
@@ -338,9 +338,11 @@
       <button
         type="submit"
         (click)="confirmSubmission($event)"
+        [disabled]="isLoading"
         class="text-white w-full bg-localeColors-red hover:bg-localeColors-lightteal focus:outline-none font-medium rounded-full text-xs sm:text-sm md:text-base lg:text-base xl:text-xl px-4 sm:px-6 md:px-8 lg:px-30 xl:px-12 py-2 sm:py-2.5 md:py-3 lg:py-3.5 xl:py-4 text-center"
       >
-        Create Rescue
+        <span *ngIf="!isLoading"><p>Create Rescue</p></span>
+        <span *ngIf="isLoading"><p class="animate-pulse">Loading...</p></span>
       </button>
     </form>
   </div>

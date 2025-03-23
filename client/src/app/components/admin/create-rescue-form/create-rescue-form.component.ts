@@ -52,13 +52,12 @@ export class CreateRescueFormComponent implements AfterViewInit {
     vetStatus: new FormControl<string[]>([], [Validators.required]),
     description: new FormControl({ value: '', disabled: false }, [
       Validators.minLength(10),
-      Validators.pattern(/^[A-Za-z\s]+$/),
       Validators.required,
     ]),
     featuredImage: new FormControl<File | null>(null, Validators.required),
     galleryImages: new FormControl<File[]>(
       [],
-      [Validators.required, Validators.minLength(4), Validators.maxLength(4)]
+      [Validators.required, Validators.minLength(1), Validators.maxLength(4)]
     ),
   });
 
@@ -108,19 +107,18 @@ export class CreateRescueFormComponent implements AfterViewInit {
   handleFeatureImageUpload(event: Event) {
     const input = event.target as HTMLInputElement;
     if (input.files && input.files.length > 0) {
-      this.createForm.patchValue({
-        featuredImage: input.files[0],
-      });
+      // Store the File object in the FormControl without affecting the input element
+      this.createForm.get('featuredImage')?.patchValue(input.files[0]);
+      this.createForm.get('featuredImage')?.updateValueAndValidity();
     }
   }
 
   handleGalleryImagesUpload(event: Event) {
     const input = event.target as HTMLInputElement;
     if (input.files && input.files.length > 0) {
-      const files = Array.from(input.files);
-      this.createForm.patchValue({
-        galleryImages: files,
-      });
+      // Store the File objects in the FormControl without affecting the input element
+      this.createForm.get('galleryImages')?.patchValue(Array.from(input.files));
+      this.createForm.get('galleryImages')?.updateValueAndValidity();
     }
   }
 
@@ -146,9 +144,8 @@ export class CreateRescueFormComponent implements AfterViewInit {
             }
           });
         } else if (key === 'vetStatus') {
-          
           if (Array.isArray(value)) {
-            newRescue.append('vetStatus', value.join(', ')); 
+            newRescue.append('vetStatus', value.join(', '));
           }
         } else {
           newRescue.append(key, String(value));

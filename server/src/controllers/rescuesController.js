@@ -92,10 +92,19 @@ exports.createRescue = asyncHandler(async (req, res) => {
   const uploadToCloudinary = async (file) => {
     return new Promise((resolve, reject) => {
       cloudinary.uploader
-        .upload_stream({ folder: "rescuesImages" }, (error, result) => {
-          if (error) reject(error);
-          else resolve(result.secure_url);
-        })
+        .upload_stream(
+          {
+            folder: "rescuesImages",
+            transformation: [
+              { width: 800, height: 600, crop: "limit" },
+              { fetch_format: "webp", quality: "auto" },
+            ],
+          },
+          (error, result) => {
+            if (error) reject(error);
+            else resolve(result.secure_url);
+          }
+        )
         .end(file.buffer);
     });
   };
@@ -181,10 +190,19 @@ exports.updateRescue = asyncHandler(async (req, res) => {
     const uploadToCloudinary = async (file) => {
       return new Promise((resolve, reject) => {
         cloudinary.uploader
-          .upload_stream({ folder: "rescuesImages" }, (error, result) => {
-            if (error) reject(error);
-            else resolve(result.secure_url);
-          })
+          .upload_stream(
+            {
+              folder: "rescuesImages",
+              transformation: [
+                { width: 800, height: 600, crop: "limit" },
+                { fetch_format: "webp", quality: "auto" },
+              ],
+            },
+            (error, result) => {
+              if (error) reject(error);
+              else resolve(result.secure_url);
+            }
+          )
           .end(file.buffer);
       });
     };

@@ -69,8 +69,8 @@ export class UserProfileComponent implements OnInit {
       data: {
         modalTitle: 'Are you sure you want to cancel your application?',
         modalDesc: 'This action cannot be undone.',
-        yes: 'yes',
-        no: 'no',
+        yes: 'Confirm',
+        no: 'Cancel',
       },
     });
 

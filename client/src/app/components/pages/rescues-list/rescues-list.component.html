@@ -73,7 +73,7 @@
   >
     <div *ngIf="rescues.length > 0; else noRescues">
       <div
-        class="grid grid-cols-1 min-h-screen md:grid-cols-2 lg:grid-cols-3 gap-10 md:gap-14 w-full justify-center"
+        class="grid grid-cols-1 min-h-screen md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 gap-10 md:gap-5 w-full justify-center"
       >
         <app-rescue-card
           *ngFor="let rescue of rescues"

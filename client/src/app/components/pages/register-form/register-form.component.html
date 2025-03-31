@@ -111,15 +111,9 @@
         </p>
       </div>
 
-      <p *ngIf="isSubmitted" class="text-green-500">
-        An email has been sent to {{ successEmail }}. Please click on the link
-        to complete your registration.
-      </p>
-
       <div data-aos="fade-up" data-aos-delay="700" data-aos-duration="800">
         <button
           type="submit"
-          (click)="onSubmit()"
           class="text-white w-full mb-5 bg-localeColors-red hover:bg-localeColors-lightteal focus:outline-none font-medium rounded-full text-xs sm:text-sm md:text-base lg:text-base xl:text-xl px-4 sm:px-6 md:px-8 lg:px-30 xl:px-12 py-2 sm:py-2.5 md:py-3 lg:py-3.5 xl:py-4 text-center dark:hover:bg-blue-700 dark:focus:ring-blue-800"
         >
           Create Account

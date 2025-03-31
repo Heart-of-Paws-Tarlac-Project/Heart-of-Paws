@@ -32,6 +32,7 @@ export class LoginFormComponent implements OnInit {
   isSubmitted: boolean = false;
   errorMessage: string = '';
   welcomeMessage: string = '';
+  verifyEmail: string = '';
   ngAfterViewInit(): void {
     AOS.init();
   }
@@ -48,6 +49,14 @@ export class LoginFormComponent implements OnInit {
       return;
     }
     this.welcomeMessage = 'Welcome Back';
+
+    const verificationMessage = localStorage.getItem('verifMessage');
+
+    if (verificationMessage) {
+      this.verifyEmail = verificationMessage;
+      localStorage.removeItem('verifMessage');
+      return;
+    }
   }
 
   loginForm = new FormGroup({

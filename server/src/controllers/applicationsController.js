@@ -66,7 +66,7 @@ exports.getAvailableDates = asyncHandler(async (req, res) => {
   // Get all booked slots for the current month (across all rescues)
   const bookedSlots = await Application.find({
     interviewDate: {
-      $gte: moment().startOf("month").toDate(),
+      $gte: moment().startOf("day").toDate(),
       $lte: moment().endOf("month").toDate(),
     },
   });

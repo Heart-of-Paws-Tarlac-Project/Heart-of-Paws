@@ -92,9 +92,8 @@ export class RegisterFormComponent {
         console.log('Registration successful', response);
 
         // Optionally, navigate to the login page after a delay
-        setTimeout(() => {
-          this.router.navigate(['/login']);
-        }, 3000);
+
+        this.router.navigate(['/login']);
       },
       error: (error) => {
         console.error('Registration failed', error);

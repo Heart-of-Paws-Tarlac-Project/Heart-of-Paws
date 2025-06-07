@@ -8,6 +8,12 @@ The increasing number of stray and abandoned dogs in Tarlac City has become a se
 
 Heart of Paws is an initiative dedicated to rescuing, rehabilitating, and rehoming stray and abandoned dogs by promoting adoption and responsible pet ownership. The project provides a platform where potential adopters can view available dogs, learn about the adoption process, and understand the responsibilities of pet ownership. Additionally, it encourages community involvement through volunteer programs, donation drives, and foster care opportunities to support rescued dogs in their journey to finding a permanent home. By increasing awareness and making the adoption process more accessible, Heart of Paws aims to reduce the number of stray dogs in Tarlac City while fostering a culture of compassion and care for animals.
 
+## Admin dashboard
+
+![image](https://github.com/user-attachments/assets/c9060795-c9ea-48e7-a452-20c32e1f5dac)
+
+
+
 ## Initial Components of the Project:
 
 ### Home

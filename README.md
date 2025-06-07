@@ -8,47 +8,92 @@ The increasing number of stray and abandoned dogs in Tarlac City has become a se
 
 Heart of Paws is an initiative dedicated to rescuing, rehabilitating, and rehoming stray and abandoned dogs by promoting adoption and responsible pet ownership. The project provides a platform where potential adopters can view available dogs, learn about the adoption process, and understand the responsibilities of pet ownership. Additionally, it encourages community involvement through volunteer programs, donation drives, and foster care opportunities to support rescued dogs in their journey to finding a permanent home. By increasing awareness and making the adoption process more accessible, Heart of Paws aims to reduce the number of stray dogs in Tarlac City while fostering a culture of compassion and care for animals.
 
-### Admin dashboard
+### Admin Dashboard
 
-![image](https://github.com/user-attachments/assets/c9060795-c9ea-48e7-a452-20c32e1f5dac)
+&nbsp;  
+![Admin Dashboard](https://github.com/user-attachments/assets/c9060795-c9ea-48e7-a452-20c32e1f5dac)
 
-## Applications component
-![image](https://github.com/user-attachments/assets/d2f9af56-f1ca-4677-b66b-316373efb9ea)
+---
+### Rescue Details Component
 
-Search Bar – Input field for searching applications (by username, applicant name, etc.).
-
-Filter Buttons:
-
-All (Teal) – Show all applications.
-![image](https://github.com/user-attachments/assets/41c0287b-530b-4fdd-9e39-43d1640a9da6)
+&nbsp;  
+![Admin Dashboard](https://github.com/user-attachments/assets/43308379-75ee-45cf-aabc-922cc1c7e210)
 
 
-Pending (Red) – Show applications with pending status.
-![image](https://github.com/user-attachments/assets/4b46ba0e-5566-4598-9a12-c86510496392)
+### Update Rescue Component
+
+&nbsp;  
+![image](https://github.com/user-attachments/assets/af8e2892-6140-4062-b9a1-4e9750636136)
 
 
-Approved (Red) – Show only approved applications.
-![image](https://github.com/user-attachments/assets/bb9e7a84-5356-440e-88d6-295bd11c4c05)
+---
 
+### Applications Component
 
-Rejected (Red) – Show only rejected applications.
-![image](https://github.com/user-attachments/assets/1e2a744c-8af4-48c6-b236-cade09833c94)
+&nbsp;  
+![Applications Component](https://github.com/user-attachments/assets/d2f9af56-f1ca-4677-b66b-316373efb9ea)
 
-## Application Detail Component
-![image](https://github.com/user-attachments/assets/f9e87b0a-6ec7-48a4-b737-a1820275ce5b)
+&nbsp;  
+**Search Bar** – Input field for searching applications (by username, applicant name, etc.)
 
+&nbsp;  
+**Filter Buttons:**
 
-## All Users Component
-![image](https://github.com/user-attachments/assets/e03285dd-c5bb-43e4-b71b-7610afc02e48)
+&nbsp;  
+- **All (Teal)** – Show all applications  
+&nbsp;  
+  ![All Button](https://github.com/user-attachments/assets/41c0287b-530b-4fdd-9e39-43d1640a9da6)
 
-## User Detail Component
-![image](https://github.com/user-attachments/assets/257b1e7a-aaee-44de-95f3-ad79405d2777)
+&nbsp;  
+- **Pending (Red)** – Show applications with pending status  
+&nbsp;  
+  ![Pending Button](https://github.com/user-attachments/assets/4b46ba0e-5566-4598-9a12-c86510496392)
 
-## Add Rescue Component
-![image](https://github.com/user-attachments/assets/f2c83c2e-e1f7-4b82-a45f-6b95e1fe1bfa)
+&nbsp;  
+- **Approved (Red)** – Show only approved applications  
+&nbsp;  
+  ![Approved Button](https://github.com/user-attachments/assets/bb9e7a84-5356-440e-88d6-295bd11c4c05)
 
-## Inquiries List Component
-![image](https://github.com/user-attachments/assets/b9c809d9-d48b-494d-b9a5-1a78b4b4b8de)
+&nbsp;  
+- **Rejected (Red)** – Show only rejected applications  
+&nbsp;  
+  ![Rejected Button](https://github.com/user-attachments/assets/1e2a744c-8af4-48c6-b236-cade09833c94)
+
+---
+
+### Application Detail Component
+
+&nbsp;  
+![Application Detail](https://github.com/user-attachments/assets/f9e87b0a-6ec7-48a4-b737-a1820275ce5b)
+
+---
+
+### All Users Component
+
+&nbsp;  
+![All Users Component](https://github.com/user-attachments/assets/e03285dd-c5bb-43e4-b71b-7610afc02e48)
+
+---
+
+### User Detail Component
+
+&nbsp;  
+![User Detail Component](https://github.com/user-attachments/assets/257b1e7a-aaee-44de-95f3-ad79405d2777)
+
+---
+
+### Add Rescue Component
+
+&nbsp;  
+![Add Rescue Component](https://github.com/user-attachments/assets/f2c83c2e-e1f7-4b82-a45f-6b95e1fe1bfa)
+
+---
+
+### Inquiries List Component
+
+&nbsp;  
+![Inquiries List Component](https://github.com/user-attachments/assets/b9c809d9-d48b-494d-b9a5-1a78b4b4b8de)
+
 
 ## Initial User Components of the Project:
 

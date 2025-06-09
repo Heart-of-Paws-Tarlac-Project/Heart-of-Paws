@@ -1,5 +1,5 @@
-## Updated repository for server side source code
-Server: https://github.com/jimwhell/Heart-of-Paws-Backend/tree/master
+ 
+Updated repository for server side source code: https://github.com/jimwhell/Heart-of-Paws-Backend/tree/master
 
 
 # Heart of Paws Initiative
